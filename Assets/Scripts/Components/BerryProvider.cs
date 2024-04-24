@@ -12,6 +12,7 @@ namespace Components
     public struct BerryComponent : IComponent
     {
         public bool Collected;
+        public float Speed;
     }
 
     public sealed class BerryProvider : MonoProvider<BerryComponent> { }

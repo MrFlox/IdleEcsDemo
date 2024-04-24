@@ -28,7 +28,7 @@ namespace Systems
                 ref var transform = ref _moveStash.Get(entity).Transform;
                 var gameObject = transform.gameObject;
                 var pos = transform.position;
-                pos.y += .3f * deltaTime;
+                pos.y +=  entity.GetComponent<BerryComponent>().Speed * deltaTime;
 
                 transform.position = pos;
                 if (pos.y > 4f)

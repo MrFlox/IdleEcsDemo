@@ -53,13 +53,13 @@ namespace Systems
                 {
                     entity.GetComponent<ResourceGeneratorComponent>().State =
                         ResourceGeneratorComponent.ResourceStates.Collecting;
-                    var berries = entity.GetComponent<ResourceGeneratorComponent>().BerriesProviders;
+                    var berries = entity.GetComponent<ResourceGeneratorComponent>()._Berries;
                     
-                    foreach (var berry in berries)
-                    {
-                        if(!berry.Entity.Has<BerryComponent>())
-                         berry.Entity.AddComponent<BerryComponent>();
-                    }
+                    // foreach (var berry in berries)
+                    // {
+                    //     if(!berry.Entity.Has<BerryComponent>())
+                    //      berry.Entity.AddComponent<BerryComponent>();
+                    // }
                     entity.GetComponent<ResourceGeneratorComponent>().State =
                         ResourceGeneratorComponent.ResourceStates.Done;
                 }

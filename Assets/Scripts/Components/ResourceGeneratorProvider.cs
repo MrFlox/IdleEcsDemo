@@ -12,7 +12,7 @@ namespace Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct ResourceGeneratorComponent : IComponent, IValidatableWithGameObject
     {
-        public List<PositionOnStageProvider> BerriesProviders;
+        public List<Transform> _Berries;
         public ResourceStates State;
 
         public enum ResourceStates
@@ -26,12 +26,12 @@ namespace Components
         
         public void OnValidate(GameObject gameObject)
         {
-            BerriesProviders = new List<PositionOnStageProvider>();
+            _Berries = new List<Transform>();
             foreach (Transform child in gameObject.transform)
             {
-                child.TryGetComponent<PositionOnStageProvider>(out var berry);
-                if (berry != null)
-                    BerriesProviders.Add(berry);
+                child.TryGetComponent<Transform>(out var berry);
+                if (berry != null && berry.name.Contains("Berry"))
+                    _Berries.Add(berry);
             }
         }
     }
