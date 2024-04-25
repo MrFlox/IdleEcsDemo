@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Components;
 using Cysharp.Threading.Tasks;
 using Scellecs.Morpeh;
@@ -25,16 +26,22 @@ namespace Systems
 
             ActivateBerries(entity);
         }
+        
         private async void ActivateBerries(ResourceGeneratorComponent entity)
         {
             foreach (var berry in entity._Berries)
             {
-                Entity newEntity = World.CreateEntity();
-                newEntity.AddComponent<PositionOnStage>().Transform = berry;
-                newEntity.AddComponent<BerryComponent>().Speed = Random.value;
-                World.Commit();
-                await UniTask.WaitForSeconds(1);
+                await ActivateBerryCollection(berry);
             }
+        }
+        
+        private async UniTask ActivateBerryCollection(Transform berry)
+        {
+            Entity newEntity = World.CreateEntity();
+            newEntity.AddComponent<PositionOnStage>().Transform = berry;
+            newEntity.AddComponent<BerryComponent>().Speed = Random.value;
+            World.Commit();
+            await UniTask.WaitForSeconds(1);
         }
 
         public override void OnUpdate(float deltaTime) {
