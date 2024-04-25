@@ -1,5 +1,4 @@
 using Components;
-using Cysharp.Threading.Tasks;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Systems;
 using Unity.IL2CPP.CompilerServices;
@@ -9,6 +8,8 @@ using static Components.ResourceGeneratorComponent;
 
 namespace Systems
 {
+
+
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
@@ -20,6 +21,7 @@ namespace Systems
         private Stash<GeneratorComponent> _generatorStash;
         private Stash<ResourceGeneratorComponent> _resourceGeneratorComponentStash;
         private Entity _player;
+        private BerryActivator _berryActivator;
 
         public override void OnAwake()
         {
@@ -28,6 +30,8 @@ namespace Systems
             _generatorStash = World.GetStash<GeneratorComponent>();
             _resourceGeneratorComponentStash = World.GetStash<ResourceGeneratorComponent>();
             _player = _playersFilter.First();
+
+            _berryActivator = new BerryActivator(World);
         }
 
         public override void OnUpdate(float deltaTime)
@@ -35,6 +39,8 @@ namespace Systems
             ref var playerTransform = ref _player.GetComponent<PositionOnStage>();
             foreach (var entity in _generatorsFilter)
                 UpdateGenerator(entity, playerTransform);
+            
+            // World.Commit();
         }
 
         private void UpdateGenerator(Entity entity, PositionOnStage playerTransform)
@@ -43,60 +49,27 @@ namespace Systems
             ref var resourceComponent = ref _resourceGeneratorComponentStash.Get(entity);
             SetGeneratorState(playerTransform, generator, ref resourceComponent);
 
-            // CheckGeneratorState(resourceComponent);
+            CheckGeneratorState(resourceComponent, entity);
         }
 
-        private static void SetGeneratorState(PositionOnStage playerTransform,
+        private  void SetGeneratorState(PositionOnStage playerTransform,
             GeneratorComponent generator, ref ResourceGeneratorComponent resourceComponent)
         {
             if (Vector3.Distance(playerTransform.Transform.position, generator.Transform.position) < 3)
-                ActivateGenerator(generator, ref resourceComponent);
+                _berryActivator.ActivateGenerator(generator, ref resourceComponent);
             else
-                DeactivateGenerator(generator);
+                _berryActivator.DeactivateGenerator(generator);
         }
 
-        private void CheckGeneratorState(ResourceGeneratorComponent resourceComponent)
+        private void CheckGeneratorState(ResourceGeneratorComponent resourceComponent, Entity entity)
         {
             if (resourceComponent.State == ResourceStates.ReadyToCollect)
             {
                 resourceComponent.State = ResourceStates.Collecting;
-
-                // ActivateBerries(resourceComponent);
+                _berryActivator.ActivateBerries(resourceComponent);
                 resourceComponent.State = ResourceStates.Done;
+                entity.RemoveComponent<ResourceGeneratorComponent>();
             }
-        }
-
-        private static void DeactivateGenerator(GeneratorComponent generator)
-        {
-            generator.CircleMaterial.material.color = Color.red;
-        }
-
-        private static void ActivateGenerator(GeneratorComponent generator,
-            ref ResourceGeneratorComponent resourceComponent)
-        {
-            generator.CircleMaterial.material.color = Color.green;
-
-            // if (resourceComponent.State != ResourceStates.Collecting)
-            // {
-            //     resourceComponent.State = ResourceStates.ReadyToCollect;
-            // }
-        }
-
-        private async void ActivateBerries(ResourceGeneratorComponent entity)
-        {
-            foreach (var berry in entity._Berries)
-            {
-                await ActivateBerryCollection(berry);
-                await UniTask.WaitForSeconds(1);
-            }
-        }
-
-        private async UniTask ActivateBerryCollection(Transform berry)
-        {
-            Entity newEntity = World.CreateEntity();
-            newEntity.AddComponent<PositionOnStage>().Transform = berry;
-            newEntity.AddComponent<BerryComponent>().Speed = Random.value;
-            World.Commit();
         }
     }
 }

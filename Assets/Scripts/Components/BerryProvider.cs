@@ -13,6 +13,7 @@ namespace Components
     {
         public bool Collected;
         public float Speed;
+        public Entity Entity;
     }
 
     public sealed class BerryProvider : MonoProvider<BerryComponent> { }

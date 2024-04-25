@@ -25,17 +25,18 @@ namespace Systems
         {
             foreach (Entity entity in _filter)
             {
+                if(!entity.Has<BerryComponent>()) continue;
+                
                 ref var transform = ref _moveStash.Get(entity).Transform;
-                var gameObject = transform.gameObject;
+                ref var berry = ref entity.GetComponent<BerryComponent>();
                 var pos = transform.position;
-                pos.y +=  entity.GetComponent<BerryComponent>().Speed * deltaTime;
+                pos.y += berry.Speed * deltaTime;
 
                 transform.position = pos;
                 if (pos.y > 4f)
                 {
-                    entity.RemoveComponent<BerryComponent>();
-                    entity.RemoveComponent<PositionOnStage>();
-                    Destroy(gameObject);
+                    if (!entity.Has<DeleteComponent>())
+                        entity.AddComponent<DeleteComponent>();
                 }
             }
         }
