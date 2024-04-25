@@ -23,7 +23,6 @@ namespace Components
             Done
         }
         
-        
         public void OnValidate(GameObject gameObject)
         {
             _Berries = new List<Transform>();

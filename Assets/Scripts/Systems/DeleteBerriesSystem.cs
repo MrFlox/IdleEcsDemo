@@ -13,12 +13,10 @@ namespace Systems
     public class DeleteBerriesSystem: UpdateSystem 
     {
         private Filter _filter;
-        private Stash<DeleteComponent> _moveStash;
-        
+
         public override void OnAwake()
         {
             _filter = World.Filter.With<DeleteComponent>().Build();
-            _moveStash = World.GetStash<DeleteComponent>();
         }
         
         public override void OnUpdate(float deltaTime)
@@ -26,10 +24,6 @@ namespace Systems
             foreach (Entity entity in _filter)
             {
                 var gameObject = entity.GetComponent<PositionOnStage>().Transform.gameObject;
-                
-                // entity.GetComponent<ResourceGeneratorComponent>()
-                //     ._Berries
-                //     .Remove(entity.GetComponent<PositionOnStage>().Transform);
                 Destroy(gameObject);
                 World.RemoveEntity(entity);
             }
