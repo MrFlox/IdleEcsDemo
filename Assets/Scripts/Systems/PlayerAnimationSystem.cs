@@ -1,15 +1,10 @@
 using Components;
 using Scellecs.Morpeh;
-using Scellecs.Morpeh.Systems;
-using Unity.IL2CPP.CompilerServices;
+using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
 
 namespace Systems
 {
-    [Il2CppSetOption(Option.NullChecks, false)]
-    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
-    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    [CreateAssetMenu(menuName = "ECS/Systems/" + nameof(PlayerAnimationSystem))]
     public sealed class PlayerAnimationSystem : UpdateSystem
     {
         private Filter _filter;

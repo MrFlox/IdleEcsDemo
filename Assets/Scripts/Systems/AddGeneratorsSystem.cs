@@ -1,22 +1,25 @@
 ﻿using Components;
 using Scellecs.Morpeh;
-using Scellecs.Morpeh.Systems;
-using Unity.IL2CPP.CompilerServices;
+using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
+
 
 namespace Systems
 {
-    [Il2CppSetOption(Option.NullChecks, false)]
-    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
-    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    [CreateAssetMenu(menuName = "ECS/Systems/" + nameof(AddGeneratorsSystem))]
-    public class AddGeneratorsSystem: Initializer 
+    public class AddGeneratorsSystem: UpdateSystem 
     {
+        private readonly TempClass _tempClass;
         private Filter _filter;
         private Stash<GeneratorsPositionsComponent> _moveStash;
 
+        public AddGeneratorsSystem(TempClass tempClass)
+        {
+            _tempClass = tempClass;
+        }
+
         public override void OnAwake()
         {
+            _tempClass.HelloWorld();
             _filter = World.Filter.With<GeneratorsPositionsComponent>().Build();
             _moveStash = World.GetStash<GeneratorsPositionsComponent>();
 
@@ -25,8 +28,11 @@ namespace Systems
 
             foreach (var pos in g.Positions)
             {
-                Instantiate(g.Prefab, pos, Quaternion.identity);
+                Object.Instantiate(g.Prefab, pos, Quaternion.identity);
             }
+        }
+        public override void OnUpdate(float deltaTime)
+        {
         }
     }
 }

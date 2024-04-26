@@ -240,6 +240,13 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "store.gameslab.morpeh.addons": {
+      "version": "https://github.com/MexicanMan/morpeh.addons.git?path=/Assets/morpeh.addons",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "b8f9771aab33dcf2f77596be066d2b1b66636802"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

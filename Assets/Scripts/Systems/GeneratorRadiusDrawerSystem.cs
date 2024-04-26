@@ -1,10 +1,10 @@
 using Components;
 using Scellecs.Morpeh;
-using Scellecs.Morpeh.Systems;
 using Unity.IL2CPP.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using static Components.ResourceGeneratorComponent;
+using Scellecs.Morpeh.Addons.Systems;
 
 namespace Systems
 {
@@ -13,7 +13,6 @@ namespace Systems
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    [CreateAssetMenu(menuName = "ECS/Systems/" + nameof(GeneratorRadiusDrawerSystem))]
     public sealed class GeneratorRadiusDrawerSystem : UpdateSystem
     {
         private Filter _generatorsFilter;

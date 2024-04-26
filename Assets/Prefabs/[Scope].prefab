@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 5706798407844494932}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 537.3008, y: 320.54608, z: 0.27764055}
+  m_LocalPosition: {x: 536.82, y: 320.54608, z: 0.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,6 +47,5 @@ MonoBehaviour:
   parentReference:
     TypeName: 
   autoRun: 1
-  autoInjectGameObjects:
-  - {fileID: 0}
-  _settings: {fileID: 11400000, guid: 10028102041d3544389a472b4f63c565, type: 2}
+  autoInjectGameObjects: []
+  _systems: []

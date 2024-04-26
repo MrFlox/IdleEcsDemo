@@ -1,15 +1,14 @@
 using Components;
 using Scellecs.Morpeh;
-using Scellecs.Morpeh.Systems;
 using Unity.IL2CPP.CompilerServices;
-using UnityEngine;
+using Scellecs.Morpeh.Systems;
+
 
 namespace Systems
 {
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    [CreateAssetMenu(menuName = "ECS/Systems/" + nameof(FloatingSystem))]
     public sealed class FloatingSystem : UpdateSystem {
         private Filter _filter;
         private Stash<FloatingComponent> _moveStash;

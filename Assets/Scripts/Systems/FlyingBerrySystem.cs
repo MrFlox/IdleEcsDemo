@@ -1,15 +1,14 @@
 using Components;
 using Scellecs.Morpeh;
-using Scellecs.Morpeh.Systems;
 using Unity.IL2CPP.CompilerServices;
-using UnityEngine;
+using UpdateSystem = Scellecs.Morpeh.Addons.Systems.UpdateSystem;
+
 
 namespace Systems
 {
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    [CreateAssetMenu(menuName = "ECS/Systems/" + nameof(FlyingBerrySystem))]
     public sealed class FlyingBerrySystem : UpdateSystem
     {
         private Filter _filter;
