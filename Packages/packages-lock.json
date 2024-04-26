@@ -16,6 +16,13 @@
       "dependencies": {},
       "hash": "2e225fb8414e023df2aa3acae2ef225471981316"
     },
+    "com.farco.morpeh.helpers": {
+      "version": "https://github.com/SH42913/morpeh.helpers.git?path=/Assets/Morpeh.Helpers",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "027147a64ba55253a3745b06374707aba4af299b"
+    },
     "com.scellecs.morpeh": {
       "version": "https://github.com/scellecs/morpeh.git",
       "depth": 0,

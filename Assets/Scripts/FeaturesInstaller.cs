@@ -17,7 +17,8 @@ class SimpleFeature: UpdateFeature
     protected override void Initialize()
     {
         AddSystem(new AddGeneratorsSystem(_tempClass));
-        AddSystem(new FlyingBerrySystem());
+        // AddSystem(new FlyingBerrySystem());
+        AddSystem(new SimpleFlyingBerrySystem());
         AddSystem(new GeneratorRadiusDrawerSystem());
         AddSystem(new PlayerInputSystem());
         AddSystem(new DeleteBerriesSystem());
