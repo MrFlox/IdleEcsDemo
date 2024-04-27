@@ -6,17 +6,17 @@ public class Manager
 {
     public event Action OnUpdateInterface;
     
-    private readonly GeneratorRadiusDrawerSystem _system;
+    private readonly HilightObjectIfPlayerInRangeSystem _system;
     private int _counter;
     
-    public Manager(GeneratorRadiusDrawerSystem system)
+    public Manager(HilightObjectIfPlayerInRangeSystem system)
     {
         _system = system;
     }
 
     public void Init()
     {
-        _system.OnActivateBerry += OnActivateBerryHandler;
+        // _system.OnActivateBerry += OnActivateBerryHandler;
     }
 
     private void OnActivateBerryHandler()

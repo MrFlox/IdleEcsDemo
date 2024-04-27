@@ -3946,8 +3946,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1793427127}
-  - component: {fileID: 1793427128}
-  - component: {fileID: 1793427129}
+  - component: {fileID: 1793427130}
+  - component: {fileID: 1793427131}
   m_Layer: 0
   m_Name: BallsGenPoint
   m_TagString: Untagged
@@ -3970,7 +3970,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1793427128
+--- !u!114 &1793427130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3979,34 +3979,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1793427126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e111d958d701948ba159867f9c6647, type: 3}
+  m_Script: {fileID: 11500000, guid: 02c65d4b3ec14bddae2e60efe88e06f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ballPrefab: {fileID: 7262054414526145679, guid: 6e351f1de76ef7942bc9f09655c5ba71,
-    type: 3}
---- !u!136 &1793427129
-CapsuleCollider:
+  serializedData:
+    BallPrefab: {fileID: 7262054414526145679, guid: 6e351f1de76ef7942bc9f09655c5ba71,
+      type: 3}
+--- !u!114 &1793427131
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793427126}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.8
-  m_Height: 6.45
-  m_Direction: 1
-  m_Center: {x: 0, y: -2.38, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543117aecd40f5041ba8de134f90fa14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedData:
+    Transform: {fileID: 1793427127}
 --- !u!1 &1806583137 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2906732310763948287, guid: 0b122d2683dc0474c8ab799c90caba94,
@@ -4678,6 +4670,8 @@ GameObject:
   - component: {fileID: 4069678006184963673}
   - component: {fileID: 8971318256507687432}
   - component: {fileID: 5863379186600220710}
+  - component: {fileID: 8971318256507687433}
+  - component: {fileID: 8971318256507687434}
   m_Layer: 0
   m_Name: UnloadResourcesPoint
   m_TagString: Untagged
@@ -5068,6 +5062,35 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.7
   m_Center: {x: 0, y: 0.29, z: 0}
+--- !u!114 &8971318256507687433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2808414723460715903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04b3938a5b040109c613eb99474270d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedData:
+    Radius: 3
+    CircleMaterial: {fileID: 6366802053520860766}
+--- !u!114 &8971318256507687434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2808414723460715903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543117aecd40f5041ba8de134f90fa14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializedData:
+    Transform: {fileID: 4069678006184963673}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

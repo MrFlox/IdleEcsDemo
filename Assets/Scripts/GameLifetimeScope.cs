@@ -44,7 +44,7 @@ public class GameLifetimeScope : LifetimeScope
         builder.Register<TempClass>(Lifetime.Singleton);
         builder.Register<AddGeneratorsSystem>(Lifetime.Singleton);
         builder.Register<SimpleFlyingBerrySystem>(Lifetime.Singleton);
-        builder.Register<GeneratorRadiusDrawerSystem>(Lifetime.Singleton);
+        builder.Register<HilightObjectIfPlayerInRangeSystem>(Lifetime.Singleton);
         builder.Register<PlayerInputSystem>(Lifetime.Singleton);
         builder.Register<DeleteBerriesSystem>(Lifetime.Singleton);
         builder.Register<PlayerAnimationSystem>(Lifetime.Singleton);

@@ -5,7 +5,7 @@ class SimpleFeature: UpdateFeature
 {
     private readonly AddGeneratorsSystem _generatorsSystem;
     private readonly SimpleFlyingBerrySystem _simpleFlyingBerrySystem;
-    private readonly GeneratorRadiusDrawerSystem _generatorRadiusDrawerSystem;
+    private readonly HilightObjectIfPlayerInRangeSystem _hilightObjectIfPlayerInRangeSystem;
     private readonly PlayerInputSystem _playerInputSystem;
     private readonly DeleteBerriesSystem _deleteBerriesSystem;
     private readonly PlayerAnimationSystem _playerAnimationSystem;
@@ -15,7 +15,7 @@ class SimpleFeature: UpdateFeature
     public SimpleFeature(
         AddGeneratorsSystem generatorsSystem,
         SimpleFlyingBerrySystem simpleFlyingBerrySystem,
-        GeneratorRadiusDrawerSystem generatorRadiusDrawerSystem,
+        HilightObjectIfPlayerInRangeSystem hilightObjectIfPlayerInRangeSystem,
         PlayerInputSystem playerInputSystem,
         DeleteBerriesSystem deleteBerriesSystem,
         PlayerAnimationSystem playerAnimationSystem
@@ -23,7 +23,7 @@ class SimpleFeature: UpdateFeature
     {
         _generatorsSystem = generatorsSystem;
         _simpleFlyingBerrySystem = simpleFlyingBerrySystem;
-        _generatorRadiusDrawerSystem = generatorRadiusDrawerSystem;
+        _hilightObjectIfPlayerInRangeSystem = hilightObjectIfPlayerInRangeSystem;
         _playerInputSystem = playerInputSystem;
         _deleteBerriesSystem = deleteBerriesSystem;
         _playerAnimationSystem = playerAnimationSystem;
@@ -33,9 +33,13 @@ class SimpleFeature: UpdateFeature
     {
         AddSystem(_generatorsSystem);
         AddSystem(_simpleFlyingBerrySystem);
-        AddSystem(_generatorRadiusDrawerSystem);
+        AddSystem(_hilightObjectIfPlayerInRangeSystem);
         AddSystem(_playerInputSystem);
         AddSystem(_deleteBerriesSystem);
         AddSystem(_playerAnimationSystem);
+        
+        AddSystem(new BallGeneratorSystem());
+        AddSystem(new SpawningBallsSystem());
+        // AddSystem(new GeneratrosActivatorSystem());
     }
 }

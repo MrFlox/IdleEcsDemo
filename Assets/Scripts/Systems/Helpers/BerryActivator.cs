@@ -1,5 +1,4 @@
 ﻿using Components;
-using Cysharp.Threading.Tasks;
 using Scellecs.Morpeh;
 using UnityEngine;
 
@@ -14,16 +13,8 @@ namespace Systems
             _world = world;
         }
 
-        public void DeactivateGenerator(GeneratorComponent generator)
+        public void ActivateGenerator(ref ResourceGeneratorComponent resourceComponent)
         {
-            generator.CircleMaterial.material.color = Color.red;
-        }
-
-        public void ActivateGenerator(GeneratorComponent generator,
-            ref ResourceGeneratorComponent resourceComponent)
-        {
-            generator.CircleMaterial.material.color = Color.green;
-
             if (resourceComponent.State != ResourceGeneratorComponent.ResourceStates.Collecting)
             {
                 resourceComponent.State = ResourceGeneratorComponent.ResourceStates.ReadyToCollect;
@@ -35,10 +26,7 @@ namespace Systems
             foreach (var berry in entity._Berries)
             {
                 ActivateBerryCollection(berry);
-                // await ActivateBerryCollection(berry);
-                // await UniTask.WaitForSeconds(1);
             }
-           
         }
 
         private void ActivateBerryCollection(Transform berry)

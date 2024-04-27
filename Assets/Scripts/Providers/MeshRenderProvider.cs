@@ -1,16 +1,14 @@
-using Scellecs.Morpeh;
+﻿using Components;
+using Scellecs.Morpeh.Providers;
 using Unity.IL2CPP.CompilerServices;
-using UnityEngine;
 
-namespace Components
+namespace Providers
 {
-    [System.Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public struct GeneratorComponent : IComponent
+    public sealed class MeshRenderProvider : MonoProvider<ActivateIfPlayerInRangeComp>
     {
-        public Transform Transform;
         
     }
 }

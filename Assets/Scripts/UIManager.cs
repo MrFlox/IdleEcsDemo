@@ -6,11 +6,11 @@ using VContainer;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text Label;
-    private GeneratorRadiusDrawerSystem _system;
+    private HilightObjectIfPlayerInRangeSystem _system;
     private int _counter;
     private Manager _uimanager;
 
-    [Inject] private void Construct(GeneratorRadiusDrawerSystem generatorsSystem, Manager manager)
+    [Inject] private void Construct(HilightObjectIfPlayerInRangeSystem generatorsSystem, Manager manager)
     {
         _uimanager = manager;
         _system = generatorsSystem;

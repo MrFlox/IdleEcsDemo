@@ -1,22 +1,13 @@
-using System;
+﻿using System;
 using Components;
 using Scellecs.Morpeh;
-using Unity.IL2CPP.CompilerServices;
-using Unity.VisualScripting;
-using UnityEngine;
-using static Components.ResourceGeneratorComponent;
 using Scellecs.Morpeh.Addons.Systems;
+using UnityEngine;
 
 namespace Systems
 {
-
-
-    [Il2CppSetOption(Option.NullChecks, false)]
-    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
-    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public sealed class GeneratorRadiusDrawerSystem : UpdateSystem
+    public class GeneratrosActivatorSystem: UpdateSystem
     {
-        public event Action OnActivateBerry; 
         private Filter _generatorsFilter;
         private Filter _playersFilter;
         private Stash<GeneratorComponent> _generatorStash;
@@ -40,8 +31,6 @@ namespace Systems
             ref var playerTransform = ref _player.GetComponent<PositionOnStage>();
             foreach (var entity in _generatorsFilter)
                 UpdateGenerator(entity, playerTransform);
-            
-            // World.Commit();
         }
 
         private void UpdateGenerator(Entity entity, PositionOnStage playerTransform)
@@ -58,20 +47,17 @@ namespace Systems
         {
             if (Vector3.Distance(playerTransform.Transform.position, generator.Transform.position) < 3)
             {
-                _berryActivator.ActivateGenerator(generator, ref resourceComponent);
-                OnActivateBerry.Invoke();
+                _berryActivator.ActivateGenerator(ref resourceComponent);
             }
-            else
-                _berryActivator.DeactivateGenerator(generator);
         }
 
         private void CheckGeneratorState(ResourceGeneratorComponent resourceComponent, Entity entity)
         {
-            if (resourceComponent.State == ResourceStates.ReadyToCollect)
+            if (resourceComponent.State == ResourceGeneratorComponent.ResourceStates.ReadyToCollect)
             {
-                resourceComponent.State = ResourceStates.Collecting;
+                resourceComponent.State = ResourceGeneratorComponent.ResourceStates.Collecting;
                 _berryActivator.ActivateBerries(resourceComponent);
-                resourceComponent.State = ResourceStates.Done;
+                resourceComponent.State = ResourceGeneratorComponent.ResourceStates.Done;
                 entity.RemoveComponent<ResourceGeneratorComponent>();
             }
         }
