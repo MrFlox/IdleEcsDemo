@@ -16,39 +16,40 @@ public class TempClass
     }
 }
 
+
+class Init : IStartable
+{
+    private readonly Manager _manager;
+
+    public Init(Manager manager) => _manager = manager;
+
+    public void Start() => _manager.Init();
+}
+
 public class GameLifetimeScope : LifetimeScope
 {
     [SerializeField] private List<ScriptableObject> _systems;
+    
     protected override void Configure(IContainerBuilder builder)
     {
-
+        builder.Register<SimpleFeature>(Lifetime.Singleton);
         RegisterSystems(builder);
+        builder.Register<Manager>(Lifetime.Singleton);
         
-        builder.Register<TempClass>(Lifetime.Singleton);        
-        foreach (var system in _systems)
-        {
-            builder.RegisterInstance(system);
-        }
+        builder.RegisterEntryPoint<Init>();
     }
     
     private void RegisterSystems(IContainerBuilder builder)
     {
-
-        // RegisterAllSystemUsingAssembly(builder);
-
-        
-        builder.Register<SimpleFeature>(Lifetime.Singleton);
-        
+        builder.Register<TempClass>(Lifetime.Singleton);
         builder.Register<AddGeneratorsSystem>(Lifetime.Singleton);
         builder.Register<SimpleFlyingBerrySystem>(Lifetime.Singleton);
         builder.Register<GeneratorRadiusDrawerSystem>(Lifetime.Singleton);
         builder.Register<PlayerInputSystem>(Lifetime.Singleton);
         builder.Register<DeleteBerriesSystem>(Lifetime.Singleton);
         builder.Register<PlayerAnimationSystem>(Lifetime.Singleton);
-        
-        // builder.Register<InterfaceManager>(Lifetime.Singleton);
-        builder.RegisterEntryPoint<InterfaceManager>();
     }
+    
     private static void RegisterAllSystemUsingAssembly(IContainerBuilder builder)
     {
 

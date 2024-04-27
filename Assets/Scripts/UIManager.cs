@@ -6,14 +6,22 @@ using VContainer;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text Label;
-    private GeneratorRadiusDrawerSystem _manager;
+    private GeneratorRadiusDrawerSystem _system;
     private int _counter;
-    
-    [Inject] private void Construct(GeneratorRadiusDrawerSystem manager) => _manager = manager;
+    private Manager _uimanager;
 
-    private void Start() => 
-        _manager.OnActivateBerry += UpdateInterface;
+    [Inject] private void Construct(GeneratorRadiusDrawerSystem generatorsSystem, Manager manager)
+    {
+        _uimanager = manager;
+        _system = generatorsSystem;
+    }
+
+    private void Start()
+    {
+        _uimanager.OnUpdateInterface += UpdateInterface;
+        // _system.OnActivateBerry += UpdateInterface;
+    }
 
     private void UpdateInterface() => 
-        Label.text = _counter++.ToString();
+        Label.text = _uimanager.GetCounter().ToString();
 }

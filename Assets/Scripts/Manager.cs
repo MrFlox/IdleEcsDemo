@@ -1,18 +1,23 @@
 ﻿using System;
 using Systems;
 using UnityEngine;
-using VContainer.Unity;
 
-public class InterfaceManager: IStartable
+public class Manager
 {
     public event Action OnUpdateInterface;
     
     private readonly GeneratorRadiusDrawerSystem _system;
     private int _counter;
     
-    public InterfaceManager(GeneratorRadiusDrawerSystem system) => _system = system;
+    public Manager(GeneratorRadiusDrawerSystem system)
+    {
+        _system = system;
+    }
 
-    public void Start() => _system.OnActivateBerry += OnActivateBerryHandler;
+    public void Init()
+    {
+        _system.OnActivateBerry += OnActivateBerryHandler;
+    }
 
     private void OnActivateBerryHandler()
     {
