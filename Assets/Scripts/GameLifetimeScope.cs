@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Scellecs.Morpeh;
 using Systems;
 using UnityEngine;
 using VContainer;
@@ -30,6 +33,10 @@ public class GameLifetimeScope : LifetimeScope
     
     private void RegisterSystems(IContainerBuilder builder)
     {
+
+        // RegisterAllSystemUsingAssembly(builder);
+
+        
         builder.Register<SimpleFeature>(Lifetime.Singleton);
         
         builder.Register<AddGeneratorsSystem>(Lifetime.Singleton);
@@ -38,5 +45,23 @@ public class GameLifetimeScope : LifetimeScope
         builder.Register<PlayerInputSystem>(Lifetime.Singleton);
         builder.Register<DeleteBerriesSystem>(Lifetime.Singleton);
         builder.Register<PlayerAnimationSystem>(Lifetime.Singleton);
+        
+        // builder.Register<InterfaceManager>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<InterfaceManager>();
+    }
+    private static void RegisterAllSystemUsingAssembly(IContainerBuilder builder)
+    {
+
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Находим все типы, которые реализуют интерфейс ISystem
+        var systemTypes = assembly.GetTypes()
+            .Where(t => typeof(ISystem).IsAssignableFrom(t) && !t.IsAbstract && !t.IsInterface);
+
+        // Регистрируем каждый тип в контейнере VContainer
+        foreach (var type in systemTypes)
+        {
+            builder.Register(type, Lifetime.Singleton);
+        }
     }
 }

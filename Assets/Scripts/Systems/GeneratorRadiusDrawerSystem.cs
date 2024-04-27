@@ -1,3 +1,4 @@
+using System;
 using Components;
 using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
@@ -15,13 +16,14 @@ namespace Systems
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public sealed class GeneratorRadiusDrawerSystem : UpdateSystem
     {
+        public event Action OnActivateBerry; 
         private Filter _generatorsFilter;
         private Filter _playersFilter;
         private Stash<GeneratorComponent> _generatorStash;
         private Stash<ResourceGeneratorComponent> _resourceGeneratorComponentStash;
         private Entity _player;
         private BerryActivator _berryActivator;
-
+    
         public override void OnAwake()
         {
             _generatorsFilter = World.Filter.With<GeneratorComponent>().With<ResourceGeneratorComponent>().Build();
@@ -55,7 +57,10 @@ namespace Systems
             GeneratorComponent generator, ref ResourceGeneratorComponent resourceComponent)
         {
             if (Vector3.Distance(playerTransform.Transform.position, generator.Transform.position) < 3)
+            {
                 _berryActivator.ActivateGenerator(generator, ref resourceComponent);
+                OnActivateBerry.Invoke();
+            }
             else
                 _berryActivator.DeactivateGenerator(generator);
         }
