@@ -1,6 +1,7 @@
 using Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Systems
@@ -12,6 +13,7 @@ namespace Systems
         private Stash<PlayerAnimator> _animatorStash;
         private string _stateName;
         private string _idle;
+        private readonly static int Run = Animator.StringToHash("run");
 
         public override void OnAwake()
         {
@@ -23,19 +25,35 @@ namespace Systems
         public override void OnUpdate(float deltaTime)
         {
             ref var player = ref _moveStash.Get(_filter.First());
-            ref var animator = ref _animatorStash.Get(_filter.First()).Animator;
-
+            ref var animatorComponent = ref _animatorStash.Get(_filter.First());
+            
             if (player.Direction != Vector3.zero)
             {
-                if (_stateName != "run")
-                    _stateName = "run";
+                SetState("run", ref animatorComponent);
             }
             else
             {
-                if (_stateName != "idle")
-                    _stateName = "idle";
+                SetState("idle", ref animatorComponent);
             }
-            animator.Play(_stateName);
+            
+        }
+        private void SetState(string newState, ref PlayerAnimator animator)
+        {
+            if(animator.AnimationState == newState) return;
+            animator.AnimationState = newState;
+            
+            switch (newState)
+            {
+                case "run":
+                    Debug.Log("Run");
+                    animator.Animator.Play("run");
+                    break;
+                
+                case "idle":
+                    Debug.Log("idle");
+                    animator.Animator.Play("idle");
+                    break;
+            }
         }
     }
 }

@@ -11,5 +11,6 @@ namespace Components
     public struct PlayerAnimator : IComponent
     {
         public Animator Animator;
+        public string AnimationState;
     }
 }
