@@ -40,6 +40,6 @@ class SimpleFeature: UpdateFeature
         
         AddSystem(new BallGeneratorSystem());
         AddSystem(new SpawningBallsSystem());
-        // AddSystem(new GeneratrosActivatorSystem());
+        AddSystem(new GeneratrosActivatorSystem());
     }
 }

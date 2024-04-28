@@ -40,12 +40,17 @@ namespace Systems
 
         private void UpdateGenerator(Entity entity, PositionOnStage playerTransform)
         {
-            SetGeneratorState(playerTransform,  ref _generatorStash.Get(entity), ref _rangeComponents.Get(entity));
+            SetGeneratorState(
+                playerTransform,  
+                ref _generatorStash.Get(entity), 
+                ref _rangeComponents.Get(entity), 
+                ref entity.GetComponent<RadiusColliderComponent>());
         }
         
-        private void SetGeneratorState(PositionOnStage playerTransform, ref PositionOnStage generator, ref ActivateIfPlayerInRangeComp range)
+        private void SetGeneratorState(PositionOnStage playerTransform, ref PositionOnStage generator,
+            ref ActivateIfPlayerInRangeComp range, ref RadiusColliderComponent radius)
         {
-            if (Vector2.Distance(playerTransform.Pos(), generator.Pos()) < range.Collider.radius)
+            if (Vector2.Distance(playerTransform.Pos(), generator.Pos()) < radius.Collider.radius)
             {
                 range.CircleMaterial.material.color = _settings.ActiveColor;
             }

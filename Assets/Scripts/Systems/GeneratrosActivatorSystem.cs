@@ -37,15 +37,20 @@ namespace Systems
         {
             ref var generator = ref _generatorStash.Get(entity);
             ref var resourceComponent = ref _resourceGeneratorComponentStash.Get(entity);
-            SetGeneratorState(playerTransform, generator, ref resourceComponent);
+            SetGeneratorState(
+                playerTransform, 
+                generator, 
+                ref resourceComponent, 
+                ref entity.GetComponent<RadiusColliderComponent>());
 
             CheckGeneratorState(resourceComponent, entity);
         }
 
-        private  void SetGeneratorState(PositionOnStage playerTransform,
-            GeneratorComponent generator, ref ResourceGeneratorComponent resourceComponent)
+        private void SetGeneratorState(PositionOnStage playerTransform,
+            GeneratorComponent generator,
+            ref ResourceGeneratorComponent resourceComponent, ref RadiusColliderComponent radius)
         {
-            if (Vector3.Distance(playerTransform.Transform.position, generator.Transform.position) < 3)
+            if (Vector3.Distance(playerTransform.Transform.position, generator.Transform.position) < radius.Collider.radius)
             {
                 _berryActivator.ActivateGenerator(ref resourceComponent);
             }
