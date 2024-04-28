@@ -1,9 +1,7 @@
-﻿using System;
-using Components;
+﻿using Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
-using Systems.Helpers;
-using UnityEngine;
+using static Components.ResourceGeneratorComponent;
 using static Systems.Utils;
 
 namespace Systems
@@ -48,23 +46,23 @@ namespace Systems
             CheckGeneratorState(resourceComponent, entity);
         }
         
-        private void SetGeneratorState(PositionOnStage playerTransform,
-            ref ResourceGeneratorComponent resourceComponent, ref RadiusColliderComponent radius,
+        private void SetGeneratorState(
+            PositionOnStage playerTransform,
+            ref ResourceGeneratorComponent resourceComponent, 
+            ref RadiusColliderComponent radius,
             ref PositionOnStage position)
         {
             if (CheckDistance(ref playerTransform, ref position, radius.Radius))
-            {
                 _berryActivator.ActivateGenerator(ref resourceComponent);
-            }
         }
 
         private void CheckGeneratorState(ResourceGeneratorComponent resourceComponent, Entity entity)
         {
-            if (resourceComponent.State == ResourceGeneratorComponent.ResourceStates.ReadyToCollect)
+            if (resourceComponent.State == ResourceStates.ReadyToCollect)
             {
-                resourceComponent.State = ResourceGeneratorComponent.ResourceStates.Collecting;
+                resourceComponent.State = ResourceStates.Collecting;
                 _berryActivator.ActivateBerries(resourceComponent);
-                resourceComponent.State = ResourceGeneratorComponent.ResourceStates.Done;
+                resourceComponent.State = ResourceStates.Done;
                 entity.RemoveComponent<ResourceGeneratorComponent>();
             }
         }

@@ -1,6 +1,5 @@
 ﻿using Components;
 using Systems.Helpers;
-using UnityEngine;
 
 namespace Systems
 {
@@ -8,7 +7,10 @@ namespace Systems
     {
         public static bool CheckDistance(ref PositionOnStage first, ref PositionOnStage second, float radius)
         {
-            return Vector2.Distance(first.Pos(), second.Pos()) < radius;
+            var difference = first.Pos() - second.Pos();
+            var distanceSquared = difference.sqrMagnitude;
+            var radiusSquared = radius * radius;
+            return distanceSquared <= radiusSquared;
         }
     }
 }
