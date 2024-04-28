@@ -1,3 +1,6 @@
+using Berries.Systems;
+using Generators.Systems;
+using Player.Systems;
 using Scellecs.Morpeh.Addons.Feature;
 using Systems;
 
@@ -38,8 +41,11 @@ class SimpleFeature: UpdateFeature
         AddSystem(_deleteBerriesSystem);
         AddSystem(_playerAnimationSystem);
         
+        AddSystem(new FloatingInitializer());
+        AddSystem(new FloatingSystem());
         AddSystem(new BallGeneratorSystem());
         AddSystem(new SpawningBallsSystem());
         AddSystem(new GeneratrosActivatorSystem());
+        AddSystem(new ActivateBerriesSystem());
     }
 }

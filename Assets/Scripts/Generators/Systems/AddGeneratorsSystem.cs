@@ -1,10 +1,9 @@
-﻿using Components;
+﻿using Generators.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
 
-
-namespace Systems
+namespace Generators.Systems
 {
     public class AddGeneratorsSystem: UpdateSystem 
     {

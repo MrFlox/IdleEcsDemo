@@ -1,9 +1,8 @@
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Providers;
 using Unity.IL2CPP.CompilerServices;
-using UnityEngine;
 
-namespace Components
+namespace Berries.Providers
 {
     [System.Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]

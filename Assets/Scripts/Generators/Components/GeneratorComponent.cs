@@ -1,8 +1,7 @@
 using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
-using UnityEngine;
 
-namespace Components
+namespace Generators.Components
 {
     [System.Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]

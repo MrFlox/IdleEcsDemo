@@ -1,4 +1,5 @@
 using Components;
+using Player.Components;
 using Scellecs.Morpeh;
 using UnityEngine;
 using Scellecs.Morpeh.Addons.Systems;
@@ -26,7 +27,7 @@ namespace Systems
         public override void OnAwake()
         {
             _meshRenders = World.Filter.With<ActivateIfPlayerInRangeComp>().With<PositionOnStage>().Build();
-            _playersFilter = World.Filter.With<Player>().With<PositionOnStage>().Build();
+            _playersFilter = World.Filter.With<PlayerComponent>().With<PositionOnStage>().Build();
             _generatorStash = World.GetStash<PositionOnStage>();
             _rangeComponents = World.GetStash<ActivateIfPlayerInRangeComp>();
             _player = _playersFilter.First();

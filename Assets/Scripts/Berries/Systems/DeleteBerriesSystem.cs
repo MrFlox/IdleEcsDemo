@@ -3,7 +3,7 @@ using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
 
-namespace Systems
+namespace Berries.Systems
 {
     public class DeleteBerriesSystem: UpdateSystem 
     {

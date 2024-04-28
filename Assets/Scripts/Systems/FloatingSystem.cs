@@ -1,15 +1,13 @@
 using Components;
 using Scellecs.Morpeh;
+using Scellecs.Morpeh.Addons.Systems;
 using Unity.IL2CPP.CompilerServices;
-using Scellecs.Morpeh.Systems;
 
 
 namespace Systems
 {
-    [Il2CppSetOption(Option.NullChecks, false)]
-    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
-    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public sealed class FloatingSystem : UpdateSystem {
+    public sealed class FloatingSystem : UpdateSystem
+    {
         private Filter _filter;
         private Stash<FloatingComponent> _moveStash;
 
@@ -24,10 +22,11 @@ namespace Systems
         public override void OnUpdate(float deltaTime)
         {
             foreach (var entity in _filter)
-                UpdateObject(deltaTime,  ref _moveStash.Get(entity), ref entity.GetComponent<PositionOnStage>());
+                UpdateObject(deltaTime, ref _moveStash.Get(entity), ref entity.GetComponent<PositionOnStage>());
         }
-        
-        private static void UpdateObject(float deltaTime, ref FloatingComponent movable, ref PositionOnStage positionOnStage)
+
+        private static void UpdateObject(float deltaTime, ref FloatingComponent movable,
+            ref PositionOnStage positionOnStage)
         {
             ref var transform = ref positionOnStage.Transform;
             var newPos = transform.position;
@@ -36,13 +35,13 @@ namespace Systems
                 movable.Direction = FloatingComponent.MoveDirection.Up;
             if (transform.position.y >= movable.InitialY + Offset)
                 movable.Direction = FloatingComponent.MoveDirection.Down;
-            
+
 
             if (movable.Direction == FloatingComponent.MoveDirection.Up)
                 newPos.y += movable.MoveSpeed * deltaTime;
             else
                 newPos.y -= movable.MoveSpeed * deltaTime;
-            
+
             transform.position = newPos;
         }
     }

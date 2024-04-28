@@ -1,15 +1,14 @@
 using Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Systems
+namespace Player.Systems
 {
     public sealed class PlayerAnimationSystem : UpdateSystem
     {
         private Filter _filter;
-        private Stash<Player> _moveStash;
+        private Stash<Components.PlayerComponent> _moveStash;
         private Stash<PlayerAnimator> _animatorStash;
         private string _stateName;
         private string _idle;
@@ -17,8 +16,8 @@ namespace Systems
 
         public override void OnAwake()
         {
-            _filter = World.Filter.With<Player>().Build();
-            _moveStash = World.GetStash<Player>();
+            _filter = World.Filter.With<Components.PlayerComponent>().Build();
+            _moveStash = World.GetStash<Components.PlayerComponent>();
             _animatorStash = World.GetStash<PlayerAnimator>();
         }
 

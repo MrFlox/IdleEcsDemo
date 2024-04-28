@@ -1,8 +1,9 @@
-﻿using Components;
+﻿using Berries.Providers;
+using Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Helpers;
 
-namespace Systems
+namespace Berries.Systems
 {
     public class SimpleFlyingBerrySystem: SimpleSystem<BerryComponent, PositionOnStage>
     {

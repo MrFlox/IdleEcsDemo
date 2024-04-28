@@ -1,4 +1,5 @@
 ﻿using Components;
+using Player.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Systems
         public override void OnAwake()
         {
             _generatorFilter = World.Filter.With<BallsGeneratorComponent>().With<PositionOnStage>().Build();
-            _playerFilter = World.Filter.With<Player>().Build();
+            _playerFilter = World.Filter.With<PlayerComponent>().Build();
             
             _positions = World.GetStash<PositionOnStage>();
             _rads = World.GetStash<RadiusColliderComponent>();
