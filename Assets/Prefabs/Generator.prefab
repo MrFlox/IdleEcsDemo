@@ -259,7 +259,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.7
+  m_Radius: 1.64
   m_Center: {x: 0, y: 0.29, z: 0}
 --- !u!54 &849743458611472997
 Rigidbody:
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
-    Radius: 3
+    Collider: {fileID: 2743970967336788043}
     CircleMaterial: {fileID: 202488115629167645}
 --- !u!114 &604743585381859258
 MonoBehaviour:

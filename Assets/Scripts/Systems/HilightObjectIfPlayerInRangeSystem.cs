@@ -1,16 +1,12 @@
 using Components;
 using Scellecs.Morpeh;
-using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
 using Scellecs.Morpeh.Addons.Systems;
 using Systems.Helpers;
+using VContainer;
 
 namespace Systems
 {
-
-    [Il2CppSetOption(Option.NullChecks, false)]
-    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
-    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public sealed class HilightObjectIfPlayerInRangeSystem : UpdateSystem
     {
         private Filter _meshRenders;
@@ -18,6 +14,13 @@ namespace Systems
         private Stash<PositionOnStage> _generatorStash;
         private Stash<ActivateIfPlayerInRangeComp> _rangeComponents;
         private Entity _player;
+
+        private GameSettings _settings;
+
+        public HilightObjectIfPlayerInRangeSystem(GameSettings settings)
+        {
+            _settings = settings;
+        }
 
         public override void OnAwake()
         {
@@ -39,15 +42,15 @@ namespace Systems
         {
             SetGeneratorState(playerTransform,  ref _generatorStash.Get(entity), ref _rangeComponents.Get(entity));
         }
-
+        
         private void SetGeneratorState(PositionOnStage playerTransform, ref PositionOnStage generator, ref ActivateIfPlayerInRangeComp range)
         {
-            if (Vector2.Distance(playerTransform.Transform.position.XZVector(), generator.Transform.position.XZVector()) < range.Radius)
+            if (Vector2.Distance(playerTransform.Pos(), generator.Pos()) < range.Collider.radius)
             {
-                range.CircleMaterial.material.color = Color.green;
+                range.CircleMaterial.material.color = _settings.ActiveColor;
             }
             else
-                range.CircleMaterial.material.color = Color.red;
+                range.CircleMaterial.material.color = _settings.InactiveColor;
         }
     }
 }

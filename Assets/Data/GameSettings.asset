@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GeneratorPrefab: {fileID: 8965949073997457212, guid: 43448731620f9bf4bba8900bc815a22c,
     type: 3}
+  ActiveColor: {r: 0.1281231, g: 1, b: 0.08962262, a: 1}
+  InactiveColor: {r: 0.36058205, g: 0.5268254, b: 0.6886792, a: 1}
