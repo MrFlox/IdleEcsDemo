@@ -1,5 +1,6 @@
 ﻿using Scellecs.Morpeh;
 using Scellecs.Morpeh.Providers;
+using TriInspector;
 using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
 
@@ -11,8 +12,12 @@ namespace Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct RadiusColliderComponent : IComponent, IValidatableWithGameObject
     {
-        public SphereCollider Collider;
-        
+        [SerializeField]
+        private SphereCollider Collider;
+
+        [ShowInInspector]
+        public float Radius => Collider != null ? Collider.radius : 0;
+
         public void OnValidate(GameObject gameObject)
         {
             gameObject.TryGetComponent<SphereCollider>(out var sphereCollider);
@@ -20,6 +25,6 @@ namespace Components
                 Collider = sphereCollider;
         }
     }
-    
+
     public sealed class RadiusColliderProvider : MonoProvider<RadiusColliderComponent> { }
 }

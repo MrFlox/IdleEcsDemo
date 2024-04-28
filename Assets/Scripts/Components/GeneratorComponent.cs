@@ -10,7 +10,6 @@ namespace Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct GeneratorComponent : IComponent
     {
-        public Transform Transform;
         
     }
 }

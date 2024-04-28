@@ -2,7 +2,9 @@
 using Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
+using Systems.Helpers;
 using UnityEngine;
+using static Systems.Utils;
 
 namespace Systems
 {
@@ -39,18 +41,18 @@ namespace Systems
             ref var resourceComponent = ref _resourceGeneratorComponentStash.Get(entity);
             SetGeneratorState(
                 playerTransform, 
-                generator, 
                 ref resourceComponent, 
-                ref entity.GetComponent<RadiusColliderComponent>());
+                ref entity.GetComponent<RadiusColliderComponent>(),
+                ref entity.GetComponent<PositionOnStage>());
 
             CheckGeneratorState(resourceComponent, entity);
         }
-
+        
         private void SetGeneratorState(PositionOnStage playerTransform,
-            GeneratorComponent generator,
-            ref ResourceGeneratorComponent resourceComponent, ref RadiusColliderComponent radius)
+            ref ResourceGeneratorComponent resourceComponent, ref RadiusColliderComponent radius,
+            ref PositionOnStage position)
         {
-            if (Vector3.Distance(playerTransform.Transform.position, generator.Transform.position) < radius.Collider.radius)
+            if (CheckDistance(ref playerTransform, ref position, radius.Radius))
             {
                 _berryActivator.ActivateGenerator(ref resourceComponent);
             }

@@ -7,22 +7,29 @@ namespace Systems
 {
     public class BallGeneratorSystem : UpdateSystem
     {
-        private Filter _ballGeneratorFilter;
-        private Stash<BallsGeneratorComponent> _moveStash;
+        private Filter _generatorFilter;
         private Filter _playerFilter;
-        
+        private Stash<PositionOnStage> _positions;
+        private Stash<RadiusColliderComponent> _rads;
+
         public override void OnAwake()
         {
-            _ballGeneratorFilter = World.Filter.With<BallsGeneratorComponent>().With<PositionOnStage>().Build();
+            _generatorFilter = World.Filter.With<BallsGeneratorComponent>().With<PositionOnStage>().Build();
             _playerFilter = World.Filter.With<Player>().Build();
             
+            _positions = World.GetStash<PositionOnStage>();
+            _rads = World.GetStash<RadiusColliderComponent>();
         }
-        
+
         public override void OnUpdate(float deltaTime)
         {
-            foreach (var ballGenEntity in _ballGeneratorFilter)
+            ref var playerPos = ref _positions.Get(_playerFilter.First());
+            foreach (var ballGenEntity in _generatorFilter)
             {
-                if (InRange(GetEntityPos(ballGenEntity), GetPlayerPos()))
+                ref var ballPos = ref _positions.Get(ballGenEntity);
+                var radius = _rads.Get(ballGenEntity).Radius;
+                
+                if (Utils.CheckDistance(ref ballPos, ref playerPos, radius))
                 {
                     if (!ballGenEntity.Has<SpawningBalls>())
                         ballGenEntity.AddComponent<SpawningBalls>().LastSpawnTime = Time.time;
@@ -34,17 +41,5 @@ namespace Systems
                 }
             }
         }
-        
-        private bool InRange(Vector3 getEntityPos, Vector3 getPlayerPos)
-        {
-            var dist = Vector2.Distance(new Vector2(getEntityPos.x, getEntityPos.z), new Vector2(getPlayerPos.x, getEntityPos.z));
-           return dist < 3f;
-        }
-        
-        private Vector3 GetPlayerPos() => _playerFilter.First().GetComponent<PositionOnStage>().Transform.position;
-        
-        private Vector3 GetEntityPos(Entity ballGenEntity) => ballGenEntity.GetComponent<PositionOnStage>().Transform.position;
-
-        
     }
 }

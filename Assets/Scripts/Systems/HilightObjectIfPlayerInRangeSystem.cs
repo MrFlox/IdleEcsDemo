@@ -4,6 +4,7 @@ using UnityEngine;
 using Scellecs.Morpeh.Addons.Systems;
 using Systems.Helpers;
 using VContainer;
+using static Systems.Utils;
 
 namespace Systems
 {
@@ -50,7 +51,7 @@ namespace Systems
         private void SetGeneratorState(PositionOnStage playerTransform, ref PositionOnStage generator,
             ref ActivateIfPlayerInRangeComp range, ref RadiusColliderComponent radius)
         {
-            if (Vector2.Distance(playerTransform.Pos(), generator.Pos()) < radius.Collider.radius)
+            if (CheckDistance(ref playerTransform, ref generator, radius.Radius))
             {
                 range.CircleMaterial.material.color = _settings.ActiveColor;
             }
