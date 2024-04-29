@@ -1,4 +1,5 @@
 ﻿using System;
+using Generators.Systems;
 using Systems;
 using UnityEngine;
 
@@ -6,18 +7,16 @@ public class Manager
 {
     public event Action OnUpdateInterface;
     
-    private readonly HilightObjectIfPlayerInRangeSystem _system;
+    private readonly ActivateBerriesSystem _system;
     private int _counter;
     
-    public Manager(HilightObjectIfPlayerInRangeSystem system)
+    public Manager(ActivateBerriesSystem system)
     {
         _system = system;
     }
 
-    public void Init()
-    {
-        // _system.OnActivateBerry += OnActivateBerryHandler;
-    }
+    public void Init() => 
+        _system.OnBerryActivated += OnActivateBerryHandler;
 
     private void OnActivateBerryHandler()
     {

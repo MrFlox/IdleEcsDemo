@@ -47,6 +47,7 @@ public class GameLifetimeScope : LifetimeScope
     
     private void RegisterSystems(IContainerBuilder builder)
     {
+        builder.Register<ActivateBerriesSystem>(Lifetime.Singleton);
         builder.Register<TempClass>(Lifetime.Singleton);
         builder.Register<AddGeneratorsSystem>(Lifetime.Singleton);
         builder.Register<SimpleFlyingBerrySystem>(Lifetime.Singleton);

@@ -9,5 +9,6 @@ namespace Generators.Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct ActivatedGenerator : IComponent
     {
+        public float LastSpawnTime;
     }
 }

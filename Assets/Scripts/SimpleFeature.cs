@@ -12,6 +12,7 @@ class SimpleFeature: UpdateFeature
     private readonly PlayerInputSystem _playerInputSystem;
     private readonly DeleteBerriesSystem _deleteBerriesSystem;
     private readonly PlayerAnimationSystem _playerAnimationSystem;
+    private readonly ActivateBerriesSystem _activateBerriesSystem;
     private readonly TempClass _tempClass;
 
 
@@ -21,7 +22,8 @@ class SimpleFeature: UpdateFeature
         HilightObjectIfPlayerInRangeSystem hilightObjectIfPlayerInRangeSystem,
         PlayerInputSystem playerInputSystem,
         DeleteBerriesSystem deleteBerriesSystem,
-        PlayerAnimationSystem playerAnimationSystem
+        PlayerAnimationSystem playerAnimationSystem,
+        ActivateBerriesSystem activateBerriesSystem
     )
     {
         _generatorsSystem = generatorsSystem;
@@ -30,6 +32,7 @@ class SimpleFeature: UpdateFeature
         _playerInputSystem = playerInputSystem;
         _deleteBerriesSystem = deleteBerriesSystem;
         _playerAnimationSystem = playerAnimationSystem;
+        _activateBerriesSystem = activateBerriesSystem;
     }
 
     protected override void Initialize()
@@ -46,6 +49,6 @@ class SimpleFeature: UpdateFeature
         AddSystem(new BallGeneratorSystem());
         AddSystem(new SpawningBallsSystem());
         AddSystem(new GeneratrosActivatorSystem());
-        AddSystem(new ActivateBerriesSystem());
+        AddSystem(_activateBerriesSystem);
     }
 }
