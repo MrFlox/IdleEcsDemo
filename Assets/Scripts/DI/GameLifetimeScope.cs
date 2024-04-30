@@ -35,14 +35,10 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField] private GameSettings _gameSettings;
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.Register<SimpleFeature>(Lifetime.Singleton);
         RegisterSystems(builder);
         builder.Register<Manager>(Lifetime.Singleton);
-
         builder.RegisterInstance(_gameSettings);
-        
         builder.RegisterEntryPoint<Init>();
-        
     }
     
     private void RegisterSystems(IContainerBuilder builder)

@@ -1,15 +1,12 @@
 using Components;
 using Scellecs.Morpeh;
-using Unity.IL2CPP.CompilerServices;
+using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
-using UpdateSystem = Scellecs.Morpeh.Addons.Systems.UpdateSystem;
-
 
 namespace Systems
 {
-    public sealed class FloatingInitializer : UpdateSystem
+    public sealed class FloatingInitializer : Initializer
     {
-
         private Filter _filter;
         private Stash<FloatingComponent> _moveStash;
         private Stash<PositionOnStage> _positionsStash;
@@ -27,13 +24,6 @@ namespace Systems
                 floatingObject.MoveSpeed = Random.Range(.2f, .6f);
                 floatingObject.Direction = (FloatingComponent.MoveDirection)Random.Range(0, 1);
             }
-        }
-        public override void OnUpdate(float deltaTime)
-        {
-        }
-
-        public override void Dispose()
-        {
         }
     }
 }

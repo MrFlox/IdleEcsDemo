@@ -13,7 +13,6 @@ namespace Generators.Components
     public struct GeneratorsPositionsComponent : IComponent, IValidatableWithGameObject
     {
        public List<Vector3> Positions;
-       public GameObject Prefab;
 
        public void OnValidate(GameObject gameObject)
         {

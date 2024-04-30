@@ -5,20 +5,18 @@ using UnityEngine;
 
 namespace Generators.Systems
 {
-    public class AddGeneratorsSystem: UpdateSystem 
+    public class AddGeneratorsSystem: Initializer 
     {
+        private readonly GameSettings _settings;
         private readonly TempClass _tempClass;
         private Filter _filter;
         private Stash<GeneratorsPositionsComponent> _moveStash;
-
-        public AddGeneratorsSystem(TempClass tempClass)
-        {
-            _tempClass = tempClass;
-        }
+        
+        public AddGeneratorsSystem(GameSettings settings) => 
+            _settings = settings;
 
         public override void OnAwake()
         {
-            _tempClass.HelloWorld();
             _filter = World.Filter.With<GeneratorsPositionsComponent>().Build();
             _moveStash = World.GetStash<GeneratorsPositionsComponent>();
 
@@ -27,11 +25,8 @@ namespace Generators.Systems
 
             foreach (var pos in g.Positions)
             {
-                Object.Instantiate(g.Prefab, pos, Quaternion.identity);
+                Object.Instantiate(_settings.GeneratorPrefab, pos, Quaternion.identity);
             }
-        }
-        public override void OnUpdate(float deltaTime)
-        {
         }
     }
 }

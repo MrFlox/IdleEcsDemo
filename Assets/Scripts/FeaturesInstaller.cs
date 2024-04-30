@@ -1,12 +1,13 @@
 ﻿using System;
 using Scellecs.Morpeh.Addons.Feature;
 using Scellecs.Morpeh.Addons.Feature.Unity;
+using Scellecs.Morpeh.Addons.Unity.VContainer;
 using VContainer;
 
 public class FeaturesInstaller : BaseFeaturesInstaller
 {
 
-    [Inject] private SimpleFeature _simpleFeature;
+    [Inject] private IObjectResolver _container;
     
     protected override void InitializeShared()
     {
@@ -16,7 +17,7 @@ public class FeaturesInstaller : BaseFeaturesInstaller
     {
         return new UpdateFeature[]
         {
-            _simpleFeature
+            _container.CreateFeature<SimpleFeature>()
         };
     }
 

@@ -37,14 +37,15 @@ class SimpleFeature: UpdateFeature
 
     protected override void Initialize()
     {
-        AddSystem(_generatorsSystem);
+        AddInitializer(_generatorsSystem);
+        AddInitializer(new FloatingInitializer());
+        
         AddSystem(_simpleFlyingBerrySystem);
         AddSystem(_hilightObjectIfPlayerInRangeSystem);
         AddSystem(_playerInputSystem);
         AddSystem(_deleteBerriesSystem);
         AddSystem(_playerAnimationSystem);
         
-        AddSystem(new FloatingInitializer());
         AddSystem(new FloatingSystem());
         AddSystem(new BallGeneratorSystem());
         AddSystem(new SpawningBallsSystem());
