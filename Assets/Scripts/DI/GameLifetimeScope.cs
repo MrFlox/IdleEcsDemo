@@ -9,50 +9,48 @@ using Scellecs.Morpeh;
 using ScriptableObjects;
 using UnityEngine;
 using VContainer;
+using VContainer.Diagnostics;
 using VContainer.Unity;
 
 namespace DI
 {
-    public class TempClass
-    {
-        public void HelloWorld()
-        {
-            Debug.Log("Hello world");
-        }
-    }
-
-
     class Init : IStartable
     {
-        private readonly Manager _manager;
+        private readonly ScoreManager _scoreManager;
 
-        public Init(Manager manager) => _manager = manager;
+        public Init(ScoreManager scoreManager) => _scoreManager = scoreManager;
 
-        public void Start() => _manager.Init();
+        public void Start() => _scoreManager.Init();
     }
 
     public class GameLifetimeScope : LifetimeScope
     {
         [SerializeField] private List<ScriptableObject> _systems;
         [SerializeField] private GameSettings _gameSettings;
+
+        private IContainerBuilder _builder;
+        
         protected override void Configure(IContainerBuilder builder)
         {
-            RegisterSystems(builder);
-            builder.Register<Manager>(Lifetime.Singleton);
+            _builder = builder;
+            
+            RegisterSystems();
+            builder.Register<ScoreManager>(Lifetime.Singleton);
             builder.RegisterInstance(_gameSettings);
             builder.RegisterEntryPoint<Init>();
         }
     
-        private void RegisterSystems(IContainerBuilder builder)
+        private void Register<T>() => _builder.Register<T>(Lifetime.Singleton);
+        
+        private void RegisterSystems()
         {
-            builder.Register<ActivateBerriesSystem>(Lifetime.Singleton);
-            builder.Register<TempClass>(Lifetime.Singleton);
-            builder.Register<AddGeneratorsSystem>(Lifetime.Singleton);
-            builder.Register<SimpleFlyingBerrySystem>(Lifetime.Singleton);
-            builder.Register<HilightObjectIfPlayerInRangeSystem>(Lifetime.Singleton);
-            builder.Register<PlayerInputSystem>(Lifetime.Singleton);
-            builder.Register<DeleteBerriesSystem>(Lifetime.Singleton);
-            builder.Register<PlayerAnimationSystem>(Lifetime.Singleton);
+            Register<ActivateBerriesSystem>();
+            Register<AddGeneratorsSystem>();
+            Register<SimpleFlyingBerrySystem>();
+            Register<HilightObjectIfPlayerInRangeSystem>();
+            Register<PlayerInputSystem>();
+            Register<DeleteBerriesSystem>();
+            Register<PlayerAnimationSystem>();
         }
     
         private static void RegisterAllSystemUsingAssembly(IContainerBuilder builder)

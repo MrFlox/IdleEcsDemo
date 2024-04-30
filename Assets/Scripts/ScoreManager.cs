@@ -2,17 +2,14 @@
 using Features.Berries.Systems;
 using UnityEngine;
 
-public class Manager
+public class ScoreManager
 {
     public event Action OnUpdateInterface;
     
     private readonly ActivateBerriesSystem _system;
     private int _counter;
     
-    public Manager(ActivateBerriesSystem system)
-    {
-        _system = system;
-    }
+    public ScoreManager(ActivateBerriesSystem system) => _system = system;
 
     public void Init() => 
         _system.OnBerryActivated += OnActivateBerryHandler;

@@ -1,5 +1,4 @@
-﻿using DI;
-using Features.Generators.Components;
+﻿using Features.Generators.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using ScriptableObjects;
@@ -10,7 +9,6 @@ namespace Features.Generators.Systems
     public class AddGeneratorsSystem: Initializer 
     {
         private readonly GameSettings _settings;
-        private readonly TempClass _tempClass;
         private Filter _filter;
         private Stash<GeneratorsPositionsComponent> _moveStash;
         
