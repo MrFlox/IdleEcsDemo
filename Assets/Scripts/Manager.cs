@@ -1,6 +1,5 @@
 ﻿using System;
-using Generators.Systems;
-using Systems;
+using Features.Berries.Systems;
 using UnityEngine;
 
 public class Manager

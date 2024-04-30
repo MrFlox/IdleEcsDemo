@@ -2,10 +2,13 @@
 using VContainer;
 using VContainer.Unity;
 
-public class MainLifetimeScope : LifetimeScope
+namespace DI
 {
-    [SerializeField] private UIManager _uiManager;
-    protected override void Configure(IContainerBuilder builder)
+    public class MainLifetimeScope : LifetimeScope
     {
+        [SerializeField] private UIManager _uiManager;
+        protected override void Configure(IContainerBuilder builder)
+        {
+        }
     }
 }

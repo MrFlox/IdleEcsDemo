@@ -1,4 +1,10 @@
 ﻿using System;
+using Features.Balls;
+using Features.Berries;
+using Features.FloatingObjects;
+using Features.Generators;
+using Features.Player;
+using Features.Shared;
 using Scellecs.Morpeh.Addons.Feature;
 using Scellecs.Morpeh.Addons.Feature.Unity;
 using Scellecs.Morpeh.Addons.Unity.VContainer;
@@ -17,7 +23,12 @@ public class FeaturesInstaller : BaseFeaturesInstaller
     {
         return new UpdateFeature[]
         {
-            _container.CreateFeature<SimpleFeature>()
+            _container.CreateFeature<FloatingFeature>(),
+            _container.CreateFeature<BerriesFeature>(),
+            _container.CreateFeature<BallsFeature>(),
+            _container.CreateFeature<SharedFeature>(),
+            _container.CreateFeature<PlayerFeature>(),
+            _container.CreateFeature<GeneratorsFeature>()
         };
     }
 
