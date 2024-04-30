@@ -1,6 +1,7 @@
 ﻿using System;
 using Features.Balls;
 using Features.Berries;
+using Features.CircleProgress;
 using Features.FloatingObjects;
 using Features.Generators;
 using Features.Player;
@@ -28,6 +29,7 @@ public class FeaturesInstaller : BaseFeaturesInstaller
             _container.CreateFeature<BallsFeature>(),
             _container.CreateFeature<SharedFeature>(),
             _container.CreateFeature<PlayerFeature>(),
+            _container.CreateFeature<CircleProgressBarFeature>(),
             _container.CreateFeature<GeneratorsFeature>()
         };
     }

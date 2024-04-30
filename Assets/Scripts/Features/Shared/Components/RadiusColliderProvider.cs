@@ -16,7 +16,7 @@ namespace Features.Shared.Components
         private SphereCollider Collider;
 
         [ShowInInspector]
-        public float Radius => Collider != null ? Collider.radius : 0;
+        public float Radius => Collider != null ? Collider.radius * Collider.transform.localScale.x : 0;
 
         public void OnValidate(GameObject gameObject)
         {
