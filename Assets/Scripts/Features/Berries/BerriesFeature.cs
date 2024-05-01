@@ -11,6 +11,7 @@ namespace Features.Berries
             AddSystem(Resolve<DeleteBerriesSystem>());
             AddSystem(Resolve<ActivateBerriesSystem>());
             AddSystem(new GrowingBerrySystem());
+            AddSystem(new RemoveGrowingFromGeneratorSystem());
         }
        
     }

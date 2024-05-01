@@ -8,6 +8,8 @@ namespace Features.Berries.Systems
 {
     public class BerriesGrowthSystem : UpdateSystem
     {
+        private const float ActivateBerryDelay = .8f;
+        
         private Filter _filter;
         private Stash<ResourceGeneratorComponent> _stash;
 
@@ -23,7 +25,7 @@ namespace Features.Berries.Systems
             foreach (var entity in _filter)
             {
                 ref var berries = ref _stash.Get(entity);
-                foreach (var berry in berries._Berries)
+                foreach (var berry in berries.Berries)
                     berry.transform.localScale = Vector3.zero;
             }
         }
@@ -34,25 +36,23 @@ namespace Features.Berries.Systems
             {
                 ref var berries = ref _stash.Get(entity);
                 ref var index = ref berries.LastIndex;
-                if (Time.time - berries.LastTime > .8f && index < berries._Berries.Count)
+                if (Time.time - berries.LastTime > ActivateBerryDelay && index < berries.Berries.Count)
                 {
-                    AddBerryComponent(berries._Berries[index]);
+                    AddBerryComponent(berries.Berries[index], index, entity);
                     index++;
                     berries.LastTime = Time.time;
-                }
-                if (index == berries._Berries.Count)
-                {
-                    entity.RemoveComponent<GrowingBerriesComponent>();
                 }
             }
         }
 
-        private void AddBerryComponent(Transform berry)
+        private void AddBerryComponent(Transform berry, int index, Entity entity)
         {
             var newBerryEntity = World.CreateEntity();
-            ref var component = ref newBerryEntity.AddComponent<GrowingBerryComponent>();
-            component.Transform = berry;
-            component.Transform.localScale = Vector3.zero;
+            ref var c = ref newBerryEntity.AddComponent<GrowingBerryComponent>();
+            c.Index = index;
+            c.Transform = berry;
+            c.Transform.localScale = Vector3.zero;
+            c.Entity = entity;
         }
     }
 }

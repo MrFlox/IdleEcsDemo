@@ -11,5 +11,8 @@ namespace Features.Berries.Components
     public struct GrowingBerryComponent :IComponent
     {
         public Transform Transform;
+        public int Index;
+        public bool Finished;
+        public Entity Entity;
     }
 }

@@ -42,7 +42,7 @@ namespace Features.Berries.Systems
                         lastSpawnTime = Time.time;
                     }
 
-                    if (_activatedBerries.Get(entity)._Berries.Count == 0)
+                    if (_activatedBerries.Get(entity).Berries.Count == 0)
                     {
                         entity.RemoveComponent<GeneratorComponent>();
                         entity.RemoveComponent<ActivatedGenerator>();
@@ -53,7 +53,7 @@ namespace Features.Berries.Systems
 
         private void ShowFlyingBerries(Entity entity)
         {
-            var berries = _activatedBerries.Get(entity)._Berries;
+            var berries = _activatedBerries.Get(entity).Berries;
             var berry = berries[0];
             berries.RemoveAt(0);
             var newEntity = World.CreateEntity();

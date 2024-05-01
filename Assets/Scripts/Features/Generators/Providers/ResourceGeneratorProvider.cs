@@ -12,27 +12,18 @@ namespace Features.Generators.Providers
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct ResourceGeneratorComponent : IComponent, IValidatableWithGameObject
     {
-        public List<Transform> _Berries;
-        public ResourceStates State;
+        public List<Transform> Berries;
         public int LastIndex;
-        public enum ResourceStates
-        {
-            None,
-            ReadyToCollect,
-            Collecting,
-            Done
-        }
-
         public float LastTime;
 
         public void OnValidate(GameObject gameObject)
         {
-            _Berries = new List<Transform>();
+            Berries = new List<Transform>();
             foreach (Transform child in gameObject.transform)
             {
                 child.TryGetComponent<Transform>(out var berry);
                 if (berry != null && berry.name.Contains("Berry"))
-                    _Berries.Add(berry);
+                    Berries.Add(berry);
             }
         }
     }
