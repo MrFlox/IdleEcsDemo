@@ -1,4 +1,5 @@
 ﻿using System;
+using Features.Berries.Components;
 using Features.Berries.Providers;
 using Features.Generators.Components;
 using Features.Generators.Providers;
@@ -21,7 +22,7 @@ namespace Features.Berries.Systems
 
         public override void OnAwake()
         {
-            _filter = World.Filter.With<ActivatedGenerator>().Build();
+            _filter = World.Filter.With<ActivatedGenerator>().Without<GrowingBerriesComponent>().Build();
             _activatedBerries = World.GetStash<ResourceGeneratorComponent>();
             _generators = World.GetStash<ActivatedGenerator>();
         }

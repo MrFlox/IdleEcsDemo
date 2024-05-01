@@ -6,9 +6,11 @@ namespace Features.Berries
     {
         protected override void Initialize()
         {
+            AddSystem(new BerriesGrowthSystem());
             AddSystem(Resolve<SimpleFlyingBerrySystem>());
             AddSystem(Resolve<DeleteBerriesSystem>());
             AddSystem(Resolve<ActivateBerriesSystem>());
+            AddSystem(new GrowingBerrySystem());
         }
        
     }

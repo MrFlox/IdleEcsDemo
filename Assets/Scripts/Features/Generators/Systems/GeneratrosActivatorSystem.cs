@@ -1,4 +1,5 @@
-﻿using Features.Generators.Components;
+﻿using Features.Berries.Components;
+using Features.Generators.Components;
 using Features.Generators.Providers;
 using Features.Player.Components;
 using Features.Shared.Components;
@@ -17,7 +18,7 @@ namespace Features.Generators.Systems
 
         public override void OnAwake()
         {
-            _generatorsFilter = World.Filter.With<GeneratorComponent>().With<ResourceGeneratorComponent>().Build();
+            _generatorsFilter = World.Filter.With<GeneratorComponent>().With<ResourceGeneratorComponent>().Without<GrowingBerriesComponent>().Build();
             _playersFilter = World.Filter.With<PlayerComponent>().With<PositionOnStage>().Build();
             _resourceGeneratorComponentStash = World.GetStash<ResourceGeneratorComponent>();
             _player = _playersFilter.First();

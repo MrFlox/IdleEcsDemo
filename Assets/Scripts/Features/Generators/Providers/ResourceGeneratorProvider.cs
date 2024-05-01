@@ -14,7 +14,7 @@ namespace Features.Generators.Providers
     {
         public List<Transform> _Berries;
         public ResourceStates State;
-
+        public int LastIndex;
         public enum ResourceStates
         {
             None,
@@ -22,7 +22,9 @@ namespace Features.Generators.Providers
             Collecting,
             Done
         }
-        
+
+        public float LastTime;
+
         public void OnValidate(GameObject gameObject)
         {
             _Berries = new List<Transform>();
