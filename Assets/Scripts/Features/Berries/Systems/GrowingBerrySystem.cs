@@ -1,20 +1,23 @@
 ﻿using Features.Berries.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Helpers;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Features.Berries.Systems
 {
     public class GrowingBerrySystem : SimpleSystem<GrowingBerryComponent>
     {
-        private const float MaxScale = .4f;
+        private readonly GameSettings _settings;
         
+        public GrowingBerrySystem(GameSettings settings) => _settings = settings;
+
         protected override void Process(Entity entity, ref GrowingBerryComponent component, in float deltaTime)
         {
-            var target = new Vector3(MaxScale, MaxScale, MaxScale);
-            if (component.Transform.localScale.x < MaxScale)
+            var target = new Vector3(_settings.BerriesSettings.BerryMaxScale, _settings.BerriesSettings.BerryMaxScale, _settings.BerriesSettings.BerryMaxScale);
+            if (component.Transform.localScale.x < _settings.BerriesSettings.BerryMaxScale)
             {
-                var newScale = Vector3.MoveTowards(component.Transform.localScale, target, .05f * deltaTime);
+                var newScale = Vector3.MoveTowards(component.Transform.localScale, target, _settings.BerriesSettings.BerryGrowthSpeed * deltaTime);
                 component.Transform.localScale = newScale;
             }
             else

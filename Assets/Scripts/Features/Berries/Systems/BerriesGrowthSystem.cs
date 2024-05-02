@@ -2,14 +2,18 @@
 using Features.Generators.Providers;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Features.Berries.Systems
 {
     public class BerriesGrowthSystem : UpdateSystem
     {
-        private const float ActivateBerryDelay = .8f;
-        
+        private readonly GameSettings _settings;
+
+        public BerriesGrowthSystem(GameSettings settings) => _settings = settings;
+     
+
         private Filter _filter;
         private Stash<ResourceGeneratorComponent> _stash;
 
@@ -17,26 +21,33 @@ namespace Features.Berries.Systems
         {
             _filter = World.Filter.With<GrowingBerriesComponent>().Build();
             _stash = World.GetStash<ResourceGeneratorComponent>();
-
-            SetZeroScale();
         }
+        
         private void SetZeroScale()
         {
             foreach (var entity in _filter)
             {
                 ref var berries = ref _stash.Get(entity);
+                if(berries.Inited) continue;
                 foreach (var berry in berries.Berries)
+                {
                     berry.transform.localScale = Vector3.zero;
+                    berries.Inited = true;
+                }
             }
         }
         
         public override void OnUpdate(float deltaTime)
         {
+            ref var berriesSettings = ref _settings.BerriesSettings;
+            
+            SetZeroScale();
+            
             foreach (var entity in _filter)
             {
                 ref var berries = ref _stash.Get(entity);
                 ref var index = ref berries.LastIndex;
-                if (Time.time - berries.LastTime > ActivateBerryDelay && index < berries.Berries.Count)
+                if (Time.time - berries.LastTime > berriesSettings.BerryGrowthActivationDelay && index < berries.Berries.Count)
                 {
                     AddBerryComponent(berries.Berries[index], index, entity);
                     index++;
@@ -49,6 +60,7 @@ namespace Features.Berries.Systems
         {
             var newBerryEntity = World.CreateEntity();
             ref var c = ref newBerryEntity.AddComponent<GrowingBerryComponent>();
+            
             c.Index = index;
             c.Transform = berry;
             c.Transform.localScale = Vector3.zero;
