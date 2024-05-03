@@ -13,6 +13,8 @@ namespace ScriptableObjects
         public float BerryMaxScale;
         [Range(0, 1f)]
         public float BerryGrowthSpeed;
+        public float BerryFlySpeed;
+        public float BerryFlyDelay;
     }
     
     [CreateAssetMenu(fileName = "GameSettings", menuName = "IdleGame", order = 0)]

@@ -15,6 +15,8 @@ namespace Features.Generators.Systems
         public AddGeneratorsSystem(GameSettings settings) => 
             _settings = settings;
 
+       
+        
         public override void OnAwake()
         {
             _filter = World.Filter.With<GeneratorsPositionsComponent>().Build();
@@ -25,7 +27,7 @@ namespace Features.Generators.Systems
 
             foreach (var pos in g.Positions)
             {
-                Object.Instantiate(_settings.GeneratorPrefab, pos, Quaternion.identity);
+               Object.Instantiate(_settings.GeneratorPrefab, pos.SetY(0.25f), Quaternion.identity);
             }
         }
     }

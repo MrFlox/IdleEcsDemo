@@ -7,7 +7,7 @@ namespace Features.CircleProgress
         protected override void Initialize()
         {
             AddSystem(new ProgressBarUpdateSystem());
-            AddSystem(new RotateToCameraSystem());
+            // AddSystem(new RotateToCameraSystem());
         }
     }
 }

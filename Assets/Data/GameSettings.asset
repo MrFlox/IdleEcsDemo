@@ -17,6 +17,8 @@ MonoBehaviour:
   ActiveColor: {r: 0.1281231, g: 1, b: 0.08962262, a: 1}
   InactiveColor: {r: 0.36058205, g: 0.5268254, b: 0.6886792, a: 1}
   BerriesSettings:
-    BerryGrowthActivationDelay: 0.8
+    BerryGrowthActivationDelay: 0.31
     BerryMaxScale: 0.3
-    BerryGrowthSpeed: 0.304
+    BerryGrowthSpeed: 1
+    BerryFlySpeed: 5
+    BerryFlyDelay: 0.29

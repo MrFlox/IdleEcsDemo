@@ -16,9 +16,7 @@ public class FeaturesInstaller : BaseFeaturesInstaller
 
     [Inject] private IObjectResolver _container;
     
-    protected override void InitializeShared()
-    {
-    }
+    protected override void InitializeShared() { }
 
     protected override UpdateFeature[] InitializeUpdateFeatures()
     {
@@ -34,13 +32,7 @@ public class FeaturesInstaller : BaseFeaturesInstaller
         };
     }
 
-    protected override FixedUpdateFeature[] InitializeFixedUpdateFeatures()
-    {
-        return Array.Empty<FixedUpdateFeature>();
-    }
+    protected override FixedUpdateFeature[] InitializeFixedUpdateFeatures() => Array.Empty<FixedUpdateFeature>();
 
-    protected override LateUpdateFeature[] InitializeLateUpdateFeatures()
-    {
-        return Array.Empty<LateUpdateFeature>();
-    }
+    protected override LateUpdateFeature[] InitializeLateUpdateFeatures() => Array.Empty<LateUpdateFeature>();
 }
