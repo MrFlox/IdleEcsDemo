@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using VContainer;
@@ -15,7 +16,11 @@ namespace UI
         private void Start() => 
             _scoreManager.OnUpdateInterface += UpdateInterface;
 
-        private void UpdateInterface() => 
-            Label.text = _scoreManager.GetCounter().ToString();
+        private void UpdateInterface()
+        {
+            DOVirtual.Int(_counter, _scoreManager.GetCounter(), .2f, (x) => Label.text = x.ToString());
+            // Label.transform.DOScale(1.5f, .3f)
+            //     .OnComplete(() => Label.transform.DOScale(1, .3f));
+        }
     }
 }

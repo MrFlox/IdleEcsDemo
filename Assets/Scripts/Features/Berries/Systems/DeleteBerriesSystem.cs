@@ -9,12 +9,12 @@ namespace Features.Berries.Systems
     public class DeleteBerriesSystem: UpdateSystem 
     {
         private Filter _filter;
-        private Stash<PositionOnStage> _stash;
+        private Stash<TransformComponent> _stash;
         
         public override void OnAwake()
         {
             _filter = World.Filter.With<DeleteComponent>().Build();
-            _stash = World.GetStash<PositionOnStage>();
+            _stash = World.GetStash<TransformComponent>();
         }
 
         public override void OnUpdate(float deltaTime)

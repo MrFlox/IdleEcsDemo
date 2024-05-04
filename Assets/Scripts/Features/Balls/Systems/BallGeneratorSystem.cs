@@ -11,15 +11,15 @@ namespace Features.Balls.Systems
     {
         private Filter _generatorFilter;
         private Filter _playerFilter;
-        private Stash<PositionOnStage> _positions;
+        private Stash<TransformComponent> _positions;
         private Stash<RadiusColliderComponent> _rads;
 
         public override void OnAwake()
         {
-            _generatorFilter = World.Filter.With<BallsGeneratorComponent>().With<PositionOnStage>().Build();
+            _generatorFilter = World.Filter.With<BallsGeneratorComponent>().With<TransformComponent>().Build();
             _playerFilter = World.Filter.With<PlayerComponent>().Build();
             
-            _positions = World.GetStash<PositionOnStage>();
+            _positions = World.GetStash<TransformComponent>();
             _rads = World.GetStash<RadiusColliderComponent>();
         }
 

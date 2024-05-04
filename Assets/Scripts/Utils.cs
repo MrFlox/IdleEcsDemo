@@ -2,7 +2,7 @@
 
 public static class Utils
 {
-    public static bool CheckDistance(ref PositionOnStage first, ref PositionOnStage second, float radius)
+    public static bool CheckDistance(ref TransformComponent first, ref TransformComponent second, float radius)
     {
         var difference = first.Pos() - second.Pos();
         var distanceSquared = difference.sqrMagnitude;

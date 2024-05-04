@@ -20,14 +20,14 @@ namespace Features.Player.Systems
             _input = new Input();
             _input.Default.Enable();
             
-            _filter = World.Filter.With<Components.PlayerComponent>().With<PositionOnStage>().Build();
+            _filter = World.Filter.With<Components.PlayerComponent>().With<TransformComponent>().Build();
             _player = _filter.First();
         }
 
         public override void OnUpdate(float deltaTime)
         {
             ref var player = ref _player.GetComponent<Components.PlayerComponent>();
-            ref var transform = ref _player.GetComponent<PositionOnStage>().Transform;
+            ref var transform = ref _player.GetComponent<TransformComponent>().Transform;
             var moveInput = _input.Default.Move.ReadValue<Vector2>();
             player.Direction = new Vector3(moveInput.x, 0, moveInput.y);
             transform.Translate(player.Direction * 3 * Time.deltaTime);

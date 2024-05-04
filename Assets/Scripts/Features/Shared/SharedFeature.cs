@@ -7,6 +7,8 @@ namespace Features.Shared
         protected override void Initialize()
         {
             AddSystem(Resolve<HilightObjectIfPlayerInRangeSystem>());
+            AddSystem(Resolve<LootRotationSystem>());
+            AddSystem(Resolve<ParabolaDropSystem>());
         }
     }
 }

@@ -19,30 +19,30 @@ namespace Features.Generators.Systems
         public override void OnAwake()
         {
             _generatorsFilter = World.Filter.With<GeneratorComponent>().With<ResourceGeneratorComponent>().Without<GrowingBerriesComponent>().Build();
-            _playersFilter = World.Filter.With<PlayerComponent>().With<PositionOnStage>().Build();
+            _playersFilter = World.Filter.With<PlayerComponent>().With<TransformComponent>().Build();
             _resourceGeneratorComponentStash = World.GetStash<ResourceGeneratorComponent>();
             _player = _playersFilter.First();
         }
 
         public override void OnUpdate(float deltaTime)
         {
-            ref var playerTransform = ref _player.GetComponent<PositionOnStage>();
+            ref var playerTransform = ref _player.GetComponent<TransformComponent>();
             foreach (var entity in _generatorsFilter)
                 UpdateGenerator(entity, playerTransform);
         }
 
-        private void UpdateGenerator(Entity entity, PositionOnStage playerTransform)
+        private void UpdateGenerator(Entity entity, TransformComponent playerTransform)
         {
             ref var resourceComponent = ref _resourceGeneratorComponentStash.Get(entity);
             SetGeneratorState(
                 playerTransform, 
                 ref entity.GetComponent<RadiusColliderComponent>(),
-                ref entity.GetComponent<PositionOnStage>(), entity);
+                ref entity.GetComponent<TransformComponent>(), entity);
         }
         
-        private void SetGeneratorState(PositionOnStage playerTransform,
+        private void SetGeneratorState(TransformComponent playerTransform,
             ref RadiusColliderComponent radius,
-            ref PositionOnStage position, Entity entity)
+            ref TransformComponent position, Entity entity)
         {
             if (CheckDistance(ref playerTransform, ref position, radius.Radius))
             {

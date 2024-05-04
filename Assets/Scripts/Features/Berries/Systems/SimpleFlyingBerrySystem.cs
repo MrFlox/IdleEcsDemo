@@ -6,10 +6,10 @@ using Scellecs.Morpeh.Helpers;
 
 namespace Features.Berries.Systems
 {
-    public class SimpleFlyingBerrySystem: SimpleSystem<BerryComponent, PositionOnStage>
+    public class SimpleFlyingBerrySystem: SimpleSystem<BerryComponent, TransformComponent>
     {
 
-        protected override void Process(Entity entity, ref BerryComponent first, ref PositionOnStage second, in float deltaTime)
+        protected override void Process(Entity entity, ref BerryComponent first, ref TransformComponent second, in float deltaTime)
         {
             if(!entity.Has<BerryComponent>()) return;
                 

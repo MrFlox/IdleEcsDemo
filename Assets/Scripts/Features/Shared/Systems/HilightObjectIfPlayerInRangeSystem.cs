@@ -11,7 +11,7 @@ namespace Features.Shared.Systems
     {
         private Filter _meshRenders;
         private Filter _playersFilter;
-        private Stash<PositionOnStage> _generatorStash;
+        private Stash<TransformComponent> _generatorStash;
         private Stash<ActivateIfPlayerInRangeComp> _rangeComponents;
         private Entity _player;
 
@@ -24,21 +24,21 @@ namespace Features.Shared.Systems
 
         public override void OnAwake()
         {
-            _meshRenders = World.Filter.With<ActivateIfPlayerInRangeComp>().With<PositionOnStage>().Build();
-            _playersFilter = World.Filter.With<PlayerComponent>().With<PositionOnStage>().Build();
-            _generatorStash = World.GetStash<PositionOnStage>();
+            _meshRenders = World.Filter.With<ActivateIfPlayerInRangeComp>().With<TransformComponent>().Build();
+            _playersFilter = World.Filter.With<PlayerComponent>().With<TransformComponent>().Build();
+            _generatorStash = World.GetStash<TransformComponent>();
             _rangeComponents = World.GetStash<ActivateIfPlayerInRangeComp>();
             _player = _playersFilter.First();
         }
 
         public override void OnUpdate(float deltaTime)
         {
-            ref var playerTransform = ref _player.GetComponent<PositionOnStage>();
+            ref var playerTransform = ref _player.GetComponent<TransformComponent>();
             foreach (var entity in _meshRenders)
                 UpdateGenerator(entity, playerTransform);
         }
 
-        private void UpdateGenerator(Entity entity, PositionOnStage playerTransform)
+        private void UpdateGenerator(Entity entity, TransformComponent playerTransform)
         {
             SetGeneratorState(
                 playerTransform,  
@@ -47,7 +47,7 @@ namespace Features.Shared.Systems
                 ref entity.GetComponent<RadiusColliderComponent>());
         }
         
-        private void SetGeneratorState(PositionOnStage playerTransform, ref PositionOnStage generator,
+        private void SetGeneratorState(TransformComponent playerTransform, ref TransformComponent generator,
             ref ActivateIfPlayerInRangeComp range, ref RadiusColliderComponent radius)
         {
             if (CheckDistance(ref playerTransform, ref generator, radius.Radius))

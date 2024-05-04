@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace Features.Balls.Systems
 {
-    public class SpawningBallsSystem:SimpleSystem<SpawningBalls, PositionOnStage, BallsGeneratorComponent>
+    public class SpawningBallsSystem:SimpleSystem<SpawningBalls, TransformComponent, BallsGeneratorComponent>
     {
-        protected override void Process(Entity entity, ref SpawningBalls first, ref PositionOnStage second, ref BallsGeneratorComponent third,
+        protected override void Process(Entity entity, ref SpawningBalls first, ref TransformComponent second, ref BallsGeneratorComponent third,
             in float deltaTime)
         {
             ref var lastSpawnTime = ref first.LastSpawnTime;

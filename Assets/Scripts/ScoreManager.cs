@@ -17,7 +17,7 @@ public class ScoreManager
     private void OnActivateBerryHandler()
     {
         Debug.Log("Activate Berry!!!!");
-        _counter++;
+        _counter+=5;
         OnUpdateInterface?.Invoke();
     }
     

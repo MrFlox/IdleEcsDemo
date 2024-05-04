@@ -14,20 +14,20 @@ namespace Features.FloatingObjects.Systems
 
         public override void OnAwake()
         {
-            _filter = World.Filter.With<FloatingComponent>().With<PositionOnStage>().Build();
+            _filter = World.Filter.With<FloatingComponent>().With<TransformComponent>().Build();
             _moveStash = World.GetStash<FloatingComponent>();
         }
 
         public override void OnUpdate(float deltaTime)
         {
             foreach (var entity in _filter)
-                UpdateObject(deltaTime, ref _moveStash.Get(entity), ref entity.GetComponent<PositionOnStage>());
+                UpdateObject(deltaTime, ref _moveStash.Get(entity), ref entity.GetComponent<TransformComponent>());
         }
 
         private static void UpdateObject(float deltaTime, ref FloatingComponent movable,
-            ref PositionOnStage positionOnStage)
+            ref TransformComponent transformComponent)
         {
-            ref var transform = ref positionOnStage.Transform;
+            ref var transform = ref transformComponent.Transform;
             var newPos = transform.position;
 
             if (transform.position.y < movable.InitialY - Offset)

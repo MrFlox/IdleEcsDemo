@@ -10,13 +10,13 @@ namespace Features.FloatingObjects.Systems
     {
         private Filter _filter;
         private Stash<FloatingComponent> _moveStash;
-        private Stash<PositionOnStage> _positionsStash;
+        private Stash<TransformComponent> _positionsStash;
 
         public override void OnAwake()
         {
-            _filter = World.Filter.With<FloatingComponent>().With<PositionOnStage>().Build();
+            _filter = World.Filter.With<FloatingComponent>().With<TransformComponent>().Build();
             _moveStash = World.GetStash<FloatingComponent>();
-            _positionsStash = World.GetStash<PositionOnStage>();
+            _positionsStash = World.GetStash<TransformComponent>();
 
             foreach (var entity in _filter)
             {

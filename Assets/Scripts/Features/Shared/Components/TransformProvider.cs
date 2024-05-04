@@ -5,13 +5,14 @@ using UnityEngine;
 
 namespace Features.Shared.Components
 {
-    public sealed class PositionOnStageProvider : MonoProvider<PositionOnStage> { }
+    public sealed class TransformProvider : MonoProvider<TransformComponent> { }
 
     [System.Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public struct PositionOnStage : IComponent, IValidatableWithGameObject
+
+    public struct TransformComponent : IComponent, IValidatableWithGameObject
     {
         public Transform Transform;
         

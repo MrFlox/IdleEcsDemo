@@ -66,7 +66,7 @@ namespace Features.Berries.Systems
             var berry = berries[0];
             berries.RemoveAt(0);
             var newEntity = World.CreateEntity();
-            newEntity.AddComponent<PositionOnStage>().Transform = berry;
+            newEntity.AddComponent<TransformComponent>().Transform = berry;
             ref var berryComponent = ref newEntity.AddComponent<BerryComponent>();
             berryComponent.Speed = berrySettings.BerryFlySpeed;
             berryComponent.Entity = newEntity;
