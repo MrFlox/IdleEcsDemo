@@ -30,6 +30,7 @@ namespace Features.Berries.Systems
                 ref var transform = ref _stash.Get(e);
                 if (!Utils.CheckDistance(ref transform, ref playerTransform, .2f)) continue;
                 var obj = e.GetComponent<TransformComponent>().Transform.gameObject;
+                
                 Object.Destroy(obj);
                 
                 e.RemoveComponent<CollectableBerryComponent>();

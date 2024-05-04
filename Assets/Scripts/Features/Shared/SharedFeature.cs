@@ -9,6 +9,8 @@ namespace Features.Shared
             AddSystem(Resolve<HilightObjectIfPlayerInRangeSystem>());
             AddSystem(Resolve<LootRotationSystem>());
             AddSystem(Resolve<ParabolaDropSystem>());
+            AddSystem(Resolve<MoveToTransformSystem>());
+            AddSystem(Resolve<ShadowUpdateSystem>());
         }
     }
 }
