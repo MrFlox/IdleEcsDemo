@@ -1,4 +1,5 @@
-﻿using Features.FloatingObjects.Components;
+﻿using Features.Berries.Components;
+using Features.FloatingObjects.Components;
 using Features.Generators.Components;
 using Features.Player.Components;
 using Features.Shared.Components;
@@ -60,6 +61,8 @@ namespace Features.Generators.Systems
             c.InitialY = entity.GetComponent<TransformComponent>().Transform.localPosition.y;
             c.MoveSpeed = Random.Range(.2f, .6f);
             c.Direction = (FloatingComponent.MoveDirection)Random.Range(0, 1);
+
+            entity.AddComponent<CollectableBerryComponent>();
         }
     }
 }
