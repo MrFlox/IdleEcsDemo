@@ -16,21 +16,11 @@ namespace Features.Shared.Systems
             _filter = World.Filter.With<ParabolaDropComponent>().With<TransformComponent>().Build();
             _stash = World.GetStash<ParabolaDropComponent>();
             _positionStash = World.GetStash<TransformComponent>();
-
-            foreach (var e in _filter)
-            {
-                ref var c = ref _stash.Get(e);
-                if (!c.Activated)
-                {
-                    c.Activated = true;
-                    c.StartPosition = _positionStash.Get(e).Transform.position;
-                    c.EndPosition = GetRandomPoint(c.StartPosition, 2f);
-                }
-            }
         }
 
         public override void OnUpdate(float deltaTime)
         {
+            ActivateDrops();
             foreach (var e in _filter)
             {
                 ref var c = ref _stash.Get(e);
@@ -44,14 +34,33 @@ namespace Features.Shared.Systems
                     t = 1;
                     c.Finished = true;
                     
-                    ref var newC = ref e.AddComponent<LootRotationComponent>();
-                    newC.Angle = 30;
-                    newC.Speed = 15;
-                    
+                    // AddRotationComponent(e);
+
                     e.RemoveComponent<ParabolaDropComponent>();
                 }
                 if (t < 0) t = 0;
             }
+        }
+        
+        private void ActivateDrops()
+        {
+            foreach (var e in _filter)
+            {
+                ref var c = ref _stash.Get(e);
+                if (!c.Activated)
+                {
+                    c.Activated = true;
+                    c.StartPosition = _positionStash.Get(e).Transform.position;
+                    c.EndPosition = GetRandomPoint(c.StartPosition, 2f);
+                }
+            }
+        }
+
+        private static void AddRotationComponent(Entity e)
+        {
+            ref var newC = ref e.AddComponent<LootRotationComponent>();
+            newC.Angle = 30;
+            newC.Speed = 25;
         }
 
 

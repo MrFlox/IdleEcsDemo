@@ -16,6 +16,7 @@ namespace DI
         
         public void Register()
         {
+            Register<ChopGeneratorSystem>();
             Register<ParabolaDropSystem>();
             Register<LootRotationSystem>();
             Register<ActivateBerriesSystem>();

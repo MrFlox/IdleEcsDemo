@@ -22,3 +22,4 @@ MonoBehaviour:
     BerryGrowthSpeed: 1
     BerryFlySpeed: 5
     BerryFlyDelay: 0.29
+  ResBall: {fileID: 5528958336613662866, guid: fe71effcd8d2ea34cb12b221ea0e3c68, type: 3}

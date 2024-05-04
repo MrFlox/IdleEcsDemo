@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ScriptableObjects
 {
@@ -24,5 +25,6 @@ namespace ScriptableObjects
         public Color ActiveColor;
         public Color InactiveColor;
         public BerriesSettings BerriesSettings;
+        public GameObject ResBall;
     }
 }
