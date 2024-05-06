@@ -50,3 +50,4 @@ MonoBehaviour:
   autoInjectGameObjects: []
   _systems: []
   _gameSettings: {fileID: 11400000, guid: 10028102041d3544389a472b4f63c565, type: 2}
+  _view: {fileID: 6075675626702010548, guid: b0e8f95ea92eaf24ebed0a21d30202c3, type: 3}
