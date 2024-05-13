@@ -1,4 +1,5 @@
 ﻿using Features.Berries.Systems;
+using Features.CollectingPoint.Systems;
 using Features.Generators.Systems;
 using Features.Player.Systems;
 using Features.Shared.Systems;
@@ -31,6 +32,7 @@ namespace DI
             Register<PlayerInputSystem>();
             Register<DeleteBerriesSystem>();
             Register<PlayerAnimationSystem>();
+            Register<CollectingPointSystem>();
         }
     }
 }
