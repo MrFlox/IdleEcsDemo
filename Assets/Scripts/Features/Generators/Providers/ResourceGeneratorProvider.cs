@@ -14,7 +14,6 @@ namespace Features.Generators.Providers
     {
         public List<Transform> Berries;
         public int LastIndex;
-        public float LastTime;
         public bool Inited;
 
         public void OnValidate(GameObject gameObject)

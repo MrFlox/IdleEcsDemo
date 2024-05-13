@@ -9,6 +9,11 @@ namespace Features.CollectingPoint.Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct CollectingPointComponent : IComponent
     {
-        
+        public enum DirectionEnum
+        {
+            ToPlayer,
+            FromPlayer
+        }
+        public DirectionEnum Direction;
     }
 }

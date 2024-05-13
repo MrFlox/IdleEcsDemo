@@ -1,5 +1,4 @@
-﻿using Features.Player.Components;
-using Features.Shared.Components;
+﻿using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
@@ -42,17 +41,11 @@ namespace Features.Shared.Systems
         
         private void ActivateDrops()
         {
-            var player = World.Filter.With<PlayerComponent>().With<TransformComponent>().Build().First();
-            ref var playerTransform = ref player.GetComponent<TransformComponent>();
-            
             foreach (var e in _filter)
             {
                 ref var c = ref _stash.Get(e);
                 if (!c.Activated)
-                {
                     c.Activated = true;
-                    c.EndPosition =  playerTransform.Transform;
-                }
             }
         }
         

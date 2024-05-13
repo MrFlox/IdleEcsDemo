@@ -9,5 +9,6 @@ namespace Features.Shared.Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct CollectableResourceComponent : IComponent
     {
+        public Entity CollectorEntity;
     }
 }

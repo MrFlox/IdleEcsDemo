@@ -1,5 +1,6 @@
 ﻿using Features.Berries.Components;
 using Features.Generators.Providers;
+using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using ScriptableObjects;
@@ -16,11 +17,13 @@ namespace Features.Berries.Systems
 
         private Filter _filter;
         private Stash<ResourceGeneratorComponent> _stash;
+        private Stash<TimingComponent> _timingComponentsStash;
 
         public override void OnAwake()
         {
             _filter = World.Filter.With<GrowingBerriesComponent>().Build();
             _stash = World.GetStash<ResourceGeneratorComponent>();
+            _timingComponentsStash = World.GetStash<TimingComponent>();
         }
         
         private void SetZeroScale()
@@ -43,15 +46,16 @@ namespace Features.Berries.Systems
             
             SetZeroScale();
             
-            foreach (var entity in _filter)
+            foreach (var e in _filter)
             {
-                ref var berries = ref _stash.Get(entity);
+                ref var berries = ref _stash.Get(e);
                 ref var index = ref berries.LastIndex;
-                if (Time.time - berries.LastTime > berriesSettings.BerryGrowthActivationDelay && index < berries.Berries.Count)
+                ref var lastTime = ref _timingComponentsStash.Get(e).LastActionTime;
+                if (Time.time - lastTime > berriesSettings.BerryGrowthActivationDelay && index < berries.Berries.Count)
                 {
-                    AddBerryComponent(berries.Berries[index], index, entity);
+                    AddBerryComponent(berries.Berries[index], index, e);
                     index++;
-                    berries.LastTime = Time.time;
+                    lastTime = Time.time;
                 }
             }
         }

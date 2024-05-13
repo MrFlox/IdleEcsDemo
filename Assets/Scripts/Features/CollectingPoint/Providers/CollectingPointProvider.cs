@@ -8,5 +8,6 @@ namespace Features.CollectingPoint.Providers
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public sealed class CollectingPointProvider : MonoProvider<Components.CollectingPointComponent>
     {
+       
     }
 }

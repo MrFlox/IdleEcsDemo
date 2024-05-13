@@ -1,28 +1,37 @@
-﻿using Features.Berries.Components;
-using Features.Player.Components;
+﻿using System;
 using Features.Shared.Components;
+using Features.Shared.Systems;
 using Scellecs.Morpeh;
-using Scellecs.Morpeh.Addons.Systems;
-using UnityEngine;
+using static Utils;
 
 namespace Features.CollectingPoint.Systems
 {
-    public class CollectingResourcesSystem : UpdateSystem
+    public class CollectingResourcesSystem : UpdateSystemWithDistanceCheckWithPlayer
     {
         private const float CollectResourceRadius = .2f;
-        
+
         private Filter _filter;
         private Stash<CollectableResourceComponent> _stash;
-        public override void OnAwake() => _filter = World.Filter.With<CollectableResourceComponent>().Build();
+        private Stash<TransformComponent> _transformStash;
+        public override void OnAwake()
+        {
+            base.OnAwake();
+            _filter = World.Filter.With<CollectableResourceComponent>().Build();
+            _stash = World.GetStash<CollectableResourceComponent>();
+            _transformStash = World.GetStash<TransformComponent>();
+        }
 
         public override void OnUpdate(float deltaTime)
         {
-            var player = World.Filter.With<PlayerComponent>().With<TransformComponent>().Build().First();
-            ref var playerTransform = ref player.GetComponent<TransformComponent>();
-
             foreach (var e in _filter)
             {
-                if (Utils.CheckDistance(ref playerTransform, ref e.GetComponent<TransformComponent>(), CollectResourceRadius))
+                var collectorEntity = _stash.Get(e).CollectorEntity;
+                if (collectorEntity == null) throw new Exception("No Collector Target");
+                
+                ref var resourceTransformComp = ref e.GetComponent<TransformComponent>();
+                ref var collectorTranfromComp = ref _transformStash.Get(collectorEntity);
+
+                if (CheckDistance(ref resourceTransformComp, ref collectorTranfromComp, CollectResourceRadius))
                 {
                     e.AddComponent<DeleteComponent>();
                     e.RemoveComponent<CollectableResourceComponent>();
