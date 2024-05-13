@@ -2,6 +2,7 @@
 using Features.CollectingPoint.Systems;
 using Features.Generators.Systems;
 using Features.Player.Systems;
+using Features.ResourceCounter.Systems;
 using Features.Shared.Systems;
 using VContainer;
 
@@ -36,6 +37,9 @@ namespace DI
             Register<CollectingPointActivationSystem>();
             Register<ParabolaDropFromPlayer>();
             Register<CollectingResourcesSystem>();
+            
+            Register<UpdateResourceCounterSystem>();
+            
         }
     }
 }
