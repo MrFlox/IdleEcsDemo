@@ -7,6 +7,7 @@ namespace Features.CollectingPoint
         protected override void Initialize()
         {
             AddSystem(Resolve<CollectingPointSystem>());
+            AddSystem(Resolve<CollectingPointActivationSystem>());
         }
     }
 }

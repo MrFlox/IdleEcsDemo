@@ -3,36 +3,35 @@ using Features.Player.Components;
 using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
-using UnityEngine;
 
 namespace Features.CollectingPoint.Systems
 {
-    public sealed class CollectingPointSystem : UpdateSystem
+    public class CollectingPointActivationSystem:UpdateSystem
     {
         private Filter _filter;
         private Stash<TransformComponent> _collectingPoints;
-        private Stash<TimingComponent> _timingComponents;
-
         public override void OnAwake()
         {
-            _filter = World.Filter.With<CollectingPointActivatedComponent>().Build();
+            _filter = World.Filter.With<CollectingPointComponent>().Build();
             _collectingPoints = World.GetStash<TransformComponent>();
-            _timingComponents = World.GetStash<TimingComponent>();
         }
-
+        
         public override void OnUpdate(float deltaTime)
         {
             var player = World.Filter.With<PlayerComponent>().With<TransformComponent>().Build().First();
             ref var playerTransform = ref player.GetComponent<TransformComponent>();
-
+            
             foreach (var e in _filter)
             {
-                ref var lastActionTime = ref _timingComponents.Get(e).LastActionTime;
-
-                if (Time.time - lastActionTime >= .5f)
+                if (Utils.CheckDistance(ref _collectingPoints.Get(e), ref playerTransform, 3.4f))
                 {
-                    Debug.Log("Start Spawning Resources!!!");
-                    lastActionTime = Time.time;
+                    if (!e.Has<CollectingPointActivatedComponent>())
+                        e.AddComponent<CollectingPointActivatedComponent>();
+                }
+                else
+                {
+                    if (e.Has<CollectingPointActivatedComponent>())
+                        e.RemoveComponent<CollectingPointActivatedComponent>();
                 }
             }
         }

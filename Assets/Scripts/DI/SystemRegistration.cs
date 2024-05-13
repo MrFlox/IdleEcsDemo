@@ -32,7 +32,9 @@ namespace DI
             Register<PlayerInputSystem>();
             Register<DeleteBerriesSystem>();
             Register<PlayerAnimationSystem>();
+            
             Register<CollectingPointSystem>();
+            Register<CollectingPointActivationSystem>();
         }
     }
 }

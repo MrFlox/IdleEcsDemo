@@ -6011,6 +6011,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00c1e0229ea4c67b3dfa69f0d4d3334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializedData:
+    LastActionTime: 0
 --- !u!135 &8971318256507687432
 SphereCollider:
   m_ObjectHideFlags: 0
