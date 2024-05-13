@@ -28,11 +28,16 @@ namespace Features.CollectingPoint.Systems
                 var collectorEntity = _stash.Get(e).CollectorEntity;
                 if (collectorEntity == null) throw new Exception("No Collector Target");
                 
-                ref var resourceTransformComp = ref e.GetComponent<TransformComponent>();
-                ref var collectorTranfromComp = ref _transformStash.Get(collectorEntity);
+                ref var resourceTransform = ref e.GetComponent<TransformComponent>();
+                ref var collectorTransform = ref _transformStash.Get(collectorEntity);
 
-                if (CheckDistance(ref resourceTransformComp, ref collectorTranfromComp, CollectResourceRadius))
+                if (CheckDistance(ref resourceTransform, ref collectorTransform, CollectResourceRadius))
                 {
+                    if (collectorEntity.Has<ResourcesStorageComponent>())
+                    {
+                        ref var count = ref collectorEntity.GetComponent<ResourcesStorageComponent>().Count;
+                        count++;
+                    }
                     e.AddComponent<DeleteComponent>();
                     e.RemoveComponent<CollectableResourceComponent>();
                 }
