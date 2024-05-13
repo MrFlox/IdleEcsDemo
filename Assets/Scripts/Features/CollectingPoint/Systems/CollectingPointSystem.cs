@@ -1,4 +1,6 @@
-﻿using Features.CollectingPoint.Components;
+﻿using Features.Berries.Components;
+using Features.CollectingPoint.Components;
+using Features.FloatingObjects.Components;
 using Features.Player.Components;
 using Features.Shared.Components;
 using Features.Shared.Providers;
@@ -26,9 +28,6 @@ namespace Features.CollectingPoint.Systems
 
         public override void OnUpdate(float deltaTime)
         {
-            var player = World.Filter.With<PlayerComponent>().With<TransformComponent>().Build().First();
-            ref var playerTransform = ref player.GetComponent<TransformComponent>();
-
             foreach (var e in _filter)
             {
                 ref var lastActionTime = ref _timingComponents.Get(e).LastActionTime;
@@ -36,9 +35,9 @@ namespace Features.CollectingPoint.Systems
                 if (Time.time - lastActionTime >= .1f)
                 {
                     var ball = Object.Instantiate(_settings.ResBallFromPlayer);
-                    var c = ball.GetComponent<ParabolaDropFromPlayerProvider>();
-                    var en = c.Entity;
-                    en.GetComponent<ParabolaDropFromPlayerComponent>().StartPosition =
+                    var resourceEntity = ball.GetComponent<ParabolaDropFromPlayerProvider>().Entity;
+                    resourceEntity.AddComponent<CollectableResourceComponent>();
+                    resourceEntity.GetComponent<ParabolaDropFromPlayerComponent>().StartPosition =
                         _collectingPoints.Get(e).Transform;
                     ball.transform.position = _collectingPoints.Get(e).Transform.position;
                     lastActionTime = Time.time;

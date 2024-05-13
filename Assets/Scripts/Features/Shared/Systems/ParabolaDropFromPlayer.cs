@@ -34,7 +34,7 @@ namespace Features.Shared.Systems
                 {
                     t = 1;
                     c.Finished = true;
-                    e.RemoveComponent<ParabolaDropComponent>();
+                    e.RemoveComponent<ParabolaDropFromPlayerComponent>();
                 }
                 if (t < 0) t = 0;
             }
@@ -51,7 +51,6 @@ namespace Features.Shared.Systems
                 if (!c.Activated)
                 {
                     c.Activated = true;
-                    // c.StartPosition =  _positionStash.Get(e).Transform;
                     c.EndPosition =  playerTransform.Transform;
                 }
             }

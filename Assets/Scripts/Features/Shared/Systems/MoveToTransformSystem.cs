@@ -35,8 +35,6 @@ namespace Features.Shared.Systems
                 if (Utils.CheckDistance(ref _transformStash.Get(e), ref playerTransform, 2f))
                 {
                     ref var transform = ref _transformStash.Get(e);
-                    ref var target = ref _moveToStash.Get(e);
-                    // ref var speed = ref _moveToStash.Get(e).Speed;
                     ref var accel = ref _moveToStash.Get(e).Accel;
                     transform.Transform.position =
                         Vector3.MoveTowards(transform.Transform.position, playerTransform.Transform.position,

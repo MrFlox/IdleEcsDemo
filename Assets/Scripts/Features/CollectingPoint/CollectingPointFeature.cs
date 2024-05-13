@@ -8,6 +8,7 @@ namespace Features.CollectingPoint
         {
             AddSystem(Resolve<CollectingPointSystem>());
             AddSystem(Resolve<CollectingPointActivationSystem>());
+            AddSystem(Resolve<CollectingResourcesSystem>());
         }
     }
 }

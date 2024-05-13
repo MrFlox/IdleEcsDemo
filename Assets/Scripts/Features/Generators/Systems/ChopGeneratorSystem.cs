@@ -63,7 +63,7 @@ namespace Features.Generators.Systems
             c.MoveSpeed = Random.Range(.2f, .6f);
             c.Direction = (FloatingComponent.MoveDirection)Random.Range(0, 1);
 
-            entity.AddComponent<CollectableBerryComponent>();
+            entity.AddComponent<CollectableResourceComponent>();
             var moveToTransformComponent = entity.AddComponent<MoveToTransformComponent>();
             moveToTransformComponent.Target = player.transform;
             moveToTransformComponent.Speed = 3;

@@ -19,7 +19,6 @@ namespace DI
         {
             Register<MoveToTransformSystem>();
             Register<ShadowUpdateSystem>();
-            Register<CollectBerrySystem>();
             Register<ChopGeneratorSystem>();
             Register<ParabolaDropSystem>();
             Register<LootRotationSystem>();
@@ -36,6 +35,7 @@ namespace DI
             Register<CollectingPointSystem>();
             Register<CollectingPointActivationSystem>();
             Register<ParabolaDropFromPlayer>();
+            Register<CollectingResourcesSystem>();
         }
     }
 }
