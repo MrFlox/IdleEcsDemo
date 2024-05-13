@@ -12,6 +12,7 @@ namespace Features.Shared
             AddSystem(Resolve<MoveToTransformSystem>());
             AddSystem(Resolve<ShadowUpdateSystem>());
             AddSystem(Resolve<ParabolaDropFromPlayer>());
+            AddSystem(Resolve<DeleteEntitiesSystem>());
         }
     }
 }

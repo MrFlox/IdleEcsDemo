@@ -29,7 +29,7 @@ namespace DI
             Register<SimpleFlyingBerrySystem>();
             Register<HilightObjectIfPlayerInRangeSystem>();
             Register<PlayerInputSystem>();
-            Register<DeleteBerriesSystem>();
+            Register<DeleteEntitiesSystem>();
             Register<PlayerAnimationSystem>();
             
             Register<CollectingPointSystem>();

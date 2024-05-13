@@ -1,4 +1,5 @@
-﻿using Features.Player.Components;
+﻿using Features.Berries.Components;
+using Features.Player.Components;
 using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
@@ -23,8 +24,7 @@ namespace Features.CollectingPoint.Systems
             {
                 if (Utils.CheckDistance(ref playerTransform, ref e.GetComponent<TransformComponent>(), CollectResourceRadius))
                 {
-                    var obj = e.GetComponent<TransformComponent>().Transform.gameObject;
-                    Object.Destroy(obj);
+                    e.AddComponent<DeleteComponent>();
                     e.RemoveComponent<CollectableResourceComponent>();
                 }
             }

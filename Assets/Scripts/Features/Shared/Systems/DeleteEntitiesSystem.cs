@@ -4,9 +4,9 @@ using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
 
-namespace Features.Berries.Systems
+namespace Features.Shared.Systems
 {
-    public class DeleteBerriesSystem: UpdateSystem 
+    public class DeleteEntitiesSystem: UpdateSystem 
     {
         private Filter _filter;
         private Stash<TransformComponent> _stash;

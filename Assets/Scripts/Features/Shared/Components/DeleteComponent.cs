@@ -1,7 +1,7 @@
 ﻿using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
 
-namespace Features.Berries.Components
+namespace Features.Shared.Components
 {
     [System.Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]
@@ -9,6 +9,5 @@ namespace Features.Berries.Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct DeleteComponent: IComponent
     {
-        
     }
 }
