@@ -26,6 +26,7 @@ namespace ScriptableObjects
         public Color InactiveColor;
         public BerriesSettings BerriesSettings;
         public GameObject ResBall;
+        public GameObject ResBallFromPlayer;
         public float BerryCollectableSpeed;
         public GameObject Shadow;
     }

@@ -1274,6 +1274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
+    FromPlayer: 0
     Activated: 0
     Speed: 1
     Time: 0
@@ -1569,6 +1570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
+    FromPlayer: 0
     Activated: 0
     Speed: 1
     Time: 0
@@ -2201,6 +2203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
+    FromPlayer: 0
     Activated: 0
     Speed: 1
     Time: 0
@@ -2415,6 +2418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
+    FromPlayer: 0
     Activated: 0
     Speed: 1
     Time: 0
@@ -2715,6 +2719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
+    FromPlayer: 0
     Activated: 0
     Speed: 1
     Time: 0
@@ -3021,6 +3026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
+    FromPlayer: 0
     Activated: 0
     Speed: 1
     Time: 0
@@ -5200,12 +5206,12 @@ PrefabInstance:
     - target: {fileID: 7563504264868287205, guid: b0e8f95ea92eaf24ebed0a21d30202c3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 9.28717
+      value: 9.287109
       objectReference: {fileID: 0}
     - target: {fileID: 7563504264868287205, guid: b0e8f95ea92eaf24ebed0a21d30202c3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 53.865417
+      value: 53.86548
       objectReference: {fileID: 0}
     - target: {fileID: 7563504264868287205, guid: b0e8f95ea92eaf24ebed0a21d30202c3,
         type: 3}

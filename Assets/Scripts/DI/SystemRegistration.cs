@@ -35,6 +35,7 @@ namespace DI
             
             Register<CollectingPointSystem>();
             Register<CollectingPointActivationSystem>();
+            Register<ParabolaDropFromPlayer>();
         }
     }
 }

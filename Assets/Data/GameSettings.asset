@@ -23,5 +23,7 @@ MonoBehaviour:
     BerryFlySpeed: 5
     BerryFlyDelay: 0.29
   ResBall: {fileID: 5528958336613662866, guid: fe71effcd8d2ea34cb12b221ea0e3c68, type: 3}
+  ResBallFromPlayer: {fileID: 7222443658095797183, guid: 8cd8a4c2cdb6329458159429381dc018,
+    type: 3}
   BerryCollectableSpeed: 5
   Shadow: {fileID: 6560111526245515376, guid: 51d0b1e1c5ac09c4fb08d4555acf102a, type: 3}
