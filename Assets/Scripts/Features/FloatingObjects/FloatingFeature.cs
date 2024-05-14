@@ -7,9 +7,7 @@ namespace Features.FloatingObjects
         protected override void Initialize()
         {
             AddInitializer(new FloatingInitializer());
-            // AddSystem(new FloatingSystem());
-            
-            
+            AddSystem(new FloatingSystem());
         }
     }
 }
