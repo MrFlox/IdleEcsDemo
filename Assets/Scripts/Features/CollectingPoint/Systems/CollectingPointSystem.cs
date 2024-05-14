@@ -12,7 +12,7 @@ namespace Features.CollectingPoint.Systems
     public sealed class CollectingPointSystem : UpdateSystem
     {
         private const float ResourceSpawnDelay = .1f;
-        
+
         private Filter _filter;
         private Stash<TransformComponent> _collectingPoints;
         private Stash<TimingComponent> _timingComponents;
@@ -20,7 +20,7 @@ namespace Features.CollectingPoint.Systems
         private GameSettings _settings;
 
         public CollectingPointSystem(GameSettings settings) => _settings = settings;
-        
+
         public override void OnAwake()
         {
             _filter = World.Filter.With<CollectingPointActivatedComponent>().Build();
@@ -34,36 +34,74 @@ namespace Features.CollectingPoint.Systems
             var playerFilter = World.Filter.With<PlayerComponent>().Build();
             var player = playerFilter.First();
             var playerTransform = player.GetComponent<TransformComponent>().Transform;
-            
+
             foreach (var e in _filter)
             {
                 ref var lastActionTime = ref _timingComponents.Get(e).LastActionTime;
-            
+
                 if (Time.time - lastActionTime >= ResourceSpawnDelay)
                 {
-                    var direction = e.GetComponent<CollectingPointComponent>().Direction;
-                    if (direction == CollectingPointComponent.DirectionEnum.ToPlayer)
-                    {
-                        var ball = Object.Instantiate(_settings.ResBallFromPlayer);
-                        var resourceEntity = ball.GetComponent<ParabolaDropFromPlayerProvider>().Entity;
-                        resourceEntity.AddComponent<CollectableResourceComponent>().CollectorEntity = player;
-                        _parabolaComponets.Get(resourceEntity).StartPosition = _collectingPoints.Get(e).Transform;
-                        _parabolaComponets.Get(resourceEntity).EndPosition = playerTransform;
-                        ball.transform.position = _collectingPoints.Get(e).Transform.position;
-                    }
-                    else
-                    {
-                        var ball = Object.Instantiate(_settings.ResBallFromPlayer);
-                        var resourceEntity = ball.GetComponent<ParabolaDropFromPlayerProvider>().Entity;
-                        resourceEntity.AddComponent<CollectableResourceComponent>().CollectorEntity = e;
-                        _parabolaComponets.Get(resourceEntity).StartPosition = playerTransform;
-                        _parabolaComponets.Get(resourceEntity).EndPosition = _collectingPoints.Get(e).Transform;
-                        ball.transform.position = playerTransform.position;
-                    }
-                    
+                    SpawnResourcesWithParabolaEffect(e, player, playerTransform);
                     lastActionTime = Time.time;
                 }
             }
+        }
+        private void SpawnResourcesWithParabolaEffect(Entity e, Entity player, Transform playerTransform)
+        {
+            var direction = e.GetComponent<CollectingPointComponent>().Direction;
+            if (direction == CollectingPointComponent.DirectionEnum.ToPlayer)
+            {
+                if (e.Has<ResourcesStorageComponent>())
+                {
+                    ref var resourceCount = ref e.GetComponent<ResourcesStorageComponent>().Count;
+                    if (resourceCount > 0)
+                    {
+                        resourceCount--;
+                        SpawnResourceToPlayer(e, player, playerTransform);
+                    }
+                }
+                else
+                {
+                    SpawnResourceToPlayer(e, player, playerTransform);
+                }
+            }
+            else
+            {
+                if (player.Has<ResourcesStorageComponent>())
+                {
+                    ref var resourceCount = ref player.GetComponent<ResourcesStorageComponent>().Count;
+                    if (resourceCount > 0)
+                    {
+                        resourceCount--;
+                        SpawnResourceFromPlayer(e, playerTransform);
+                    }
+                }
+                else
+                {
+                    SpawnResourceFromPlayer(e, playerTransform);
+                }
+            }
+        }
+        
+        private void SpawnResourceFromPlayer(Entity collectingEntity, Transform playerTransform)
+        {
+            SetComponentSettings(playerTransform, _collectingPoints.Get(collectingEntity).Transform, collectingEntity);
+        }
+
+        private void SpawnResourceToPlayer(Entity e, Entity player, Transform playerTransform)
+        {
+            SetComponentSettings(_collectingPoints.Get(e).Transform, playerTransform, player);
+        }
+        
+        private void SetComponentSettings(Transform from, Transform to, Entity collectorEntity)
+        {
+            var ball = Object.Instantiate(_settings.ResBallFromPlayer);
+            var entity = ball.GetComponent<ParabolaDropFromPlayerProvider>().Entity;
+            
+            entity.AddComponent<CollectableResourceComponent>().CollectorEntity = collectorEntity;
+            _parabolaComponets.Get(entity).StartPosition = from;
+            _parabolaComponets.Get(entity).EndPosition = to;
+            ball.transform.position = from.position;
         }
     }
 }
