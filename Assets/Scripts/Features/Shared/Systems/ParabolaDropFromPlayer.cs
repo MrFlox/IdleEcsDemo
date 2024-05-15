@@ -28,7 +28,8 @@ namespace Features.Shared.Systems
                 if (c.Finished) continue;
                 ref var t = ref c.Time;
                 t += c.Speed * deltaTime;
-                _positionStash.Get(e).Transform.position = GetPointOnParabola(t, c.StartPosition.position, c.EndPosition.position, 1f);
+                _positionStash.Get(e).Transform.position = 
+                    GetPointOnParabola(t, c.StartPosition.position, c.EndPositionValue, 1f);
                 if (t > 1)
                 {
                     t = 1;

@@ -23,30 +23,25 @@ namespace Features.CollectingPoint.Systems
         {
             foreach (var e in _filter)
             {
-                ref var buildForResourcesComp = ref _components.Get(e);
-                ref var resourceStorageComp = ref _resourceComponents.Get(e);
+                ref var buildForResourcesComp = ref _components.Get(e, out var isResourceCompExist);
+                ref var resourceStorageComp = ref _resourceComponents.Get(e, out var isStorageCompExist);
+                
+                if(!isResourceCompExist || !isStorageCompExist) continue;
+                
                 buildForResourcesComp.ResourcesCount = buildForResourcesComp.NeededResources - resourceStorageComp.Count;
 
                 if (buildForResourcesComp.ResourcesCount < 0)
                 {
                     SpawnGenerator(e);
-                    e.GetComponent<TransformComponent>().Transform.gameObject.SetActive(false);
-                    e.RemoveComponent<BuildForResourcesComponent>();
-                    e.RemoveComponent<ResourcesStorageComponent>();
-                    e.RemoveComponent<CollectingPointComponent>();
-                    World.RemoveEntity(e);
-                    // ref Bullet bullet = ref bulletEntity.GetComponent<Bullet>(out bool isBullet);
-                    // if (!isBullet) {
-                    //     return;
-                    // }
-                    
-                    
-                    
-                    // e.Dispose();
-                    // e.GetComponent<TransformComponent>().Transform.gameObject.SetActive(false);
-                    // e.AddComponent<DeleteComponent>();
+                    DestroyResourceCollector(e);
                 }
             }
+        }
+
+        private void DestroyResourceCollector(Entity e)
+        {
+            Object.Destroy(e.GetComponent<TransformComponent>().Transform.gameObject);
+            World.RemoveEntity(e);
         }
         
         private  void SpawnGenerator(Entity e)

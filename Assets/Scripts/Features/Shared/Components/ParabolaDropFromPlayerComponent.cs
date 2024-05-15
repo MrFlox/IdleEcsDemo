@@ -18,7 +18,29 @@ namespace Features.Shared.Components
         public float Time;
 
         public Transform StartPosition;
-        public Transform EndPosition;
+
+        public Transform EndPosition
+        {
+            get { return _endPosition; }
+            set
+            {
+                _endPosition = value;
+                _endPositionVector3 = _endPosition.position;
+            }
+        }
+
+        private Transform _endPosition;
+        private Vector3 _endPositionVector3;
+
+        public Vector3 EndPositionValue
+        {
+            get
+            {
+                if (_endPosition != null) return _endPosition.position;
+                return _endPositionVector3;
+            }
+        }
+
         public bool Finished;
     }
 }
