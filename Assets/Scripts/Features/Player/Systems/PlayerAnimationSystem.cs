@@ -50,6 +50,7 @@ namespace Features.Player.Systems
                 
                 case "idle":
                     Debug.Log("idle");
+                    // animator.Animator.Play("pickup");
                     animator.Animator.Play("idle");
                     break;
             }

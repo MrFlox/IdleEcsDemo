@@ -48,7 +48,9 @@ namespace Features.CollectingPoint.Systems
         }
         private void SpawnResourcesWithParabolaEffect(Entity e, Entity player, Transform playerTransform)
         {
+            if(!e.Has<CollectingPointComponent>()) return;
             var direction = e.GetComponent<CollectingPointComponent>().Direction;
+            
             if (direction == CollectingPointComponent.DirectionEnum.ToPlayer)
             {
                 if (e.Has<ResourcesStorageComponent>())

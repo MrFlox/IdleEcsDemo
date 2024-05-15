@@ -30,9 +30,19 @@ namespace Features.CollectingPoint.Systems
                 if (buildForResourcesComp.ResourcesCount < 0)
                 {
                     SpawnGenerator(e);
+                    e.GetComponent<TransformComponent>().Transform.gameObject.SetActive(false);
                     e.RemoveComponent<BuildForResourcesComponent>();
                     e.RemoveComponent<ResourcesStorageComponent>();
+                    e.RemoveComponent<CollectingPointComponent>();
+                    World.RemoveEntity(e);
+                    // ref Bullet bullet = ref bulletEntity.GetComponent<Bullet>(out bool isBullet);
+                    // if (!isBullet) {
+                    //     return;
+                    // }
                     
+                    
+                    
+                    // e.Dispose();
                     // e.GetComponent<TransformComponent>().Transform.gameObject.SetActive(false);
                     // e.AddComponent<DeleteComponent>();
                 }
