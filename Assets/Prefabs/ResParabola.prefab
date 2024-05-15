@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
+    FromPlayer: 0
     Activated: 0
     Speed: 2
     Time: 0
@@ -83,17 +84,17 @@ PrefabInstance:
     - target: {fileID: 8804447056896620861, guid: 0b122d2683dc0474c8ab799c90caba94,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.23000002
+      value: 0.61
       objectReference: {fileID: 0}
     - target: {fileID: 8804447056896620861, guid: 0b122d2683dc0474c8ab799c90caba94,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.23000002
+      value: 0.61
       objectReference: {fileID: 0}
     - target: {fileID: 8804447056896620861, guid: 0b122d2683dc0474c8ab799c90caba94,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.23000002
+      value: 0.61
       objectReference: {fileID: 0}
     - target: {fileID: 8804447056896620861, guid: 0b122d2683dc0474c8ab799c90caba94,
         type: 3}

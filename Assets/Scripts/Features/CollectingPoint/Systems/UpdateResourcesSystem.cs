@@ -3,6 +3,7 @@ using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
+using LateUpdateSystem = Scellecs.Morpeh.Systems.LateUpdateSystem;
 
 namespace Features.CollectingPoint.Systems
 {
@@ -30,7 +31,7 @@ namespace Features.CollectingPoint.Systems
                 
                 buildForResourcesComp.ResourcesCount = buildForResourcesComp.NeededResources - resourceStorageComp.Count;
 
-                if (buildForResourcesComp.ResourcesCount < 0)
+                if (buildForResourcesComp.ResourcesCount == 0)
                 {
                     SpawnGenerator(e);
                     DestroyResourceCollector(e);

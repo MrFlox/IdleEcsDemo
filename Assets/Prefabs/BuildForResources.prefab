@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 35.7}
+  m_AnchoredPosition: {x: 0, y: 16.3}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2304544214548206413
@@ -192,6 +192,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 581546146157732960, guid: 07d08288461d4c84ebd00b9f7b36f652,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2366574688634649186, guid: 07d08288461d4c84ebd00b9f7b36f652,
         type: 3}
       propertyPath: serializedData.Count
@@ -247,5 +252,6 @@ MonoBehaviour:
   serializedData:
     Text: {fileID: 1032100642400173461}
     NeededResources: 5
+    ResourcesCount: 0
     Result: {fileID: 8965949073997457212, guid: 43448731620f9bf4bba8900bc815a22c,
       type: 3}
