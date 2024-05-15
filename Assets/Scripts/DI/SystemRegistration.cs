@@ -39,7 +39,8 @@ namespace DI
             Register<CollectingResourcesSystem>();
             
             Register<UpdateResourceCounterSystem>();
-            
+            Register<UpdateNeededResourcesSystem>();
+            Register<UpdateResourcesSystem>();
         }
     }
 }

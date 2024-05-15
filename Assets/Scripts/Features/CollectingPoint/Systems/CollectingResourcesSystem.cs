@@ -25,9 +25,10 @@ namespace Features.CollectingPoint.Systems
         {
             foreach (var e in _filter)
             {
+                if(e.Has<DeleteComponent>()) continue;
                 var collectorEntity = _stash.Get(e).CollectorEntity;
                 if (collectorEntity == null) throw new Exception("No Collector Target");
-                
+                if(collectorEntity.IsNullOrDisposed()) continue;                
                 ref var resourceTransform = ref e.GetComponent<TransformComponent>();
                 ref var collectorTransform = ref _transformStash.Get(collectorEntity);
 
