@@ -1,4 +1,5 @@
-﻿using Features.Shared.Components;
+﻿using DG.Tweening;
+using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
@@ -8,48 +9,47 @@ namespace Features.MoneyStack.Systems
     public class MoneyStackSystem : UpdateSystem
     {
         private Filter _filter;
+        private Stash<TimingComponent> _timingStash;
+        private Stash<Components.MoneyStack> _moneyStash;
+        private Stash<TransformComponent> _transformStash;
         
         public override void OnAwake()
         {
             _filter = World.Filter.With<Components.MoneyStack>().Build();
-            foreach (var e in _filter)
-            {
-                AddStackOfMoney(e);
-            }
-        }
-        private void AddStackOfMoney(Entity e)
-        {
-            for (int y = 0; y < 5; y++)
-            for (int x = 0; x < 5; x++)
-            for (int z = 0; z < 5; z++)
-                AddMoneyToStack(e, x, z, y);    
-        }
-        
-        private void AddMoneyToStack(Entity entity,  int x, int z, int y)
-        {
-            var moneyComp = entity.GetComponent<Components.MoneyStack>();
-            var moneyPrefab = moneyComp.MoneyPrefab;
-            ref var moneyList = ref moneyComp.Money;
-            
-            var money = Object.Instantiate(moneyPrefab);
-            money.transform.SetParent(entity.GetComponent<TransformComponent>().Transform);
-            // var y = moneyList.Count / 25;
-            var newPos =  new Vector3(x * .2f, y * .05f, z * 0.3f);
-            money.transform.localPosition = newPos;
-            moneyList.Add(money);
+            _timingStash = World.GetStash<TimingComponent>();
+            _moneyStash = World.GetStash<Components.MoneyStack>();
+            _transformStash = World.GetStash<TransformComponent>();
         }
 
-        private void AddMoneyToStack(Entity entity)
+        private void AddStackOfMoney(Entity e)
         {
-            var moneyComp = entity.GetComponent<Components.MoneyStack>();
+            ref var moneyComp = ref _moneyStash.Get(e);
+
+            AddMoneyToStack(e, moneyComp.CurrentX, moneyComp.CurrentZ, moneyComp.CurrentY);
+            moneyComp.CurrentX++;
+            if (moneyComp.CurrentX == moneyComp.Rows)
+            {
+                moneyComp.CurrentX = 0;
+                moneyComp.CurrentZ++;
+            }
+            if (moneyComp.CurrentZ == moneyComp.Cols)
+            {
+                moneyComp.CurrentZ = 0;
+                moneyComp.CurrentY++;
+            }
+        }
+
+        private void AddMoneyToStack(Entity entity, int x, int z, int y)
+        {
+            var moneyComp = _moneyStash.Get(entity);
             var moneyPrefab = moneyComp.MoneyPrefab;
             ref var moneyList = ref moneyComp.Money;
-            
-            var money = Object.Instantiate(moneyPrefab);
-            money.transform.SetParent(entity.GetComponent<TransformComponent>().Transform);
-            
-            var newPos =  new Vector3(moneyList.Count * .2f, moneyList.Count * .05f, 0);
+
+            var money = Object.Instantiate(moneyPrefab, _transformStash.Get(entity).Transform, true);
+            var newPos = new Vector3(x * .2f * 1.2f, y * .05f* 1.2f+1f, z * 0.3f* 1.2f);
             money.transform.localPosition = newPos;
+            money.transform.localScale = Vector3.zero;
+            money.transform.DOScale(1, 1).SetEase(Ease.OutElastic);
             moneyList.Add(money);
         }
 
@@ -57,7 +57,22 @@ namespace Features.MoneyStack.Systems
         {
             foreach (var e in _filter)
             {
-                
+                ref var timeComponent = ref _timingStash.Get(e);
+                if (Time.time - timeComponent.LastActionTime > .1f)
+                {
+                    AddMoneyBlock(e);
+                    timeComponent.LastActionTime = Time.time;
+                }
+            }
+        }
+        
+        private void AddMoneyBlock(Entity e)
+        {
+            ref var c = ref _moneyStash.Get(e);
+            if (c.MoneyCount > 0)
+            {
+                AddStackOfMoney(e);
+                c.MoneyCount--;
             }
         }
     }

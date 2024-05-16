@@ -61,6 +61,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializedData:
+    MoneyCount: 63
+    CurrentX: 0
+    CurrentZ: 0
+    CurrentY: 0
+    Cols: 5
+    Rows: 5
     MoneyPrefab: {fileID: 3731297667150273709, guid: fad40c60f247e8a409991c7f4856b3c3,
       type: 3}
     Money: []

@@ -13,6 +13,14 @@ namespace Features.MoneyStack.Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct MoneyStack : IComponent
     {
+        public int MoneyCount;
+        public int CurrentX;
+        public int CurrentZ;
+        public int CurrentY;
+
+        public int Cols;
+        public int Rows;
+        
         public GameObject MoneyPrefab;
         [SerializeField] public List<GameObject> Money;
     }
