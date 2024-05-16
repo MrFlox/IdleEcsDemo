@@ -5,6 +5,7 @@ using Features.CircleProgress;
 using Features.CollectingPoint;
 using Features.FloatingObjects;
 using Features.Generators;
+using Features.MoneyStack;
 using Features.Player;
 using Features.ResourceCounter;
 using Features.Shared;
@@ -33,6 +34,7 @@ public class FeaturesInstaller : BaseFeaturesInstaller
             _container.CreateFeature<GeneratorsFeature>(),
             _container.CreateFeature<CollectingPointFeature>(),
             _container.CreateFeature<ResourceCounterFeature>(),
+            _container.CreateFeature<MoneyStackFeature>(),
         };
     }
 
