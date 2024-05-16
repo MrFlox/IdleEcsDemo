@@ -7,6 +7,7 @@ namespace Features.MoneyStack
         protected override void Initialize()
         {
             AddSystem(Resolve<MoneyStackSystem>());
+            AddSystem(Resolve<MoneySplashSystem>());
         }
     }
 }

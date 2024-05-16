@@ -45,7 +45,7 @@ namespace DI
             
             
             Register<MoneyStackSystem>();
-            
+            Register<MoneySplashSystem>();
         }
     }
 }
