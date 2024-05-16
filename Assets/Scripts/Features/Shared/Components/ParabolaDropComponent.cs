@@ -11,6 +11,7 @@ namespace Features.Shared.Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct ParabolaDropComponent : IComponent
     {
+        public bool FromPlayer;
         public bool Activated;
         public float Speed;
 
@@ -20,7 +21,5 @@ namespace Features.Shared.Components
         public Vector3 StartPosition;
         public Vector3 EndPosition;
         public bool Finished;
-        
-        
     }
 }

@@ -2,9 +2,11 @@
 using Features.Balls;
 using Features.Berries;
 using Features.CircleProgress;
+using Features.CollectingPoint;
 using Features.FloatingObjects;
 using Features.Generators;
 using Features.Player;
+using Features.ResourceCounter;
 using Features.Shared;
 using Scellecs.Morpeh.Addons.Feature;
 using Scellecs.Morpeh.Addons.Feature.Unity;
@@ -28,7 +30,9 @@ public class FeaturesInstaller : BaseFeaturesInstaller
             _container.CreateFeature<SharedFeature>(),
             _container.CreateFeature<PlayerFeature>(),
             _container.CreateFeature<CircleProgressBarFeature>(),
-            _container.CreateFeature<GeneratorsFeature>()
+            _container.CreateFeature<GeneratorsFeature>(),
+            _container.CreateFeature<CollectingPointFeature>(),
+            _container.CreateFeature<ResourceCounterFeature>(),
         };
     }
 

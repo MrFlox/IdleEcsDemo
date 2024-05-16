@@ -1,45 +1,38 @@
 ﻿using Features.Balls.Components;
-using Features.Player.Components;
 using Features.Shared.Components;
+using Features.Shared.Systems;
 using Scellecs.Morpeh;
-using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
 
 namespace Features.Balls.Systems
 {
-    public class BallGeneratorSystem : UpdateSystem
+    public class BallGeneratorSystem : UpdateSystemWithDistanceCheckWithPlayer
     {
         private Filter _generatorFilter;
-        private Filter _playerFilter;
-        private Stash<TransformComponent> _positions;
         private Stash<RadiusColliderComponent> _rads;
 
         public override void OnAwake()
         {
+            base.OnAwake();
             _generatorFilter = World.Filter.With<BallsGeneratorComponent>().With<TransformComponent>().Build();
-            _playerFilter = World.Filter.With<PlayerComponent>().Build();
-            
-            _positions = World.GetStash<TransformComponent>();
             _rads = World.GetStash<RadiusColliderComponent>();
         }
 
         public override void OnUpdate(float deltaTime)
         {
-            ref var playerPos = ref _positions.Get(_playerFilter.First());
-            foreach (var ballGenEntity in _generatorFilter)
+            foreach (var e in _generatorFilter)
             {
-                ref var ballPos = ref _positions.Get(ballGenEntity);
-                var radius = _rads.Get(ballGenEntity).Radius;
+                var radius = _rads.Get(e).Radius;
                 
-                if (Utils.CheckDistance(ref ballPos, ref playerPos, radius))
+                if (CheckDistanceWithPlayer(e, radius))
                 {
-                    if (!ballGenEntity.Has<SpawningBalls>())
-                        ballGenEntity.AddComponent<SpawningBalls>().LastSpawnTime = Time.time;
+                    if (!e.Has<SpawningBalls>())
+                        e.AddComponent<SpawningBalls>().LastSpawnTime = Time.time;
                 }
                 else
                 {
-                    if (ballGenEntity.Has<SpawningBalls>())
-                        ballGenEntity.RemoveComponent<SpawningBalls>();
+                    if (e.Has<SpawningBalls>())
+                        e.RemoveComponent<SpawningBalls>();
                 }
             }
         }

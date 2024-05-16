@@ -21,7 +21,8 @@ namespace Features.Berries.Systems
         private Filter _filter;
         private Stash<ResourceGeneratorComponent> _activatedBerries;
         private Stash<ActivatedGenerator> _generators;
-
+        private Stash<TimingComponent> _timingComponentsStash;
+        
         public ActivateBerriesSystem(GameSettings settings)
         {
             _settings = settings;
@@ -32,28 +33,29 @@ namespace Features.Berries.Systems
             _filter = World.Filter.With<ActivatedGenerator>().Without<GrowingBerriesComponent>().Build();
             _activatedBerries = World.GetStash<ResourceGeneratorComponent>();
             _generators = World.GetStash<ActivatedGenerator>();
+            _timingComponentsStash = World.GetStash<TimingComponent>();
         }
 
         public override void OnUpdate(float deltaTime)
         {
             ref var berrySettings = ref _settings.BerriesSettings;
-            foreach (var entity in _filter)
+            foreach (var e in _filter)
             {
-                if (entity.Has<ActivatedGenerator>())
+                if (e.Has<ActivatedGenerator>())
                 {
-                    ref var activatedComponent = ref _generators.Get(entity);
-                    ref var lastSpawnTime = ref activatedComponent.LastSpawnTime;
+                    ref var activatedComponent = ref _generators.Get(e);
+                    ref var lastSpawnTime = ref _timingComponentsStash.Get(e).LastActionTime;
 
                     if (Time.time - lastSpawnTime >= berrySettings.BerryFlyDelay)
                     {
-                        ShowFlyingBerries(entity);
+                        ShowFlyingBerries(e);
                         lastSpawnTime = Time.time;
                     }
 
-                    if (_activatedBerries.Get(entity).Berries.Count == 0)
+                    if (_activatedBerries.Get(e).Berries.Count == 0)
                     {
-                        entity.RemoveComponent<GeneratorComponent>();
-                        entity.RemoveComponent<ActivatedGenerator>();
+                        e.RemoveComponent<GeneratorComponent>();
+                        e.RemoveComponent<ActivatedGenerator>();
                     }
                 }
             }

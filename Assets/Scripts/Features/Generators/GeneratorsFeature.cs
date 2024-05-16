@@ -8,7 +8,7 @@ namespace Features.Generators
         {
             AddInitializer(Resolve<AddGeneratorsSystem>());
             AddSystem(Resolve<ChopGeneratorSystem>());
-            AddSystem(new GeneratrosActivatorSystem());
+            AddSystem(new GeneratorsActivatorSystem());
         }
     }
 }

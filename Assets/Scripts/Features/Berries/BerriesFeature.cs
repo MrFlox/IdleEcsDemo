@@ -8,12 +8,9 @@ namespace Features.Berries
         {
             AddSystem(Resolve<BerriesGrowthSystem>());
             AddSystem(Resolve<SimpleFlyingBerrySystem>());
-            AddSystem(Resolve<DeleteBerriesSystem>());
             AddSystem(Resolve<ActivateBerriesSystem>());
-            AddSystem(Resolve<CollectBerrySystem>());
             AddSystem(Resolve<GrowingBerrySystem>());
             AddSystem(new RemoveGrowingFromGeneratorSystem());
         }
-       
     }
 }

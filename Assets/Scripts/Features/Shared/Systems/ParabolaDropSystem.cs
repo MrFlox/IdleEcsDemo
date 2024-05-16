@@ -33,9 +33,6 @@ namespace Features.Shared.Systems
                 {
                     t = 1;
                     c.Finished = true;
-                    
-                    // AddRotationComponent(e);
-
                     e.RemoveComponent<ParabolaDropComponent>();
                 }
                 if (t < 0) t = 0;
@@ -47,7 +44,7 @@ namespace Features.Shared.Systems
             foreach (var e in _filter)
             {
                 ref var c = ref _stash.Get(e);
-                if (!c.Activated)
+                if (!c.Activated && !c.FromPlayer)
                 {
                     c.Activated = true;
                     c.StartPosition = _positionStash.Get(e).Transform.position;

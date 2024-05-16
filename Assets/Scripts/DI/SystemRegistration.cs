@@ -1,6 +1,8 @@
 ﻿using Features.Berries.Systems;
+using Features.CollectingPoint.Systems;
 using Features.Generators.Systems;
 using Features.Player.Systems;
+using Features.ResourceCounter.Systems;
 using Features.Shared.Systems;
 using VContainer;
 
@@ -18,7 +20,6 @@ namespace DI
         {
             Register<MoveToTransformSystem>();
             Register<ShadowUpdateSystem>();
-            Register<CollectBerrySystem>();
             Register<ChopGeneratorSystem>();
             Register<ParabolaDropSystem>();
             Register<LootRotationSystem>();
@@ -29,8 +30,17 @@ namespace DI
             Register<SimpleFlyingBerrySystem>();
             Register<HilightObjectIfPlayerInRangeSystem>();
             Register<PlayerInputSystem>();
-            Register<DeleteBerriesSystem>();
+            Register<DeleteEntitiesSystem>();
             Register<PlayerAnimationSystem>();
+            
+            Register<CollectingPointSystem>();
+            Register<CollectingPointActivationSystem>();
+            Register<ParabolaDropFromPlayer>();
+            Register<CollectingResourcesSystem>();
+            
+            Register<UpdateResourceCounterSystem>();
+            Register<UpdateNeededResourcesSystem>();
+            Register<UpdateResourcesSystem>();
         }
     }
 }
