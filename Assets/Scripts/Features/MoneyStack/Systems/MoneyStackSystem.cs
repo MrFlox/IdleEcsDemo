@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Collections.Generic;
+using Features.MoneyStack.Services;
 using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
@@ -12,7 +13,7 @@ namespace Features.MoneyStack.Systems
         private Stash<TimingComponent> _timingStash;
         private Stash<Components.MoneyStack> _moneyStash;
         private Stash<TransformComponent> _transformStash;
-        
+
         public override void OnAwake()
         {
             _filter = World.Filter.With<Components.MoneyStack>().Build();
@@ -25,7 +26,8 @@ namespace Features.MoneyStack.Systems
         {
             ref var moneyComp = ref _moneyStash.Get(e);
 
-            AddMoneyToStack(e, moneyComp.CurrentX, moneyComp.CurrentZ, moneyComp.CurrentY);
+            var newPos = new Vector3Int(moneyComp.CurrentX, moneyComp.CurrentY, moneyComp.CurrentZ);
+            AddMoneyToStack(e, newPos);
             moneyComp.CurrentX++;
             if (moneyComp.CurrentX == moneyComp.Rows)
             {
@@ -39,20 +41,21 @@ namespace Features.MoneyStack.Systems
             }
         }
 
-        private void AddMoneyToStack(Entity entity, int x, int z, int y)
+        private void AddMoneyToStack(Entity entity, Vector3Int pos)
         {
             var moneyComp = _moneyStash.Get(entity);
             var moneyPrefab = moneyComp.MoneyPrefab;
             ref var moneyList = ref moneyComp.Money;
 
-            var money = Object.Instantiate(moneyPrefab, _transformStash.Get(entity).Transform, true);
-            var newPos = new Vector3(x * .2f * 1.2f, y * .05f* 1.2f+1f, z * 0.3f* 1.2f);
-            money.transform.localPosition = newPos;
-            money.transform.localScale = Vector3.zero;
-            money.transform.DOScale(1, 1).SetEase(Ease.OutElastic);
-            moneyList.Add(money);
+            InstantiateMoney(entity, pos, moneyPrefab, moneyList);
         }
 
+        private void InstantiateMoney(Entity entity, Vector3Int pos, GameObject moneyPrefab,
+            List<GameObject> moneyList)
+        {
+            MoneyFactory.CreateMoneyBlock(entity, pos, moneyPrefab, moneyList,
+                _transformStash.Get(entity).Transform);
+        }
         public override void OnUpdate(float deltaTime)
         {
             foreach (var e in _filter)
@@ -65,7 +68,7 @@ namespace Features.MoneyStack.Systems
                 }
             }
         }
-        
+
         private void AddMoneyBlock(Entity e)
         {
             ref var c = ref _moneyStash.Get(e);
