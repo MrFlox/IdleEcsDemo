@@ -398,6 +398,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 500549297788842354, guid: 07d08288461d4c84ebd00b9f7b36f652,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 500549297788842354, guid: 07d08288461d4c84ebd00b9f7b36f652,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 500549297788842354, guid: 07d08288461d4c84ebd00b9f7b36f652,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.08191
+      objectReference: {fileID: 0}
+    - target: {fileID: 500549297788842354, guid: 07d08288461d4c84ebd00b9f7b36f652,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.08
       objectReference: {fileID: 0}
@@ -454,6 +469,21 @@ PrefabInstance:
     - target: {fileID: 2366574688634649186, guid: 07d08288461d4c84ebd00b9f7b36f652,
         type: 3}
       propertyPath: serializedData.Count
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3242811493462721288, guid: 07d08288461d4c84ebd00b9f7b36f652,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 3242811493462721288, guid: 07d08288461d4c84ebd00b9f7b36f652,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3242811493462721288, guid: 07d08288461d4c84ebd00b9f7b36f652,
+        type: 3}
+      propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4837275577400966236, guid: 07d08288461d4c84ebd00b9f7b36f652,
