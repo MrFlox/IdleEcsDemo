@@ -1,4 +1,5 @@
 ﻿using Features.CollectingPoint.Systems;
+using Features.Tiles;
 
 namespace Features.CollectingPoint
 {
@@ -11,6 +12,7 @@ namespace Features.CollectingPoint
             AddSystem(Resolve<CollectingResourcesSystem>());
             AddSystem(Resolve<UpdateNeededResourcesSystem>());
             AddSystem(Resolve<UpdateResourcesSystem>());
+            AddInitializer(new HideTilesSystem());
         }
     }
 }
