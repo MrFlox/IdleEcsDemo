@@ -15,5 +15,6 @@ namespace Features.CollectingPoint.Components
         public int NeededResources;
         public int ResourcesCount;
         public GameObject Result;
+        public bool Activated;
     }
 }

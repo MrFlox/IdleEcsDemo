@@ -11,5 +11,6 @@ namespace Features.Shared.Components
     public struct ResourcesStorageComponent: IComponent
     {
         public int Count;
+        public int SpawnCounter;
     }
 }
