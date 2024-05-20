@@ -12,5 +12,6 @@ namespace Features.Shared.Components
     {
         public int Count;
         public int SpawnCounter;
+        public Entity CurrentEntity;
     }
 }

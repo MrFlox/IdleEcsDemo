@@ -3,10 +3,13 @@ using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using UnityEngine;
-using LateUpdateSystem = Scellecs.Morpeh.Systems.LateUpdateSystem;
+
 
 namespace Features.CollectingPoint.Systems
 {
+    /// <summary>
+    /// This system set ResourceCount to Needed - Count
+    /// </summary>
     public class UpdateResourcesSystem : UpdateSystem
     {
         private Filter _filter;
@@ -30,7 +33,7 @@ namespace Features.CollectingPoint.Systems
                 if(!isResourceCompExist || !isStorageCompExist) continue;
                 
                 buildForResourcesComp.ResourcesCount = buildForResourcesComp.NeededResources - resourceStorageComp.Count;
-
+            
                 if (buildForResourcesComp.ResourcesCount == 0)
                 {
                     SpawnGenerator(e);

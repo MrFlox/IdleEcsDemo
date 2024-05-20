@@ -853,7 +853,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1701087, y: 0.0021098787, z: -0.0021325722, w: 0.9854208}
+  m_LocalRotation: {x: 0.09791574, y: 0.002259537, z: -0.0019733077, w: 0.99519026}
   m_LocalPosition: {x: 2.4601927, y: -0.51461315, z: -28.125109}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3976,6 +3976,13 @@ MonoBehaviour:
   serializedData:
     Count: 10
     SpawnCounter: 0
+    CurrentEntity:
+      isDirty: 0
+      isDisposed: 0
+      previousArchetype: 0
+      currentArchetype: 0
+      previousArchetypeLength: 0
+      currentArchetypeLength: 0
 --- !u!114 &1314079453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4147,14 +4154,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1371010439}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.46252248, y: 0, z: 0, w: 0.8866076}
+  m_LocalRotation: {x: 0.39674744, y: 0, z: 0, w: 0.9179278}
   m_LocalPosition: {x: -16.67, y: 18.578, z: -7.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 956843583}
   m_Father: {fileID: 602992452}
-  m_LocalEulerAnglesHint: {x: 55.1, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 46.75, y: 0, z: 0}
 --- !u!1001 &1441146937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5644,6 +5651,13 @@ MonoBehaviour:
   serializedData:
     Count: 0
     SpawnCounter: 0
+    CurrentEntity:
+      isDirty: 0
+      isDisposed: 0
+      previousArchetype: 0
+      currentArchetype: 0
+      previousArchetypeLength: 0
+      currentArchetypeLength: 0
 --- !u!1001 &1737177138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7719,6 +7733,11 @@ PrefabInstance:
       propertyPath: serializedData.Result
       value: 
       objectReference: {fileID: 1997147327}
+    - target: {fileID: 6793682097303813377, guid: 41c72638285abd0469b50aeb89eb1124,
+        type: 3}
+      propertyPath: serializedData.NeededResources
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8063142987237185468, guid: 41c72638285abd0469b50aeb89eb1124,
         type: 3}
       propertyPath: m_Name

@@ -71,14 +71,17 @@ namespace Features.CollectingPoint.Systems
             {
                 if (player.Has<ResourcesStorageComponent>())
                 {
-                    ref var resourceCount = ref player.GetComponent<ResourcesStorageComponent>().Count;
-                    ref var spawnCounter = ref player.GetComponent<ResourcesStorageComponent>().SpawnCounter;
-                    if (spawnCounter == 0 && !e.GetComponent<BuildForResourcesComponent>().Activated)
+                    ref var playerStorageComonent = ref player.GetComponent<ResourcesStorageComponent>();
+                    ref var resourceCount = ref playerStorageComonent.Count;
+                    ref var spawnCounter = ref playerStorageComonent.SpawnCounter;
+
+                    
+                    if( playerStorageComonent.CurrentEntity != e)
                     {
-                        e.GetComponent<BuildForResourcesComponent>().Activated = true;
-                        spawnCounter = e.GetComponent<BuildForResourcesComponent>().NeededResources;
+                        playerStorageComonent.CurrentEntity = e;
+                        spawnCounter = e.GetComponent<BuildForResourcesComponent>().ResourcesCount;
                     }
-                    if (spawnCounter > 0)
+                    if (resourceCount > 0 && spawnCounter > 0)
                     {
                         spawnCounter--;
                         resourceCount--;
