@@ -1,6 +1,7 @@
 ﻿using Features.Berries.Systems;
 using Features.CollectingPoint.Systems;
 using Features.Generators.Systems;
+using Features.MoneyStack.Systems;
 using Features.Player.Systems;
 using Features.ResourceCounter.Systems;
 using Features.Shared.Systems;
@@ -41,6 +42,10 @@ namespace DI
             Register<UpdateResourceCounterSystem>();
             Register<UpdateNeededResourcesSystem>();
             Register<UpdateResourcesSystem>();
+            
+            
+            Register<MoneyStackSystem>();
+            Register<MoneySplashSystem>();
         }
     }
 }

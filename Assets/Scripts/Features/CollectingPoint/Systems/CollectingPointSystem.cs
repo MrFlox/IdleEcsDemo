@@ -48,9 +48,9 @@ namespace Features.CollectingPoint.Systems
         }
         private void SpawnResourcesWithParabolaEffect(Entity e, Entity player, Transform playerTransform)
         {
-            if(!e.Has<CollectingPointComponent>()) return;
+            if (!e.Has<CollectingPointComponent>()) return;
             var direction = e.GetComponent<CollectingPointComponent>().Direction;
-            
+
             if (direction == CollectingPointComponent.DirectionEnum.ToPlayer)
             {
                 if (e.Has<ResourcesStorageComponent>())
@@ -72,8 +72,15 @@ namespace Features.CollectingPoint.Systems
                 if (player.Has<ResourcesStorageComponent>())
                 {
                     ref var resourceCount = ref player.GetComponent<ResourcesStorageComponent>().Count;
-                    if (resourceCount > 0)
+                    ref var spawnCounter = ref player.GetComponent<ResourcesStorageComponent>().SpawnCounter;
+                    if (spawnCounter == 0 && !e.GetComponent<BuildForResourcesComponent>().Activated)
                     {
+                        e.GetComponent<BuildForResourcesComponent>().Activated = true;
+                        spawnCounter = e.GetComponent<BuildForResourcesComponent>().NeededResources;
+                    }
+                    if (spawnCounter > 0)
+                    {
+                        spawnCounter--;
                         resourceCount--;
                         SpawnResourceFromPlayer(e, playerTransform);
                     }
@@ -84,7 +91,7 @@ namespace Features.CollectingPoint.Systems
                 }
             }
         }
-        
+
         private void SpawnResourceFromPlayer(Entity collectingEntity, Transform playerTransform)
         {
             SetComponentSettings(playerTransform, _collectingPoints.Get(collectingEntity).Transform, collectingEntity);
@@ -94,12 +101,12 @@ namespace Features.CollectingPoint.Systems
         {
             SetComponentSettings(_collectingPoints.Get(e).Transform, playerTransform, player);
         }
-        
+
         private void SetComponentSettings(Transform from, Transform to, Entity collectorEntity)
         {
             var ball = Object.Instantiate(_settings.ResBallFromPlayer);
             var entity = ball.GetComponent<ParabolaDropFromPlayerProvider>().Entity;
-            
+
             entity.AddComponent<CollectableResourceComponent>().CollectorEntity = collectorEntity;
             _parabolaComponets.Get(entity).StartPosition = from;
             _parabolaComponets.Get(entity).EndPosition = to;

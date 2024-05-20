@@ -47,8 +47,9 @@ namespace Features.CollectingPoint.Systems
         
         private  void SpawnGenerator(Entity e)
         {
-            var generator = Object.Instantiate(_components.Get(e).Result);
-            generator.transform.position = e.GetComponent<TransformComponent>().Transform.position;
+            // var generator = Object.Instantiate(_components.Get(e).Result);
+            // generator.transform.position = e.GetComponent<TransformComponent>().Transform.position;
+            _components.Get(e).Result.SetActive(true);
         }
     }
 }

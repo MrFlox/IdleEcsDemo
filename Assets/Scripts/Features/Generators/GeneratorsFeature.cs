@@ -6,7 +6,7 @@ namespace Features.Generators
     {
         protected override void Initialize()
         {
-            AddInitializer(Resolve<AddGeneratorsSystem>());
+            // AddInitializer(Resolve<AddGeneratorsSystem>());
             AddSystem(Resolve<ChopGeneratorSystem>());
             AddSystem(new GeneratorsActivatorSystem());
         }

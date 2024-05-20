@@ -1,16 +1,13 @@
-﻿using System;
-using Scellecs.Morpeh;
+﻿using Features.MoneyStack.Components;
+using Scellecs.Morpeh.Providers;
 using Unity.IL2CPP.CompilerServices;
 
-namespace Features.Shared.Components
+namespace Features.MoneyStack.Providers
 {
-    [Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public struct ResourcesStorageComponent: IComponent
+    public sealed class ActiveMoneyProvider : MonoProvider<ActivatedMoneyStack>
     {
-        public int Count;
-        public int SpawnCounter;
     }
 }
