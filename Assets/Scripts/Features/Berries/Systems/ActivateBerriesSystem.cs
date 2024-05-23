@@ -1,14 +1,15 @@
 ﻿using System;
 using Features.Berries.Components;
-using Features.Berries.Providers;
 using Features.Generators.Components;
 using Features.Generators.Providers;
+using Features.Player.Components;
 using Features.Shared.Components;
+using Features.Shared.Providers;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 using ScriptableObjects;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Object = UnityEngine.Object;
 
 namespace Features.Berries.Systems
 {
@@ -22,6 +23,7 @@ namespace Features.Berries.Systems
         private Stash<ResourceGeneratorComponent> _activatedBerries;
         private Stash<ActivatedGenerator> _generators;
         private Stash<TimingComponent> _timingComponentsStash;
+        private Stash<ParabolaDropFromPlayerComponent> _parabolaComponets;
         
         public ActivateBerriesSystem(GameSettings settings)
         {
@@ -34,6 +36,7 @@ namespace Features.Berries.Systems
             _activatedBerries = World.GetStash<ResourceGeneratorComponent>();
             _generators = World.GetStash<ActivatedGenerator>();
             _timingComponentsStash = World.GetStash<TimingComponent>();
+            _parabolaComponets = World.GetStash<ParabolaDropFromPlayerComponent>();
         }
 
         public override void OnUpdate(float deltaTime)
@@ -61,19 +64,32 @@ namespace Features.Berries.Systems
             }
         }
 
+        private void SetComponentSettings(Transform from, Transform to, Entity collectorEntity)
+        {
+            var ball = Object.Instantiate(_settings.ResBallFromPlayer);
+            var entity = ball.GetComponent<ParabolaDropFromPlayerProvider>().Entity;
+
+            entity.AddComponent<CollectableResourceComponent>().CollectorEntity = collectorEntity;
+            _parabolaComponets.Get(entity).StartPosition = from;
+            _parabolaComponets.Get(entity).EndPosition = to;
+            ball.transform.position = from.position;
+        }
+        
         private void ShowFlyingBerries(Entity entity)
         {
+            var player = World.Filter.With<PlayerComponent>().Build().First();
+            var playerPosition = player.GetComponent<TransformComponent>();
+            
             ref var berrySettings = ref _settings.BerriesSettings;
             var berries = _activatedBerries.Get(entity).Berries;
             var berry = berries[0];
             berries.RemoveAt(0);
+
+            SetComponentSettings(berry, playerPosition.Transform, player);
+            
             var newEntity = World.CreateEntity();
             newEntity.AddComponent<TransformComponent>().Transform = berry;
-            ref var berryComponent = ref newEntity.AddComponent<BerryComponent>();
-            berryComponent.Speed = berrySettings.BerryFlySpeed;
-            berryComponent.Entity = newEntity;
-            
-            OnBerryActivated?.Invoke();
+            berry.gameObject.SetActive(false);
         }
     }
 }
