@@ -73,6 +73,9 @@ namespace Features.Berries.Systems
             _parabolaComponets.Get(entity).StartPosition = from;
             _parabolaComponets.Get(entity).EndPosition = to;
             ball.transform.position = from.position;
+            
+            var label = Object.Instantiate(_settings.FlyingLabelPrefab);
+            label.transform.position = from.position;
         }
         
         private void ShowFlyingBerries(Entity entity)

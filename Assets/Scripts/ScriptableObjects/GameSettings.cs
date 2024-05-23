@@ -29,5 +29,7 @@ namespace ScriptableObjects
         public GameObject ResBallFromPlayer;
         public float BerryCollectableSpeed;
         public GameObject Shadow;
+
+        public GameObject FlyingLabelPrefab;
     }
 }
