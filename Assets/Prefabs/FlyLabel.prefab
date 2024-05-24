@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2971231651145679893}
   - component: {fileID: 6836311602934176137}
   - component: {fileID: 2536968701907750349}
+  - component: {fileID: 2778719166414537276}
   m_Layer: 0
   m_Name: FlyLabel
   m_TagString: Untagged
@@ -62,6 +63,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serializedData:
     Label: {fileID: 4945926221368034129}
+--- !u!114 &2778719166414537276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4608468489432214185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b1b4055d774777b200ab7370b9a0a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6669009395035015407
 GameObject:
   m_ObjectHideFlags: 0

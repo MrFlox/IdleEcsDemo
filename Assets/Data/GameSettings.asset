@@ -27,5 +27,5 @@ MonoBehaviour:
     type: 3}
   BerryCollectableSpeed: 5
   Shadow: {fileID: 6560111526245515376, guid: 51d0b1e1c5ac09c4fb08d4555acf102a, type: 3}
-  FlyingLabelPrefab: {fileID: 4608468489432214185, guid: 404bdce1967d88b41862b0c0f11eae92,
+  FlyingLabelPrefab: {fileID: 4496533736436617920, guid: 08b70322942bee946bfe8bbe6adee7b3,
     type: 3}

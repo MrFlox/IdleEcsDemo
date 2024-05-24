@@ -48,6 +48,7 @@ namespace DI
             Register<MoneySplashSystem>();
             
             Register<FlyingUpLabelSystem>();
+            Register<FaceToCameraSystem>();
         }
     }
 }

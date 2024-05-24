@@ -9,9 +9,13 @@ namespace Features.Shared.Systems
     {
         private Filter _filter;
         private Stash<TransformComponent> _transformStash;
+        private Camera _camera;
         
         public override void OnAwake()
         {
+            var cameraEntity = World.Filter.With<MainCameraComponent>().Build().First();
+            _camera = cameraEntity.GetComponent<MainCameraComponent>().Camera;
+            
             _filter = World.Filter.With<FlyingUpLabelComponent>().With<TransformComponent>().Build();
             _transformStash = World.GetStash<TransformComponent>();
         }
@@ -20,9 +24,10 @@ namespace Features.Shared.Systems
         {
             foreach (var e in _filter)
             {
-                _transformStash.Get(e).Transform.Translate(Vector3.up * deltaTime * 3);
+                var newPos = e.GetComponent<FlyingUpLabelComponent>().Position += Vector3.up * deltaTime * 3;
+                _transformStash.Get(e).Transform.position =  _camera.WorldToScreenPoint(newPos + Vector3.zero);
 
-                if (_transformStash.Get(e).Transform.position.y > 3)
+                if (newPos.y > 3)
                 {
                     Object.Destroy(_transformStash.Get(e).Transform.gameObject);
                     World.RemoveEntity(e);

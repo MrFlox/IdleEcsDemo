@@ -79,7 +79,14 @@ namespace Features.Berries.Systems
             ball.transform.position = from.position;
             
             var label = Object.Instantiate(_settings.FlyingLabelPrefab);
-            label.transform.position = from.position;
+            // label.transform.position = from.position;
+            var container = World.Filter.With<LabelContainerComponent>().Build().First();
+            ref var tr = ref container.GetComponent<TransformComponent>().Transform;
+            label.transform.SetParent(tr);
+            var entity1 = label.GetComponent<FlyLabelProvider>().Entity;
+            entity1.GetComponent<FlyingUpLabelComponent>().Position = from.position;
+            
+            label.transform.position =  Camera.main.WorldToScreenPoint(from.position + Vector3.zero);
         }
         
         private void ShowFlyingBerries(Entity entity)

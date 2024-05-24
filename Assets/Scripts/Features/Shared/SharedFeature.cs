@@ -14,6 +14,7 @@ namespace Features.Shared
             AddSystem(Resolve<ParabolaDropFromPlayer>());
             AddSystem(Resolve<DeleteEntitiesSystem>());
             AddSystem(Resolve<FlyingUpLabelSystem>());
+            AddSystem(Resolve<FaceToCameraSystem>());
         }
     }
 }
