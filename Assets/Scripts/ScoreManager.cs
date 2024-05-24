@@ -6,10 +6,10 @@ public class ScoreManager
 {
     public event Action OnUpdateInterface;
     
-    private readonly ActivateBerriesSystem _system;
+    private readonly SpawnBerriesSystem _system;
     private int _counter;
     
-    public ScoreManager(ActivateBerriesSystem system) => _system = system;
+    public ScoreManager(SpawnBerriesSystem system) => _system = system;
 
     public void Init() => 
         _system.OnBerryActivated += OnActivateBerryHandler;

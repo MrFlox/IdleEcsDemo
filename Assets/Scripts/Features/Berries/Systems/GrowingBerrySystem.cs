@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace Features.Berries.Systems
 {
+    /// <summary>
+    /// Система, отвечающая за рост каждой отдельной ягоды на кусту
+    /// </summary>
     public class GrowingBerrySystem : SimpleSystem<GrowingBerryComponent>
     {
         private readonly GameSettings _settings;

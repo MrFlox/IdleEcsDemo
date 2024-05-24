@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Providers;
@@ -14,11 +15,13 @@ namespace Features.Generators.Providers
     {
         public List<Transform> Berries;
         public int LastIndex;
+        public int LastSpawnedIndex;
         public bool Inited;
 
         public void OnValidate(GameObject gameObject)
         {
             Berries = new List<Transform>();
+            
             foreach (Transform child in gameObject.transform)
             {
                 child.TryGetComponent<Transform>(out var berry);

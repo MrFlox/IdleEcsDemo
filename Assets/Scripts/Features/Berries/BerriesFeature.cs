@@ -2,13 +2,13 @@
 
 namespace Features.Berries
 {
-    public sealed class BerriesFeature: UpdateFeatureWithContainer
+    public sealed class BerriesFeature : UpdateFeatureWithContainer
     {
         protected override void Initialize()
         {
-            AddSystem(Resolve<BerriesGrowthSystem>());
+            AddSystem(Resolve<BerriesActivationSystem>());
             AddSystem(Resolve<SimpleFlyingBerrySystem>());
-            AddSystem(Resolve<ActivateBerriesSystem>());
+            AddSystem(Resolve<SpawnBerriesSystem>());
             AddSystem(Resolve<GrowingBerrySystem>());
             AddSystem(new RemoveGrowingFromGeneratorSystem());
         }

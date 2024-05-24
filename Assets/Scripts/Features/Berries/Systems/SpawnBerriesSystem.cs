@@ -13,7 +13,10 @@ using Object = UnityEngine.Object;
 
 namespace Features.Berries.Systems
 {
-    public class ActivateBerriesSystem : UpdateSystem
+    /// <summary>
+    /// Система, которая спавнит созревшие ягоды на кусту
+    /// </summary>
+    public class SpawnBerriesSystem : UpdateSystem
     {
         //todo: remake using Signals
         public event Action OnBerryActivated;
@@ -25,14 +28,11 @@ namespace Features.Berries.Systems
         private Stash<TimingComponent> _timingComponentsStash;
         private Stash<ParabolaDropFromPlayerComponent> _parabolaComponets;
         
-        public ActivateBerriesSystem(GameSettings settings)
-        {
-            _settings = settings;
-        }
+        public SpawnBerriesSystem(GameSettings settings) => _settings = settings;
 
         public override void OnAwake()
         {
-            _filter = World.Filter.With<ActivatedGenerator>().Without<GrowingBerriesComponent>().Build();
+            _filter = World.Filter.With<ActivatedGenerator>().Without<GrowingBushComponent>().Build();
             _activatedBerries = World.GetStash<ResourceGeneratorComponent>();
             _generators = World.GetStash<ActivatedGenerator>();
             _timingComponentsStash = World.GetStash<TimingComponent>();
@@ -44,24 +44,28 @@ namespace Features.Berries.Systems
             ref var berrySettings = ref _settings.BerriesSettings;
             foreach (var e in _filter)
             {
-                if (e.Has<ActivatedGenerator>())
+                if (!e.Has<ActivatedGenerator>()) continue;
+                ref var lastSpawnTime = ref _timingComponentsStash.Get(e).LastActionTime;
+
+                if (Time.time - lastSpawnTime >= berrySettings.BerryFlyDelay)
                 {
-                    ref var activatedComponent = ref _generators.Get(e);
-                    ref var lastSpawnTime = ref _timingComponentsStash.Get(e).LastActionTime;
+                    ShowFlyingBerries(e);
+                    lastSpawnTime = Time.time;
+                }
 
-                    if (Time.time - lastSpawnTime >= berrySettings.BerryFlyDelay)
-                    {
-                        ShowFlyingBerries(e);
-                        lastSpawnTime = Time.time;
-                    }
-
-                    if (_activatedBerries.Get(e).Berries.Count == 0)
-                    {
-                        e.RemoveComponent<GeneratorComponent>();
-                        e.RemoveComponent<ActivatedGenerator>();
-                    }
+                if (_activatedBerries.Get(e).LastSpawnedIndex == _activatedBerries.Get(e).Berries.Count)
+                {
+                    ResetBush(e);
                 }
             }
+        }
+        
+        private  void ResetBush(Entity e)
+        {
+            _activatedBerries.Get(e).LastSpawnedIndex = 0;
+            e.RemoveComponent<ActivatedGenerator>();
+            e.AddComponent<GrowingBushComponent>();
+            e.GetComponent<ResourceGeneratorComponent>().LastIndex = 0;
         }
 
         private void SetComponentSettings(Transform from, Transform to, Entity collectorEntity)
@@ -85,14 +89,17 @@ namespace Features.Berries.Systems
             
             ref var berrySettings = ref _settings.BerriesSettings;
             var berries = _activatedBerries.Get(entity).Berries;
-            var berry = berries[0];
-            berries.RemoveAt(0);
+            var berry = berries[_activatedBerries.Get(entity).LastSpawnedIndex++];
+            // berries.RemoveAt(0);
+            
 
             SetComponentSettings(berry, playerPosition.Transform, player);
-            
+
             var newEntity = World.CreateEntity();
             newEntity.AddComponent<TransformComponent>().Transform = berry;
-            berry.gameObject.SetActive(false);
+            
+            berry.transform.localScale = Vector3.zero;
+            _activatedBerries.Get(entity).Inited = false;
         }
     }
 }

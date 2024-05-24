@@ -5,6 +5,9 @@ using Scellecs.Morpeh.Addons.Systems;
 
 namespace Features.Berries.Systems
 {
+    /// <summary>
+    /// Система, которая удаляет компонент GrowingBerryComponent когда все ягоды собраны?
+    /// </summary>
     public class RemoveGrowingFromGeneratorSystem : UpdateSystem
     {
         private Filter _filter;
@@ -26,7 +29,7 @@ namespace Features.Berries.Systems
                 if (c.Finished)
                 {
                     if(c.Index == generatorComponent.Berries.Count - 1)
-                        c.Entity.RemoveComponent<GrowingBerriesComponent>();
+                        c.Entity.RemoveComponent<GrowingBushComponent>();
                     e.RemoveComponent<GrowingBerryComponent>();
                 }
             }

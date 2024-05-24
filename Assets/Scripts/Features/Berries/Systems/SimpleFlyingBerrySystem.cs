@@ -6,9 +6,11 @@ using Scellecs.Morpeh.Helpers;
 
 namespace Features.Berries.Systems
 {
+    /// <summary>
+    /// Система, которая реализует простой вылет вверх ягод
+    /// </summary>
     public class SimpleFlyingBerrySystem: SimpleSystem<BerryComponent, TransformComponent>
     {
-
         protected override void Process(Entity entity, ref BerryComponent first, ref TransformComponent second, in float deltaTime)
         {
             if(!entity.Has<BerryComponent>()) return;

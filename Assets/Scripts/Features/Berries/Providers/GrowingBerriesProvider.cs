@@ -7,6 +7,6 @@ namespace Features.Berries.Providers
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
-    public sealed class GrowingBerriesProvider: MonoProvider<GrowingBerriesComponent> { }
+    public sealed class GrowingBerriesProvider: MonoProvider<GrowingBushComponent> { }
    
 }

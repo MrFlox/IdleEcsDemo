@@ -8,12 +8,14 @@ using UnityEngine;
 
 namespace Features.Berries.Systems
 {
-    public class BerriesGrowthSystem : UpdateSystem
+    /// <summary>
+    /// Система, которая реализует рост ягод на кусте
+    /// </summary>
+    public class BerriesActivationSystem : UpdateSystem
     {
         private readonly GameSettings _settings;
 
-        public BerriesGrowthSystem(GameSettings settings) => _settings = settings;
-     
+        public BerriesActivationSystem(GameSettings settings) => _settings = settings;
 
         private Filter _filter;
         private Stash<ResourceGeneratorComponent> _stash;
@@ -21,7 +23,7 @@ namespace Features.Berries.Systems
 
         public override void OnAwake()
         {
-            _filter = World.Filter.With<GrowingBerriesComponent>().Build();
+            _filter = World.Filter.With<GrowingBushComponent>().Build();
             _stash = World.GetStash<ResourceGeneratorComponent>();
             _timingComponentsStash = World.GetStash<TimingComponent>();
         }
@@ -53,14 +55,14 @@ namespace Features.Berries.Systems
                 ref var lastTime = ref _timingComponentsStash.Get(e).LastActionTime;
                 if (Time.time - lastTime > berriesSettings.BerryGrowthActivationDelay && index < berries.Berries.Count)
                 {
-                    AddBerryComponent(berries.Berries[index], index, e);
+                    CreateBerryComponent(berries.Berries[index], index, e);
                     index++;
                     lastTime = Time.time;
                 }
             }
         }
 
-        private void AddBerryComponent(Transform berry, int index, Entity entity)
+        private void CreateBerryComponent(Transform berry, int index, Entity entity)
         {
             var newBerryEntity = World.CreateEntity();
             ref var c = ref newBerryEntity.AddComponent<GrowingBerryComponent>();

@@ -24,8 +24,8 @@ namespace DI
             Register<ChopGeneratorSystem>();
             Register<ParabolaDropSystem>();
             Register<LootRotationSystem>();
-            Register<ActivateBerriesSystem>();
-            Register<BerriesGrowthSystem>();
+            Register<SpawnBerriesSystem>();
+            Register<BerriesActivationSystem>();
             Register<GrowingBerrySystem>();
             Register<AddGeneratorsSystem>();
             Register<SimpleFlyingBerrySystem>();

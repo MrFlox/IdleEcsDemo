@@ -7,14 +7,19 @@ using Scellecs.Morpeh;
 
 namespace Features.Generators.Systems
 {
-    public class GeneratorsActivatorSystem: UpdateSystemWithDistanceCheckWithPlayer
+    /// <summary>
+    /// Если игрок находится в радиусе генератора - генератор переходит в активное состояние (сбор ягод)
+    /// </summary>
+    public class BushActivatorSystem: UpdateSystemWithDistanceCheckWithPlayer
     {
         private Filter _generatorsFilter;
 
         public override void OnAwake()
         {
             base.OnAwake();
-            _generatorsFilter = World.Filter.With<GeneratorComponent>().With<ResourceGeneratorComponent>().Without<GrowingBerriesComponent>().Build();
+            _generatorsFilter = World.Filter.With<GeneratorComponent>()
+                .With<ResourceGeneratorComponent>()
+                .Without<GrowingBushComponent>().Build();
             World.GetStash<ResourceGeneratorComponent>();
         }
 
