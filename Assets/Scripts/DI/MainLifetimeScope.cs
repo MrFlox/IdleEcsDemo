@@ -10,7 +10,6 @@ namespace DI
     {
         [SerializeField] private UIManager _uiManager;
         [SerializeField] private TestView _view;
-        
         protected override void Configure(IContainerBuilder builder)
         {
             new MVPInstaller(builder, _view).Configure();

@@ -1,6 +1,7 @@
 using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
+using TouchController;
 using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
 
@@ -14,7 +15,14 @@ namespace Features.Player.Systems
         private Filter _filter;
         private Entity _player;
         private Input _input;
-        
+
+        private TouchInput _touchController;
+
+        public PlayerInputSystem(TouchInput touchController)
+        {
+            _touchController = touchController;
+        }
+
         public override void OnAwake()
         {
             _input = new Input();
@@ -28,7 +36,8 @@ namespace Features.Player.Systems
         {
             ref var player = ref _player.GetComponent<Components.PlayerComponent>();
             ref var transform = ref _player.GetComponent<TransformComponent>().Transform;
-            var moveInput = _input.Default.Move.ReadValue<Vector2>();
+            // var moveInput = _inputput.Default.Move.ReadValue<Vector2>();
+            var moveInput = _touchController.Direction;
             player.Direction = new Vector3(moveInput.x, 0, moveInput.y);
             transform.Translate(player.Direction * 3 * Time.deltaTime);
 

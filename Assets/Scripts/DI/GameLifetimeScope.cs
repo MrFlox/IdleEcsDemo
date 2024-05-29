@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Scellecs.Morpeh;
 using ScriptableObjects;
+using TouchController;
 using UI.MVPTest;
 using UnityEngine;
 using VContainer;
@@ -25,7 +26,7 @@ namespace DI
         [SerializeField] private List<ScriptableObject> _systems;
         [SerializeField] private GameSettings _gameSettings;
         [SerializeField] private TestView _view;
-
+        
         private SystemRegistration _systemRegistration;
 
         protected override void Configure(IContainerBuilder builder)
@@ -33,6 +34,7 @@ namespace DI
             _systemRegistration = new SystemRegistration(builder);
             _systemRegistration.Register();
 
+            builder.Register<TouchInput>(Lifetime.Singleton);
             builder.Register<ScoreManager>(Lifetime.Singleton);
             builder.RegisterInstance(_gameSettings);
             builder.RegisterEntryPoint<Init>();
