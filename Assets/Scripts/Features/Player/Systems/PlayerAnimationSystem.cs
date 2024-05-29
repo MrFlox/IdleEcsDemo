@@ -1,7 +1,9 @@
 using Features.Player.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
+using TouchController;
 using UnityEngine;
+using VContainer;
 
 namespace Features.Player.Systems
 {
@@ -13,7 +15,9 @@ namespace Features.Player.Systems
         private string _stateName;
         private string _idle;
         private readonly static int Run = Animator.StringToHash("run");
-
+        
+        [Inject] private TouchInput _input;
+        
         public override void OnAwake()
         {
             _filter = World.Filter.With<Components.PlayerComponent>().Build();
@@ -35,7 +39,9 @@ namespace Features.Player.Systems
                 SetState("idle", ref animatorComponent);
             }
             
+            animatorComponent.Animator.speed = _input.Direction.magnitude;
         }
+        
         private void SetState(string newState, ref PlayerAnimator animator)
         {
             if(animator.AnimationState == newState) return;
@@ -46,6 +52,7 @@ namespace Features.Player.Systems
                 case "run":
                     Debug.Log("Run");
                     animator.Animator.Play("run");
+                    
                     break;
                 
                 case "idle":
