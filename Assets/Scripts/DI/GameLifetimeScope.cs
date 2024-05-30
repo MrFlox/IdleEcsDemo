@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using ResourceManager;
 using Scellecs.Morpeh;
 using ScriptableObjects;
 using TouchController;
@@ -33,13 +34,12 @@ namespace DI
         {
             _systemRegistration = new SystemRegistration(builder);
             _systemRegistration.Register();
-
+            
+            builder.Register<Inventory>(Lifetime.Singleton);
             builder.Register<TouchInput>(Lifetime.Singleton);
             builder.Register<ScoreManager>(Lifetime.Singleton);
             builder.RegisterInstance(_gameSettings);
             builder.RegisterEntryPoint<Init>();
-
-           
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using UI;
 using UI.MVPTest;
+using UI.ResourcesUI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

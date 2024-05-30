@@ -1,7 +1,10 @@
 ﻿using System;
+using Features.Player.Components;
 using Features.Shared.Components;
 using Features.Shared.Systems;
 using Scellecs.Morpeh;
+using VContainer;
+using static Features.Generators.Providers.ResourceGeneratorComponent;
 using static Utils;
 
 namespace Features.CollectingPoint.Systems
@@ -13,6 +16,9 @@ namespace Features.CollectingPoint.Systems
         private Filter _filter;
         private Stash<CollectableResourceComponent> _stash;
         private Stash<TransformComponent> _transformStash;
+        [Inject] private ResourceManager.Inventory _inventory;
+        
+        
         public override void OnAwake()
         {
             base.OnAwake();
@@ -27,6 +33,7 @@ namespace Features.CollectingPoint.Systems
             {
                 if(e.Has<DeleteComponent>()) continue;
                 var collectorEntity = _stash.Get(e).CollectorEntity;
+                var type = _stash.Get(e).Type;
                 if (collectorEntity == null) throw new Exception("No Collector Target");
                 if(collectorEntity.IsNullOrDisposed()) continue;                
                 ref var resourceTransform = ref e.GetComponent<TransformComponent>();
@@ -38,6 +45,8 @@ namespace Features.CollectingPoint.Systems
                     {
                         ref var count = ref collectorEntity.GetComponent<ResourcesStorageComponent>().Count;
                         count++;
+                        if(collectorEntity.Has<PlayerComponent>())
+                            _inventory.AddResource(type, 1);
                     }
                     e.AddComponent<DeleteComponent>();
                     e.RemoveComponent<CollectableResourceComponent>();

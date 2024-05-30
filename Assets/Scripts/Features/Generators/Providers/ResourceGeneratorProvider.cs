@@ -7,16 +7,25 @@ using UnityEngine;
 
 namespace Features.Generators.Providers
 {
+    
     [System.Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct ResourceGeneratorComponent : IComponent, IValidatableWithGameObject
     {
+        public ResourceType Type;
         public List<Transform> Berries;
         public int LastIndex;
         public int LastSpawnedIndex;
         public bool Inited;
+
+        public enum ResourceType
+        {
+            Green,
+            Red,
+            Yellow
+        }
 
         public void OnValidate(GameObject gameObject)
         {

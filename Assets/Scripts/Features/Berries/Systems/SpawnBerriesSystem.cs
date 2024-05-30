@@ -68,12 +68,14 @@ namespace Features.Berries.Systems
             e.GetComponent<ResourceGeneratorComponent>().LastIndex = 0;
         }
 
-        private void SetComponentSettings(Transform from, Transform to, Entity collectorEntity)
+        private void SetComponentSettings(Transform from, Transform to, Entity collectorEntity, ResourceGeneratorComponent.ResourceType type)
         {
             var ball = Object.Instantiate(_settings.ResBallFromPlayer);
             var entity = ball.GetComponent<ParabolaDropFromPlayerProvider>().Entity;
 
-            entity.AddComponent<CollectableResourceComponent>().CollectorEntity = collectorEntity;
+            ref var c = ref entity.AddComponent<CollectableResourceComponent>();
+            c.CollectorEntity = collectorEntity;
+            c.Type = type;
             _parabolaComponets.Get(entity).StartPosition = from;
             _parabolaComponets.Get(entity).EndPosition = to;
             ball.transform.position = from.position;
@@ -100,7 +102,7 @@ namespace Features.Berries.Systems
             // berries.RemoveAt(0);
             
 
-            SetComponentSettings(berry, playerPosition.Transform, player);
+            SetComponentSettings(berry, playerPosition.Transform, player, entity.GetComponent<ResourceGeneratorComponent>().Type);
 
             var newEntity = World.CreateEntity();
             newEntity.AddComponent<TransformComponent>().Transform = berry;

@@ -1,4 +1,5 @@
-﻿using Scellecs.Morpeh;
+﻿using Features.Generators.Providers;
+using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
 
 namespace Features.Shared.Components
@@ -9,6 +10,7 @@ namespace Features.Shared.Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct CollectableResourceComponent : IComponent
     {
+        public ResourceGeneratorComponent.ResourceType Type;
         public Entity CollectorEntity;
     }
 }

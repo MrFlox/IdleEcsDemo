@@ -1,4 +1,5 @@
 ﻿using Features.CollectingPoint.Components;
+using Features.Generators.Providers;
 using Features.Player.Components;
 using Features.Shared.Components;
 using Features.Shared.Providers;
@@ -18,8 +19,13 @@ namespace Features.CollectingPoint.Systems
         private Stash<TimingComponent> _timingComponents;
         private Stash<ParabolaDropFromPlayerComponent> _parabolaComponets;
         private GameSettings _settings;
-
-        public CollectingPointSystem(GameSettings settings) => _settings = settings;
+        private ResourceManager.Inventory _inventory;
+        
+        public CollectingPointSystem(GameSettings settings, ResourceManager.Inventory inventory)
+        {
+            _inventory = inventory;
+            _settings = settings;
+        }
 
         public override void OnAwake()
         {
@@ -46,6 +52,7 @@ namespace Features.CollectingPoint.Systems
                 }
             }
         }
+        
         private void SpawnResourcesWithParabolaEffect(Entity e, Entity player, Transform playerTransform)
         {
             if (!e.Has<CollectingPointComponent>()) return;
@@ -75,7 +82,6 @@ namespace Features.CollectingPoint.Systems
                     ref var resourceCount = ref playerStorageComonent.Count;
                     ref var spawnCounter = ref playerStorageComonent.SpawnCounter;
 
-                    
                     if( playerStorageComonent.CurrentEntity != e)
                     {
                         playerStorageComonent.CurrentEntity = e;
@@ -83,8 +89,9 @@ namespace Features.CollectingPoint.Systems
                     }
                     if (resourceCount > 0 && spawnCounter > 0)
                     {
-                        spawnCounter--;
+                            spawnCounter--;
                         resourceCount--;
+                        _inventory.SpendResource(ResourceGeneratorComponent.ResourceType.Green, 1);
                         SpawnResourceFromPlayer(e, playerTransform);
                     }
                 }
