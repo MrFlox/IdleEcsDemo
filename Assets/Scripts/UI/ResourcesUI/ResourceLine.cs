@@ -1,38 +1,39 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Features.Generators.Providers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResourceLine : MonoBehaviour
+namespace UI.ResourcesUI
 {
-    [SerializeField] private Image _sprite;
-    [SerializeField] private TMP_Text _label;
-
-    public void SetResourceType(ResourceGeneratorComponent.ResourceType type)
+    public class ResourceLine : MonoBehaviour
     {
-        _sprite.color = GetColorByType(type);
-    }
+        [SerializeField] private Image _sprite;
+        [SerializeField] private TMP_Text _label;
 
-    public void SetAmount(int pairValue)
-    {
-        _label.text = pairValue.ToString();
-    }
-
-    private Color GetColorByType(ResourceGeneratorComponent.ResourceType type)
-    {
-        switch (type)
+        public void SetResourceType(ResourceGeneratorComponent.ResourceType type)
         {
-            case ResourceGeneratorComponent.ResourceType.Green:
-                return Color.green;
-            case ResourceGeneratorComponent.ResourceType.Red:
-                return Color.red;
-            case ResourceGeneratorComponent.ResourceType.Yellow:
-                return Color.yellow;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            _sprite.color = GetColorByType(type);
+        }
+
+        public void SetAmount(int pairValue)
+        {
+            _label.text = pairValue.ToString();
+        }
+
+        private Color GetColorByType(ResourceGeneratorComponent.ResourceType type)
+        {
+            switch (type)
+            {
+                case ResourceGeneratorComponent.ResourceType.Green:
+                    return Color.green;
+                case ResourceGeneratorComponent.ResourceType.Red:
+                    return Color.red;
+                case ResourceGeneratorComponent.ResourceType.Yellow:
+                    return Color.yellow;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
         }
     }
 }

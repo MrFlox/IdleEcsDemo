@@ -1,10 +1,21 @@
-﻿using Scellecs.Morpeh;
+﻿using System;
+using System.Collections.Generic;
+using Features.Generators.Providers;
+using Scellecs.Morpeh;
 using TMPro;
 using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
 
 namespace Features.CollectingPoint.Components
 {
+
+    [Serializable]
+    public struct ResourceAmount
+    {
+        public ResourceGeneratorComponent.ResourceType Type;
+        public int Amount;
+    }
+    
     [System.Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]
     [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
@@ -16,5 +27,9 @@ namespace Features.CollectingPoint.Components
         public int ResourcesCount;
         public GameObject Result;
         public bool Activated;
+
+        public List<ResourceAmount> NeededResourcesList;
+        
+        public ResourcesCollectorUI Collector;
     }
 }

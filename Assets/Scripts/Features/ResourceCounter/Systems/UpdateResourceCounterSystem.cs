@@ -5,15 +5,15 @@ using Scellecs.Morpeh.Addons.Systems;
 
 namespace Features.ResourceCounter.Systems
 {
-    public class UpdateResourceCounterSystem:UpdateSystem
+    public class UpdateResourceCounterSystem : UpdateSystem
     {
         private Filter _filter;
-        
+
         public override void OnAwake()
         {
             _filter = World.Filter.With<ResourcesStorageComponent>().With<ResourceCounterUiComponent>().Build();
         }
-        
+
         public override void OnUpdate(float deltaTime)
         {
             foreach (var e in _filter)

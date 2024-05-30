@@ -12,6 +12,7 @@ namespace Features.CollectingPoint
             AddSystem(Resolve<CollectingResourcesSystem>());
             AddSystem(Resolve<UpdateNeededResourcesSystem>());
             AddSystem(Resolve<UpdateResourcesSystem>());
+            AddSystem(new ResourceUIUpdater());
             AddInitializer(new HideTilesSystem());
         }
     }
