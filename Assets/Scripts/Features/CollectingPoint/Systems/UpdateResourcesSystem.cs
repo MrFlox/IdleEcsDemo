@@ -2,6 +2,7 @@
 using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 
@@ -34,12 +35,34 @@ namespace Features.CollectingPoint.Systems
                 
                 buildForResourcesComp.ResourcesCount = buildForResourcesComp.NeededResources - resourceStorageComp.Count;
             
-                if (buildForResourcesComp.ResourcesCount == 0)
+                // if (buildForResourcesComp.ResourcesCount == 0)
+                if(EnoughResources(e))
                 {
-                    SpawnGenerator(e);
+                    ShowResult(e);
                     DestroyResourceCollector(e);
                 }
             }
+        }
+        private bool EnoughResources(Entity entity)
+        {
+            var needed = _components.Get(entity);
+            var contains = _resourceComponents.Get(entity);
+
+            var result = true;
+            foreach (var resources in needed.NeededResourcesList)
+            {
+                if (!isEqual(resources, contains))
+                    result = false;
+            }
+            return result;
+        }
+        
+        private bool isEqual(ResourceAmount resources, ResourcesStorageComponent contains)
+        {
+            var containsAmount = contains.Resources.Find(x => x.Type == resources.Type);
+            if (containsAmount != null)
+                return containsAmount.Amount == resources.Amount;
+            return false;
         }
 
         private void DestroyResourceCollector(Entity e)
@@ -48,10 +71,8 @@ namespace Features.CollectingPoint.Systems
             World.RemoveEntity(e);
         }
         
-        private  void SpawnGenerator(Entity e)
+        private  void ShowResult(Entity e)
         {
-            // var generator = Object.Instantiate(_components.Get(e).Result);
-            // generator.transform.position = e.GetComponent<TransformComponent>().Transform.position;
             _components.Get(e).Result.SetActive(true);
         }
     }

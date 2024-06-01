@@ -14,6 +14,7 @@ namespace Features.CollectingPoint.Components
     {
         public ResourceGeneratorComponent.ResourceType Type;
         public int Amount;
+        public int SpawnCounter;
     }
     
     [System.Serializable]

@@ -1903,6 +1903,7 @@ MonoBehaviour:
       currentArchetype: 0
       previousArchetypeLength: 0
       currentArchetypeLength: 0
+    Resources: []
 --- !u!114 &1314079453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3900,6 +3901,7 @@ MonoBehaviour:
       currentArchetype: 0
       previousArchetypeLength: 0
       currentArchetypeLength: 0
+    Resources: []
 --- !u!64 &6174953885761527009
 MeshCollider:
   m_ObjectHideFlags: 0
