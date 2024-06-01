@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Features.CollectingPoint.Components;
 using Scellecs.Morpeh;
 using Unity.IL2CPP.CompilerServices;
 
@@ -13,5 +15,7 @@ namespace Features.Shared.Components
         public int Count;
         public int SpawnCounter;
         public Entity CurrentEntity;
+        
+        public List<ResourceAmount> Resources;
     }
 }

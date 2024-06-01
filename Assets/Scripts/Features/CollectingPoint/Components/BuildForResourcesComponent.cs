@@ -10,7 +10,7 @@ namespace Features.CollectingPoint.Components
 {
 
     [Serializable]
-    public struct ResourceAmount
+    public class ResourceAmount
     {
         public ResourceGeneratorComponent.ResourceType Type;
         public int Amount;

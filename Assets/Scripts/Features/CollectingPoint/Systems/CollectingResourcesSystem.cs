@@ -1,8 +1,10 @@
 ﻿using System;
+using Features.CollectingPoint.Components;
 using Features.Player.Components;
 using Features.Shared.Components;
 using Features.Shared.Systems;
 using Scellecs.Morpeh;
+using UnityEditor.Rendering.BuiltIn.ShaderGraph;
 using VContainer;
 using static Features.Generators.Providers.ResourceGeneratorComponent;
 using static Utils;
@@ -45,6 +47,7 @@ namespace Features.CollectingPoint.Systems
                     {
                         ref var count = ref collectorEntity.GetComponent<ResourcesStorageComponent>().Count;
                         count++;
+                        AddResource(type, 1, ref collectorEntity.GetComponent<ResourcesStorageComponent>());
                         if(collectorEntity.Has<PlayerComponent>())
                             _inventory.AddResource(type, 1);
                     }
@@ -52,6 +55,28 @@ namespace Features.CollectingPoint.Systems
                     e.RemoveComponent<CollectableResourceComponent>();
                 }
             }
+        }
+        private void AddResource(ResourceType type, int i, ref ResourcesStorageComponent component)
+        {
+            if (component.Resources == null)
+            {
+                component.Resources = new();
+            }
+
+            bool added = false;
+            foreach (var resource in component.Resources)
+            {
+                if (resource.Type == type)
+                {
+                    resource.Amount++;
+                    added = true;
+                }
+            }
+            if (!added)
+            {
+                component.Resources.Add(new ResourceAmount { Amount = 1, Type = type});
+            }
+                
         }
     }
 }
