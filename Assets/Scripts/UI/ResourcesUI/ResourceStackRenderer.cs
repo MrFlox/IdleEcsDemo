@@ -18,7 +18,7 @@ namespace UI.ResourcesUI
             _inventory = inventory;
         }
         
-        private Dictionary<ResourceGeneratorComponent.ResourceType, ResourceLine> _lines = new();
+        private Dictionary<ResourceType, ResourceLine> _lines = new();
         
         private void Start()
         {

@@ -16,11 +16,11 @@ namespace Features.CollectingPoint.Systems
         
         public override void OnUpdate(float deltaTime)
         {
-            foreach (var e in _filter)
-            {
-                e.GetComponent<BuildForResourcesComponent>().Text.text =
-                    e.GetComponent<BuildForResourcesComponent>().ResourcesCount.ToString();
-            }
+            // foreach (var e in _filter)
+            // {
+            //     e.GetComponent<BuildForResourcesComponent>().Text.text =
+            //         e.GetComponent<BuildForResourcesComponent>().ResourcesCount.ToString();
+            // }
         }
     }
 }

@@ -68,7 +68,7 @@ namespace Features.Berries.Systems
             e.GetComponent<ResourceGeneratorComponent>().LastIndex = 0;
         }
 
-        private void SetComponentSettings(Transform from, Transform to, Entity collectorEntity, ResourceGeneratorComponent.ResourceType type)
+        private void SetComponentSettings(Transform from, Transform to, Entity collectorEntity, ResourceType type)
         {
             var ball = Object.Instantiate(_settings.ResBallFromPlayer);
             var entity = ball.GetComponent<ParabolaDropFromPlayerProvider>().Entity;

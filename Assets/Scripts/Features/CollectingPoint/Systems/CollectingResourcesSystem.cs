@@ -1,5 +1,6 @@
 ﻿using System;
 using Features.CollectingPoint.Components;
+using Features.Generators.Providers;
 using Features.Player.Components;
 using Features.Shared.Components;
 using Features.Shared.Systems;
@@ -45,8 +46,6 @@ namespace Features.CollectingPoint.Systems
                 {
                     if (collectorEntity.Has<ResourcesStorageComponent>())
                     {
-                        ref var count = ref collectorEntity.GetComponent<ResourcesStorageComponent>().Count;
-                        count++;
                         AddResource(type, 1, ref collectorEntity.GetComponent<ResourcesStorageComponent>());
                         if(collectorEntity.Has<PlayerComponent>())
                             _inventory.AddResource(type, 1);

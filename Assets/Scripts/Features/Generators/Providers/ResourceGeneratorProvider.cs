@@ -7,6 +7,12 @@ using UnityEngine;
 
 namespace Features.Generators.Providers
 {
+    public enum ResourceType
+    {
+        Green,
+        Red,
+        Yellow
+    }
     
     [System.Serializable]
     [Il2CppSetOption(Option.NullChecks, false)]
@@ -19,13 +25,6 @@ namespace Features.Generators.Providers
         public int LastIndex;
         public int LastSpawnedIndex;
         public bool Inited;
-
-        public enum ResourceType
-        {
-            Green,
-            Red,
-            Yellow
-        }
 
         public void OnValidate(GameObject gameObject)
         {

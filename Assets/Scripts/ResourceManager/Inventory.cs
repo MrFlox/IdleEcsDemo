@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Features.Generators.Providers;
 using static Features.Generators.Providers.ResourceGeneratorComponent;
 
 namespace ResourceManager

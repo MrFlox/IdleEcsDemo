@@ -28,14 +28,6 @@ namespace Features.CollectingPoint.Systems
         {
             foreach (var e in _filter)
             {
-                ref var buildForResourcesComp = ref _components.Get(e, out var isResourceCompExist);
-                ref var resourceStorageComp = ref _resourceComponents.Get(e, out var isStorageCompExist);
-                
-                if(!isResourceCompExist || !isStorageCompExist) continue;
-                
-                buildForResourcesComp.ResourcesCount = buildForResourcesComp.NeededResources - resourceStorageComp.Count;
-            
-                // if (buildForResourcesComp.ResourcesCount == 0)
                 if(EnoughResources(e))
                 {
                     ShowResult(e);

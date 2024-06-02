@@ -11,7 +11,7 @@ namespace UI.ResourcesUI
         [SerializeField] private Image _sprite;
         [SerializeField] private TMP_Text _label;
 
-        public void SetResourceType(ResourceGeneratorComponent.ResourceType type)
+        public void SetResourceType(ResourceType type)
         {
             _sprite.color = GetColorByType(type);
         }
@@ -21,15 +21,15 @@ namespace UI.ResourcesUI
             _label.text = pairValue.ToString();
         }
 
-        private Color GetColorByType(ResourceGeneratorComponent.ResourceType type)
+        private Color GetColorByType(ResourceType type)
         {
             switch (type)
             {
-                case ResourceGeneratorComponent.ResourceType.Green:
+                case ResourceType.Green:
                     return Color.green;
-                case ResourceGeneratorComponent.ResourceType.Red:
+                case ResourceType.Red:
                     return Color.red;
-                case ResourceGeneratorComponent.ResourceType.Yellow:
+                case ResourceType.Yellow:
                     return Color.yellow;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

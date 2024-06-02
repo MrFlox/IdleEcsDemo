@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Features.Generators.Providers;
 using Scellecs.Morpeh;
 using TMPro;
+using UI.ResourcesUI;
 using Unity.IL2CPP.CompilerServices;
 using UnityEngine;
 
@@ -12,9 +13,10 @@ namespace Features.CollectingPoint.Components
     [Serializable]
     public class ResourceAmount
     {
-        public ResourceGeneratorComponent.ResourceType Type;
+        public ResourceType Type;
         public int Amount;
         public int SpawnCounter;
+        public Entity CurrentEntity;
     }
     
     [System.Serializable]
@@ -23,14 +25,8 @@ namespace Features.CollectingPoint.Components
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public struct BuildForResourcesComponent : IComponent
     {
-        public TMP_Text Text;
-        public int NeededResources;
-        public int ResourcesCount;
         public GameObject Result;
-        public bool Activated;
-
         public List<ResourceAmount> NeededResourcesList;
-        
         public ResourcesCollectorUI Collector;
     }
 }

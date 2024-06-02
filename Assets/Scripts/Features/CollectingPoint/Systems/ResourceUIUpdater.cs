@@ -1,4 +1,5 @@
 ﻿using Features.CollectingPoint.Components;
+using Features.Shared.Components;
 using Scellecs.Morpeh;
 using Scellecs.Morpeh.Addons.Systems;
 
@@ -24,7 +25,15 @@ namespace Features.CollectingPoint.Systems
         
         public override void OnUpdate(float deltaTime)
         {
-            
+            foreach (var e in _filter)
+            {
+                ref var c = ref e.GetComponent<BuildForResourcesComponent>();
+                ref var c1 = ref e.GetComponent<ResourcesStorageComponent>();
+                if (c.Collector != null)
+                {
+                    c.Collector.UpdateValuesTwo(c.NeededResourcesList, c1.Resources);
+                }
+            }
         }
     }
 }

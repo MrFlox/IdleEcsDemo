@@ -16,11 +16,11 @@ namespace Features.ResourceCounter.Systems
 
         public override void OnUpdate(float deltaTime)
         {
-            foreach (var e in _filter)
-            {
-                e.GetComponent<ResourceCounterUiComponent>().Label.text =
-                    e.GetComponent<ResourcesStorageComponent>().Count.ToString();
-            }
+            // foreach (var e in _filter)
+            // {
+            //     e.GetComponent<ResourceCounterUiComponent>().Label.text =
+            //         e.GetComponent<ResourcesStorageComponent>().Count.ToString();
+            // }
         }
     }
 }
