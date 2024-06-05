@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Features.CollectingPoint.Components;
 using Features.Generators.Providers;
 using Features.Player.Components;
@@ -94,60 +93,37 @@ namespace Features.CollectingPoint.Systems
             ref var playerStorageComonent = ref player.GetComponent<ResourcesStorageComponent>();
             ref var neededResources = ref e.GetComponent<BuildForResourcesComponent>();
             ref var containsResources = ref e.GetComponent<ResourcesStorageComponent>();
-            
+
             foreach (var resource in playerStorageComonent.Resources)
             {
-                ref var resourceCount = ref resource.Amount;
-                ref var spawnCounter = ref resource.SpawnCounter;
-
                 if (resource.CurrentEntity != e)
                 {
                     resource.CurrentEntity = e;
-                    
+
                     var neededResource = neededResources.NeededResourcesList
                         .Find(x => x.Type == resource.Type);
-                    var containsResource =  containsResources.Resources
+                    var containsResource = containsResources.Resources
                         .Find(x => x.Type == resource.Type);
-                    var contains = 0;
-                    if (neededResource != null )
+
+                    if (neededResource != null)
                     {
-                        contains = containsResource != null ? containsResource.Amount : 0;
+                        var contains = containsResource != null ? containsResource.Amount : 0;
                         var need = neededResource.Amount - contains;
-                        spawnCounter = need;
+                        resource.SpawnCounter = need;
                     }
                     else
                     {
                         continue;
                     }
                 }
-                
-                
 
-                if (resourceCount > 0 && spawnCounter > 0)
+                if (resource.Amount > 0 && resource.SpawnCounter > 0)
                 {
-                    spawnCounter--;
-                    resourceCount--;
-                    SpendResource(ref playerStorageComonent.Resources,
-                        resource.Type, 1);
-                    // _inventory.SpendResource(ResourceGeneratorComponent.ResourceType.Green, 1);
-                    SpawnResourceFromPlayer(e, playerTransform,resource.Type);
+                    resource.SpawnCounter--;
+                    resource.Amount--;
+                    SpawnResourceFromPlayer(e, playerTransform, resource.Type);
                 }
             }
-        }
-        private void SpendResource(ref List<ResourceAmount> resources, ResourceType type,
-            int i)
-        {
-            var resourceStorageByType = resources.Find(x => x.Type == type);
-            if (resourceStorageByType != null)
-            {
-                resourceStorageByType.Amount -= i;
-
-                // if (resourceStorageByType.Amount == 0)
-                // {
-                //     resources.Remove(resourceStorageByType);
-                // }
-            }
-            
         }
 
         private void SpawnResourceFromPlayer(Entity collectingEntity, Transform playerTransform,ResourceType type)
